@@ -1,0 +1,28 @@
+{
+  "title": "My Blog",
+  "nav": {
+    "home": "front page",
+    "about": "About",
+    "blog": "Blog",
+    "contact": "Contact",
+    "projects": "Projects"
+  },
+  "language": {
+    "en": "English",
+    "zh": "Chinese",
+    "ja": "Japanese",
+    "ko": "Korean"
+  },
+  "common": {
+    "readMore": "Read More",
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "notFound": "Page not found"
+  },
+  "home": {
+    "name": "Barry Song",
+    "full": "Full",
+    "stack": "Stack",
+    "engineer": "Engineer"
+  }
+}
