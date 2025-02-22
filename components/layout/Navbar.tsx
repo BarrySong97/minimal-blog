@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState } from "react";
+import { useRef, useEffect, useState, Suspense } from "react";
 import { Icon } from "@iconify/react";
 import { Popover } from "@/components/ui/Popover";
 import { useTranslation } from "next-i18next";
@@ -161,7 +161,9 @@ export function Navbar() {
             <NavItem href="/about" isActive={pathname === "/about"}>
               {t("nav.about")}
             </NavItem>
-            <LanguageSelector />
+            <Suspense>
+              <LanguageSelector />
+            </Suspense>
             {activeItemRect && (
               <motion.div
                 className="absolute bottom-0 !m-0 h-[2px] bg-foreground"
