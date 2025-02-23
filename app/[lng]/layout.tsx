@@ -4,6 +4,7 @@ import { useTranslation } from "@/app/i18n";
 import { dir } from "i18next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -45,8 +46,10 @@ export default async function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
       >
-        <Navbar />
-        {children}
+        <NuqsAdapter>
+          <Navbar />
+          {children}
+        </NuqsAdapter>
       </body>
     </html>
   );
