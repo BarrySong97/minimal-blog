@@ -46,7 +46,10 @@ export function Navbar() {
   const navRef = useRef<HTMLElement>(null);
 
   const updateActiveRect = () => {
-    const activeLink = navRef.current?.querySelector(`a[href="${pathname}"]`);
+    const activeLink = navRef.current?.querySelector(
+      `a[href="/${pathname.split("/")[2] ?? ""}"]`
+    );
+
     if (activeLink && navRef.current) {
       const textNode = activeLink.firstChild as Text;
       const range = document.createRange();
@@ -77,7 +80,7 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ">
       <div className="mx-auto max-w-6xl px-5 sm:px-0">
         <div className="flex h-14 items-center justify-end">
           <nav

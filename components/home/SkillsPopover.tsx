@@ -3,7 +3,12 @@ import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
 import { Popover } from "@/components/ui/Popover";
 import { useParams } from "next/navigation";
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from "@/app/(app)/i18n/client";
+import { homeService } from "@/service/home";
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/service/config";
+import { skillService } from "@/service";
+import React from "react";
 
 const skillsWithIcons = {
   Frontend: [
@@ -15,8 +20,6 @@ const skillsWithIcons = {
   Backend: [
     { name: "Node.js", icon: "skill-icons:nodejs-dark" },
     { name: "Nest.js", icon: "skill-icons:nestjs-dark" },
-    { name: "PostgreSQL", icon: "skill-icons:postgresql-dark" },
-    { name: "MongoDB", icon: "skill-icons:mongodb" },
   ],
   Mobile: [
     { name: "iOS", icon: "skill-icons:swift" },
@@ -33,6 +36,38 @@ const skillsWithIcons = {
 export function SkillsPopover() {
   const { lng } = useParams();
   const { t } = useTranslation(lng as string);
+  const { data } = useQuery({
+    queryKey: queryKeys.home,
+    queryFn: homeService.getHome,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
+  const { skills, skillCategories: categories } = data ?? {};
+
+  // Group skills by category
+  const skillsByCategory = React.useMemo(() => {
+    if (!skills || !categories) return {};
+    return skills.reduce(
+      (acc, skill) => {
+        const category = categories.find(
+          (cat) =>
+            cat.id ===
+            (typeof skill.category === "number"
+              ? skill.category
+              : skill.category.id)
+        );
+        if (category) {
+          if (!acc[category.name]) {
+            acc[category.name] = [];
+          }
+          acc[category.name].push(skill);
+        }
+        return acc;
+      },
+      {} as Record<string, typeof skills>
+    );
+  }, [skills, categories]);
+
   return (
     <Popover
       triggerClassName="inline-flex items-center gap-[2px]"
@@ -49,19 +84,19 @@ export function SkillsPopover() {
       }
     >
       <div className="space-y-4">
-        {Object.entries(skillsWithIcons).map(([category, items]) => (
-          <div key={category}>
-            <h3 className="font-medium mb-2">{category}</h3>
+        {categories?.map((category) => (
+          <div key={category.id}>
+            <h3 className="font-medium mb-2">{category.name}</h3>
             <div className="flex flex-wrap gap-2">
-              {items.map(({ name, icon }) => (
+              {skillsByCategory[category.name]?.map((skill) => (
                 <motion.span
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  key={name}
+                  key={skill.id}
                   className="px-2 py-1 rounded-md bg-muted text-sm flex items-center gap-1"
                 >
-                  <Icon icon={icon} />
-                  {name}
+                  <Icon icon={skill.icon} />
+                  {skill.name}
                 </motion.span>
               ))}
             </div>

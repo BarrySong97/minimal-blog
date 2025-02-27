@@ -11,10 +11,8 @@ export function DefaultLayout({
   ...props
 }: DefaultLayoutProps) {
   return (
-    <div className={cn("bg-background", className)} {...props}>
-      <main className="container max-w-6xl mx-auto px-6 xl:px-0 pt-6">
-        {children}
-      </main>
+    <div className={cn("", className)} {...props}>
+      <main className="container max-w-6xl mx-auto px-6 py-16">{children}</main>
     </div>
   );
 }

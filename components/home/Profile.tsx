@@ -5,30 +5,24 @@ import { SkillsPopover } from "./SkillsPopover";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { useTranslation } from "@/app/i18n/client";
+import { useTranslation } from "@/app/(app)/i18n/client";
 import { useParams } from "next/navigation";
-
-const socialLinks = [
-  {
-    name: "Twitter",
-    icon: "fa6-brands:square-x-twitter",
-    url: "https://twitter.com/your_handle",
-  },
-  {
-    name: "Bilibili",
-    icon: "ant-design:bilibili-filled",
-    url: "https://space.bilibili.com/your_id",
-  },
-  {
-    name: "Xiaohongshu",
-    icon: "simple-icons:xiaohongshu",
-    url: "https://www.xiaohongshu.com/user/your_id",
-  },
-] as const;
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/service/config";
+import { homeService } from "@/service/home";
+import { Media } from "@/payload-types";
+import { experienceService, skillService } from "@/service";
 
 export function Profile() {
   const { lng } = useParams();
   const { t } = useTranslation(lng as string);
+  const { data } = useQuery({
+    queryKey: queryKeys.home,
+    queryFn: homeService.getHome,
+    staleTime: 5 * 60 * 1000,
+    refetchOnWindowFocus: false,
+  });
+  const { home } = data ?? {};
   return (
     <section className="flex items-start gap-12">
       <motion.div
@@ -36,12 +30,10 @@ export function Profile() {
         animate={{ opacity: 1, y: 0 }}
         className="relative shrink-0 w-24 h-24 rounded-lg overflow-hidden"
       >
-        <Image
-          src="/avatar.jpeg"
+        <img
+          src={(home?.avatar as Media)?.url ?? ""}
           alt="Profile picture"
-          fill
-          className="object-cover"
-          priority
+          className="object-cover w-full h-full"
         />
       </motion.div>
 
@@ -52,7 +44,7 @@ export function Profile() {
             animate={{ opacity: 1, y: 0 }}
             className="text-4xl font-medium"
           >
-            {t("common.home.name")}
+            {home?.name}
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
@@ -70,18 +62,17 @@ export function Profile() {
           transition={{ delay: 0.2 }}
           className="max-w-2xl text-lg text-muted-foreground leading-relaxed"
         >
-          Exploring the world with coding. I do react, nextjs, typescript, I'm
-          also learning ios and android development.
+          {home?.description}
         </motion.p>
 
         <div className="flex items-center gap-4 mt-2">
-          {socialLinks.map((social) => (
+          {home?.socialLinks.map((social) => (
             <motion.a
               key={social.name}
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-ne-resize"
+              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >

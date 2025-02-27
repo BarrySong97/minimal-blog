@@ -9,8 +9,8 @@ interface BlogListItemProps {
 }
 
 const item = {
-  hidden: { opacity: 0, x: -20 },
-  show: { opacity: 1, x: 0 },
+  hidden: { opacity: 0, y: 10 },
+  show: { opacity: 1, y: 0 },
 };
 
 export function BlogListItem({ post, className }: BlogListItemProps) {
@@ -18,25 +18,18 @@ export function BlogListItem({ post, className }: BlogListItemProps) {
     <motion.div
       variants={item}
       className={cn(
-        "group cursor-pointer border-b border-border py-4 transition-colors hover:bg-muted/50",
+        "group relative py-3 transition-colors hover:bg-muted/50 rounded-md",
         className
       )}
     >
       <Link href={`/blogs/${post.slug}`} className="block">
-        <div className="flex items-center justify-between gap-4">
-          <div className="space-y-1">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <span>{post.date}</span>
-              <span>•</span>
-              <span>{post.tags[0]}</span>
-            </div>
-            <h2 className="text-lg font-medium tracking-tight group-hover:text-primary">
-              {post.title}
-            </h2>
-          </div>
-          <div className="text-sm text-muted-foreground">
-            {post.readingTime}
-          </div>
+        <div className="flex items-center gap-2 px-4 ">
+          <h2 className="text-lg font-medium tracking-tight text-foreground transition-colors group-hover:text-primary">
+            {post.title}
+          </h2>
+          <time className="text-sm text-muted-foreground" dateTime={post.date}>
+            {post.date}
+          </time>
         </div>
       </Link>
     </motion.div>

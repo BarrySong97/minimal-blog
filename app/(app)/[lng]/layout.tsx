@@ -1,10 +1,12 @@
-import { Geist, Geist_Mono } from "next/font/google";
-import { fallbackLng, languages } from "@/app/i18n/settings";
-import { useTranslation } from "@/app/i18n";
+import { fallbackLng, languages } from "@/app/(app)/i18n/settings";
+import { useTranslation } from "@/app/(app)/i18n";
 import { dir } from "i18next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { DefaultLayout } from "@/components/layouts/DefaultLayout";
+import { TanstackProvider } from "@/components/providers/TanstackProvider";
+
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
 }
@@ -23,15 +25,6 @@ export async function generateMetadata({
       "A playground to explore new Next.js 13/14/15 app directory features such as nested layouts, instant loading states, streaming, and component level data fetching.",
   };
 }
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export default async function RootLayout({
   children,
@@ -42,14 +35,16 @@ export default async function RootLayout({
 }>) {
   const { lng } = await params;
   return (
-    <html lang={lng} dir={dir(lng)}>
+    <html lang={lng} dir={dir(lng)} className="bg-background">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen flex flex-col`}
+        className={`bg-background antialiased min-h-screen flex flex-col relative overflow-hidden`}
       >
-        <NuqsAdapter>
-          <Navbar />
-          {children}
-        </NuqsAdapter>
+        <TanstackProvider>
+          <NuqsAdapter>
+            <Navbar />
+            <DefaultLayout>{children}</DefaultLayout>
+          </NuqsAdapter>
+        </TanstackProvider>
       </body>
     </html>
   );

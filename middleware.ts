@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import acceptLanguage from "accept-language";
-import { fallbackLng, languages, cookieName } from "./app/i18n/settings";
+import { fallbackLng, languages, cookieName } from "./app/(app)/i18n/settings";
 
 acceptLanguage.languages(languages);
 
@@ -12,6 +12,11 @@ export const config = {
 };
 
 export function middleware(req: NextRequest) {
+  // Skip locale redirect for admin paths
+  if (req.nextUrl.pathname.startsWith("/admin")) {
+    return NextResponse.next();
+  }
+
   if (
     req.nextUrl.pathname.indexOf("icon") > -1 ||
     req.nextUrl.pathname.indexOf("chrome") > -1

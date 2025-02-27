@@ -10,17 +10,19 @@ interface LayoutToggleProps {
 
 export function LayoutToggle({ className }: LayoutToggleProps) {
   const [layout, setLayout] = useQueryState("layout", {
-    defaultValue: "grid",
+    defaultValue: "list",
     parse: (value): "grid" | "list" => (value === "list" ? "list" : "grid"),
   });
 
   return (
-    <div className={cn("flex items-center gap-2 relative", className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <button
         onClick={() => setLayout("list")}
         className={cn(
-          "p-2 rounded-md transition-colors relative",
-          layout === "list" ? "text-primary-foreground" : "hover:bg-muted"
+          "p-2 rounded-md transition-all duration-200 ease-in-out",
+          layout === "list"
+            ? "bg-primary text-primary-foreground ring-2 ring-primary/20"
+            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         )}
         aria-label="List layout"
       >
@@ -37,8 +39,10 @@ export function LayoutToggle({ className }: LayoutToggleProps) {
       <button
         onClick={() => setLayout("grid")}
         className={cn(
-          "p-2 rounded-md transition-colors relative",
-          layout === "grid" ? "text-primary-foreground" : "hover:bg-muted"
+          "p-2 rounded-md transition-all duration-200 ease-in-out",
+          layout === "grid"
+            ? "bg-primary text-primary-foreground "
+            : "text-muted-foreground hover:bg-accent hover:text-accent-foreground"
         )}
         aria-label="Grid layout"
       >

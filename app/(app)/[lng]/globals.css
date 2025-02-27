@@ -1,0 +1,141 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Pure White */
+    --background: 0 0% 100%;
+    /* Almost Black - Dark Gray */
+    --foreground: 240 10% 3.9%;
+    /* Pure White */
+    --card: 0 0% 100%;
+    /* Almost Black - Dark Gray */
+    --card-foreground: 240 10% 3.9%;
+    /* Pure White */
+    --popover: 0 0% 100%;
+    /* Almost Black - Dark Gray */
+    --popover-foreground: 240 10% 3.9%;
+    /* Dark Gray - Almost Black */
+    --primary: 240 5.9% 10%;
+    /* Off White */
+    --primary-foreground: 0 0% 98%;
+    /* Very Light Gray */
+    --secondary: 240 4.8% 95.9%;
+    /* Dark Gray - Almost Black */
+    --secondary-foreground: 240 5.9% 10%;
+    /* Very Light Gray */
+    --muted: 240 4.8% 95.9%;
+    /* Medium Gray */
+    --muted-foreground: 240 3.8% 46.1%;
+    /* Very Light Gray */
+    --accent: 240 4.8% 95.9%;
+    /* Dark Gray - Almost Black */
+    --accent-foreground: 240 5.9% 10%;
+    /* Bright Red */
+    --destructive: 0 84.2% 60.2%;
+    /* Off White */
+    --destructive-foreground: 0 0% 98%;
+    /* Light Gray */
+    --border: 240 5.9% 90%;
+    /* Light Gray */
+    --input: 240 5.9% 90%;
+    /* Dark Gray - Almost Black */
+    --ring: 240 5.9% 10%;
+    /* Border Radius */
+    --radius: 0.75rem;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply text-foreground;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer utilities {
+  .animate-gradient-slow {
+    animation: gradient 20s ease infinite;
+  }
+
+  .animate-gradient-normal {
+    animation: gradient 15s ease infinite;
+  }
+
+  .animate-gradient-fast {
+    animation: gradient 10s ease infinite;
+  }
+
+  .animate-move-background {
+    animation: moveBackground 10s linear infinite;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    opacity: 0.5;
+    transform: translate(0%, 0%) scale(1);
+  }
+
+  25% {
+    opacity: 0.7;
+    transform: translate(10%, 10%) scale(1.1);
+  }
+
+  50% {
+    opacity: 0.5;
+    transform: translate(0%, 20%) scale(1);
+  }
+
+  75% {
+    opacity: 0.7;
+    transform: translate(-10%, 10%) scale(0.9);
+  }
+
+  100% {
+    opacity: 0.5;
+    transform: translate(0%, 0%) scale(1);
+  }
+}
+
+@keyframes moveBackground {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 50px 50px;
+  }
+}

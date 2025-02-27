@@ -26,6 +26,9 @@ export function LanguageSelector() {
   const pathname = usePathname();
   const router = useRouter();
 
+  // Get current locale from pathname
+  const currentLocale = pathname.split("/")[1] || "en";
+
   const switchLanguage = (locale: string) => {
     const params = new URLSearchParams(searchParams.toString());
     const redirectPath = `${pathname}${
@@ -56,8 +59,16 @@ export function LanguageSelector() {
             animate={{ opacity: 1, scale: 1 }}
             key={lang.locale}
             className={cn(
-              "flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm",
-              "hover:bg-gray-100 hover:text-gray-900"
+              "flex w-full items-center gap-2  px-2 py-1.5 text-sm relative",
+              "hover:bg-gray-100 hover:text-gray-900",
+              "transition-colors duration-200",
+              currentLocale === lang.locale
+                ? [
+                    "bg-primary/10 text-primary",
+                    "rounded-r-md",
+                    "after:absolute after:inset-y-0.5 after:left-0 after:w-0.5 after:bg-primary",
+                  ]
+                : "rounded-md"
             )}
             onClick={() => switchLanguage(lang.locale)}
           >
