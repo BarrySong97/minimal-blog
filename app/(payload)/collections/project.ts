@@ -17,10 +17,11 @@ const Projects: CollectionConfig = {
     },
     {
       name: "video",
-      type: "text",
+      type: "upload",
+      relationTo: "media",
       required: true,
-      admin: {
-        description: "Video URL for the project (e.g. Cloudinary URL)",
+      access: {
+        read: () => true,
       },
     },
     {

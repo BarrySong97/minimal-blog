@@ -222,10 +222,7 @@ export interface Media {
 export interface Project {
   id: number;
   title: string;
-  /**
-   * Video URL for the project (e.g. Cloudinary URL)
-   */
-  video: string;
+  video: number | Media;
   /**
    * Project link URL
    */
