@@ -9,7 +9,6 @@ export function Experience() {
   const { data } = useQuery({
     queryKey: queryKeys.home,
     queryFn: homeService.getHome,
-    staleTime: 5 * 60 * 1000,
   });
   const { experiences } = data ?? {};
   return (

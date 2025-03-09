@@ -39,7 +39,6 @@ export function SkillsPopover() {
   const { data } = useQuery({
     queryKey: queryKeys.home,
     queryFn: homeService.getHome,
-    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
   const { skills, skillCategories: categories } = data ?? {};

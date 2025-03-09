@@ -19,7 +19,6 @@ export function Profile() {
   const { data } = useQuery({
     queryKey: queryKeys.home,
     queryFn: homeService.getHome,
-    staleTime: 5 * 60 * 1000,
     refetchOnWindowFocus: false,
   });
   const { home } = data ?? {};
@@ -40,9 +39,7 @@ export function Profile() {
       <div className="space-y-6">
         <div className="space-y-4">
           <h1 className="text-4xl font-medium">{home?.name}</h1>
-          <div className="text-xl text-muted-foreground">
-            {home?.description}
-          </div>
+
           <SkillsPopover />
         </div>
 

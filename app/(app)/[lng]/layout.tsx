@@ -5,7 +5,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import { TanstackProvider } from "@/components/providers/TanstackProvider";
+import TanstackProvider from "@/components/providers/TanstackProvider";
 
 export async function generateStaticParams() {
   return languages.map((lng) => ({ lng }));
