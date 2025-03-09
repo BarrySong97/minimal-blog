@@ -4,8 +4,8 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
 import { useRef, useEffect, useState, Suspense } from "react";
-import { useTranslation } from "next-i18next";
 import { LanguageSelector } from "./LanguageSelector";
+import { useTranslation } from "@/app/(app)/i18n/client";
 
 interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -36,8 +36,8 @@ function NavItem({
   );
 }
 
-export function Navbar() {
-  const { t } = useTranslation("common");
+export function Navbar({ lng }: { lng: string }) {
+  const { t } = useTranslation(lng);
   const pathname = usePathname();
   const [activeItemRect, setActiveItemRect] = useState<{
     width: number;
@@ -80,7 +80,12 @@ export function Navbar() {
   }, []);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ">
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ",
+        "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy"
+      )}
+    >
       <div className="mx-auto max-w-6xl px-5 sm:px-0">
         <div className="flex h-14 items-center justify-end">
           <nav
@@ -88,16 +93,16 @@ export function Navbar() {
             className="flex items-center space-x-6 text-sm font-medium relative"
           >
             <NavItem href="/" isActive={pathname === "/"}>
-              {t("nav.home")}
+              {t("common.nav.home")}
             </NavItem>
             <NavItem href="/blogs" isActive={pathname === "/blogs"}>
-              {t("nav.blog")}
+              {t("common.nav.blog")}
             </NavItem>
             <NavItem href="/projects" isActive={pathname === "/projects"}>
-              {t("nav.projects")}
+              {t("common.nav.projects")}
             </NavItem>
             <NavItem href="/about" isActive={pathname === "/about"}>
-              {t("nav.about")}
+              {t("common.nav.about")}
             </NavItem>
             <Suspense>
               <LanguageSelector />

@@ -14,24 +14,11 @@ export function Experience() {
   const { experiences } = data ?? {};
   return (
     <section className="space-y-8">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-2xl font-medium"
-      >
-        Work Experience
-      </motion.h2>
+      <h2 className="text-2xl font-medium">Work Experience</h2>
 
       <div className="space-y-6">
         {experiences?.map((exp, index) => (
-          <motion.div
-            key={exp.company}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="group space-y-1.5"
-          >
+          <div key={exp.company} className="group space-y-1.5">
             <div className="flex items-center justify-between">
               <a
                 href={exp.companyWebsite}
@@ -51,7 +38,7 @@ export function Experience() {
                 {exp.companyLocation}
               </span>
             </div>
-          </motion.div>
+          </div>
         ))}
       </div>
     </section>

@@ -106,6 +106,9 @@ devDependencies:
   tailwindcss:
     specifier: ^3.4.1
     version: 3.4.17
+  tailwindcss-motion:
+    specifier: ^1.1.0
+    version: 1.1.0(tailwindcss@3.4.17)
   typescript:
     specifier: ^5
     version: 5.7.3
@@ -7436,6 +7439,14 @@ packages:
   /tailwind-merge@3.0.2:
     resolution: {integrity: sha512-l7z+OYZ7mu3DTqrL88RiKrKIqO3NcpEO8V/Od04bNpvk0kiIFndGEoqfuzvj4yuhRkHKjRkII2z+KS2HfPcSxw==}
     dev: false
+
+  /tailwindcss-motion@1.1.0(tailwindcss@3.4.17):
+    resolution: {integrity: sha512-0lK6rA4+367ffJdi1TtB72GlMCxJi2TP/xRiHc6An5pZSlU6WfIHhSvLxpcGilGZfBrOqc2q4woH1DEP/lCNbQ==}
+    peerDependencies:
+      tailwindcss: '>=3.0.0 || insiders'
+    dependencies:
+      tailwindcss: 3.4.17
+    dev: true
 
   /tailwindcss@3.4.17:
     resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}

@@ -41,7 +41,7 @@ export default async function RootLayout({
       >
         <TanstackProvider>
           <NuqsAdapter>
-            <Navbar />
+            <Navbar lng={lng} />
             <DefaultLayout>{children}</DefaultLayout>
           </NuqsAdapter>
         </TanstackProvider>

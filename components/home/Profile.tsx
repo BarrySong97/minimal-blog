@@ -25,45 +25,30 @@ export function Profile() {
   const { home } = data ?? {};
   return (
     <section className="flex items-start gap-12">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="relative shrink-0 w-24 h-24 rounded-lg overflow-hidden"
-      >
-        <img
-          src={(home?.avatar as Media)?.url ?? ""}
-          alt="Profile picture"
-          className="object-cover w-full h-full"
-        />
-      </motion.div>
+      <Image
+        src={(home?.avatar as Media)?.url ?? ""}
+        alt="Profile picture"
+        width={96}
+        height={96}
+        priority
+        className={cn(
+          "object-cover w-24 h-24 rounded-lg",
+          "motion-scale-in-[0.5] motion-opacity-in-[0%] motion-ease-spring-smooth"
+        )}
+      />
 
       <div className="space-y-6">
         <div className="space-y-4">
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-4xl font-medium"
-          >
-            {home?.name}
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-xl text-muted-foreground"
-          >
-            <SkillsPopover />
-          </motion.p>
+          <h1 className="text-4xl font-medium">{home?.name}</h1>
+          <div className="text-xl text-muted-foreground">
+            {home?.description}
+          </div>
+          <SkillsPopover />
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="max-w-2xl text-lg text-muted-foreground leading-relaxed"
-        >
+        <div className="max-w-2xl text-lg text-muted-foreground leading-relaxed">
           {home?.description}
-        </motion.p>
+        </div>
 
         <div className="flex items-center gap-4 mt-2">
           {home?.socialLinks.map((social) => (

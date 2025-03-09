@@ -18,7 +18,6 @@ const config: NextConfig = {
         pathname: "/**",
       },
     ],
-    unoptimized: true,
   },
   experimental: {
     reactCompiler: false,

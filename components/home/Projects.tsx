@@ -25,25 +25,11 @@ export function Projects() {
 
   return (
     <section className="space-y-6">
-      <motion.h2
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="text-2xl font-medium"
-      >
-        Projects
-      </motion.h2>
+      <h2 className="text-2xl font-medium">Projects</h2>
 
       <div className="grid md:grid-cols-2 gap-8">
         {projects.map((project, index) => (
-          <motion.a
-            key={project.title}
-            href={project.href}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.1 }}
-            className="group block"
-          >
+          <a key={project.title} href={project.href} className="group block">
             <figure className="space-y-3">
               <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted">
                 <video
@@ -59,7 +45,7 @@ export function Projects() {
                 {project.title}
               </figcaption>
             </figure>
-          </motion.a>
+          </a>
         ))}
       </div>
     </section>
