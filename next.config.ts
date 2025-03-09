@@ -17,6 +17,12 @@ const config: NextConfig = {
         port: "",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "4real.ltd",
+        port: "",
+        pathname: "/**",
+      },
     ],
   },
   experimental: {
