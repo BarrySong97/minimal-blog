@@ -19,7 +19,11 @@ export function BlogList({ posts, className, ...props }: BlogListProps) {
   const [_, startTransition] = useTransition();
   return (
     <div
-      className={cn("grid grid-cols-1 xl:grid-cols-2 gap-8", className)}
+      className={cn(
+        "grid grid-cols-1 xl:grid-cols-2 gap-8",
+        "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
+        className
+      )}
       ref={ref}
       {...props}
     >

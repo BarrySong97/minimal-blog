@@ -16,13 +16,32 @@ const Projects: CollectionConfig = {
       required: true,
     },
     {
-      name: "video",
+      name: "github",
+      type: "text",
+      required: false,
+    },
+    {
+      name: "cover",
       type: "upload",
       relationTo: "media",
-      required: true,
+      required: false,
       access: {
         read: () => true,
       },
+    },
+    {
+      name: "video",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+      access: {
+        read: () => true,
+      },
+    },
+    {
+      name: "description",
+      type: "textarea",
+      required: false,
     },
     {
       name: "href",

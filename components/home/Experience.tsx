@@ -5,6 +5,29 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { Media } from "@/payload-types";
 import { MaterialSymbolsLightPinDrop, MaterialSymbolsPerson } from "./icon";
+import { motion } from "framer-motion";
+
+const container = {
+  hidden: { opacity: 0 },
+  show: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.2,
+    },
+  },
+};
+
+const item = {
+  hidden: { opacity: 0, y: 20 },
+  show: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      ease: "easeOut",
+    },
+  },
+};
 
 export function Experience() {
   const { data: experiences } = useQuery({
@@ -16,9 +39,18 @@ export function Experience() {
     <section className="space-y-8">
       <h2 className="text-2xl font-medium">Work Experience</h2>
 
-      <div className="space-y-8">
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="show"
+        className="space-y-8"
+      >
         {experiences?.docs.map((exp, index) => (
-          <div key={exp.company} className="group space-y-2">
+          <motion.div
+            key={exp.company}
+            variants={item}
+            className="group space-y-2"
+          >
             <div className="flex items-center justify-between">
               <a
                 href={exp.companyWebsite}
@@ -49,9 +81,9 @@ export function Experience() {
                 {exp.companyLocation}
               </span>
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

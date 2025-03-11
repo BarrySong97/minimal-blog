@@ -109,11 +109,16 @@ export function Navbar({ lng }: { lng: string }) {
             </Suspense>
             {activeItemRect && (
               <motion.div
-                className="absolute bottom-0 !m-0 h-[2px] bg-foreground"
-                initial={false}
+                className="absolute bottom-0 !m-0 h-[2px] bg-foreground origin-center"
+                initial={{
+                  width: 0,
+                  x: activeItemRect.left + activeItemRect.width / 2,
+                  opacity: 0,
+                }}
                 animate={{
                   width: activeItemRect.width,
                   x: activeItemRect.left,
+                  opacity: 1,
                 }}
                 transition={{
                   type: "spring",
