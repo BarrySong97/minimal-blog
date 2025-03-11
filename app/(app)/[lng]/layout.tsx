@@ -39,12 +39,12 @@ export default async function RootLayout({
       <body
         className={`bg-background antialiased min-h-screen flex flex-col relative overflow-autp`}
       >
-        <TanstackProvider>
-          <NuqsAdapter>
+        <NuqsAdapter>
+          <TanstackProvider>
             <Navbar lng={lng} />
             <DefaultLayout>{children}</DefaultLayout>
-          </NuqsAdapter>
-        </TanstackProvider>
+          </TanstackProvider>
+        </NuqsAdapter>
       </body>
     </html>
   );
