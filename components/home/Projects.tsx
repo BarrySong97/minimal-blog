@@ -32,14 +32,14 @@ export function Projects() {
           <a key={project.title} href={project.href} className="group block">
             <figure className="space-y-3">
               <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted">
-                <video
+                {/* <video
                   src={project.video}
                   muted
                   autoPlay
                   loop
                   playsInline
                   className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                />
+                /> */}
               </div>
               <figcaption className="font-medium text-lg">
                 {project.title}
