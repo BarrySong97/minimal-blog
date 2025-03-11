@@ -67,3 +67,37 @@ export function Fa6BrandsSquareGithub(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function MaterialSymbolsLightPinDrop(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 18.25q-2.967-2.427-4.484-4.771T6 9.016q0-2.645 1.68-4.33Q9.362 3 12 3t4.32 1.686Q18 6.37 18 9.016q0 2.119-1.516 4.453T12 18.25m.004-7.634q.667 0 1.14-.476t.472-1.143t-.476-1.14t-1.143-.472t-1.14.475t-.472 1.144t.475 1.14t1.144.472M6 21v-1h12v1z"
+      ></path>
+    </svg>
+  );
+}
+
+export function MaterialSymbolsPerson(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M12 12q-1.65 0-2.825-1.175T8 8t1.175-2.825T12 4t2.825 1.175T16 8t-1.175 2.825T12 12m-8 8v-2.8q0-.85.438-1.562T5.6 14.55q1.55-.775 3.15-1.162T12 13t3.25.388t3.15 1.162q.725.375 1.163 1.088T20 17.2V20z"
+      ></path>
+    </svg>
+  );
+}
