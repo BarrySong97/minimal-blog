@@ -11,7 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { Media } from "@/payload-types";
-import { experienceService, skillService } from "@/service";
+import {
+  Fa6BrandsSquareGithub,
+  Fa6BrandsSquareXTwitter,
+  SimpleIconsXiaohongshu,
+  AntDesignBilibiliFilled,
+} from "./icon";
 
 export function Profile() {
   const { lng } = useParams();
@@ -22,6 +27,12 @@ export function Profile() {
     refetchOnWindowFocus: false,
   });
   const { home } = data ?? {};
+  const iconMap = {
+    "fa6-brands:square-x-twitter": <Fa6BrandsSquareXTwitter />,
+    "simple-icons:xiaohongshu": <SimpleIconsXiaohongshu />,
+    "ant-design:bilibili-filled": <AntDesignBilibiliFilled />,
+    "fa6-brands:square-github": <Fa6BrandsSquareGithub />,
+  };
   return (
     <section className="flex items-start gap-12">
       <Image
@@ -54,17 +65,11 @@ export function Profile() {
               href={social.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-pointer"
+              className="text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-pointer"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Icon
-                icon={social.icon}
-                className={cn(
-                  "w-6 h-6",
-                  social.name === "Twitter" && "w-[1.35rem] h-[1.35rem]"
-                )}
-              />
+              {iconMap[social.icon as keyof typeof iconMap]}
             </motion.a>
           ))}
         </div>

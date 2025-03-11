@@ -40,6 +40,7 @@ const Home: GlobalConfig = {
             { label: "Twitter", value: "Twitter" },
             { label: "Bilibili", value: "Bilibili" },
             { label: "Xiaohongshu", value: "Xiaohongshu" },
+            { label: "Github", value: "Github" },
           ],
         },
         {

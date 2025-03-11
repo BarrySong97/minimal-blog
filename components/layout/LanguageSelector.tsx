@@ -6,6 +6,7 @@ import { useTranslation } from "next-i18next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Popover } from "@/components/ui/Popover";
 import { cn } from "@/lib/utils";
+import { CarbonLanguage } from "./icon";
 
 interface LanguageOption {
   locale: string;
@@ -45,7 +46,7 @@ export function LanguageSelector() {
           className="inline-flex items-center justify-center rounded-md p-2 hover:bg-accent hover:text-accent-foreground focus:outline-none"
           aria-label="Select language"
         >
-          <Icon icon="carbon:language" className="h-5 w-5" />
+          <CarbonLanguage className="h-5 w-5" />
         </button>
       }
       className="w-[200px] p-2 text-popover-foreground"

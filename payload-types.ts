@@ -560,7 +560,7 @@ export interface Home {
   description: string;
   avatar: number | Media;
   socialLinks: {
-    name: 'Twitter' | 'Bilibili' | 'Xiaohongshu';
+    name: 'Twitter' | 'Bilibili' | 'Xiaohongshu' | 'Github';
     icon: string;
     url: string;
     id?: string | null;
