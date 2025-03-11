@@ -2,7 +2,6 @@
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { SkillsPopover } from "./SkillsPopover";
-import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { useTranslation } from "@/app/(app)/i18n/client";
@@ -20,11 +19,10 @@ import {
 
 export function Profile() {
   const { lng } = useParams();
-  const { t } = useTranslation(lng as string);
   const { data: home } = useQuery({
     queryKey: queryKeys.home,
     queryFn: homeService.getHome,
-    refetchOnWindowFocus: false,
+    staleTime: Infinity,
   });
   const iconMap = {
     "fa6-brands:square-x-twitter": <Fa6BrandsSquareXTwitter />,

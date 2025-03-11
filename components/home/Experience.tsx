@@ -1,9 +1,7 @@
 "use client";
-import { experienceService, homeService } from "@/service";
-import { motion } from "framer-motion";
+import { experienceService } from "@/service";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
-import { Icon } from "@iconify/react";
 
 export function Experience() {
   const { data: experiences } = useQuery({

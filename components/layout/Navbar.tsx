@@ -86,7 +86,7 @@ export function Navbar({ lng }: { lng: string }) {
         "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy"
       )}
     >
-      <div className="mx-auto max-w-6xl px-5 sm:px-0">
+      <div className="mx-auto container px-5 sm:px-0">
         <div className="flex h-14 items-center justify-end">
           <nav
             ref={navRef}

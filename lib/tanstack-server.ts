@@ -29,7 +29,7 @@ export async function prefetchQueries(queries: PrefetchQueryOptions[]) {
   const queryClient = getQueryClient();
 
   await Promise.all(
-    queries.map(({ queryKey, queryFn, staleTime = 60 * 1000 }) =>
+    queries.map(({ queryKey, queryFn, staleTime = 60 * 60 * 1000 }) =>
       queryClient.prefetchQuery({
         queryKey,
         queryFn,
