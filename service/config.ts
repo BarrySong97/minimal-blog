@@ -16,12 +16,12 @@ export const CACHE_TIME = Number(process.env.NEXT_PUBLIC_CACHE_TIME || 300); // 
 
 // API Endpoints
 export const endpoints = {
-  blogs: `${API_URL}/blogs`,
-  experiences: `${API_URL}/experiences`,
-  home: `${API_URL}/globals/home`,
-  projects: `${API_URL}/projects`,
-  skills: `${API_URL}/skills`,
-  skillCategories: `${API_URL}/skill-categories`,
+  blogs: `/blogs`,
+  experiences: `/experiences`,
+  home: `/globals/home`,
+  projects: `/projects`,
+  skills: `/skills`,
+  skillCategories: `/skill-categories`,
 } as const;
 
 // Query Keys Configuration

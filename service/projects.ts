@@ -1,5 +1,6 @@
 import { Project } from "@/payload-types";
-import { queryFetcher } from "@/lib/tanstack-query";
+import { request as __request } from "@/lib/request/core/request";
+import { OpenAPI } from "@/lib/request/core/OpenAPI";
 import { endpoints } from "./config";
 
 export type ProjectsResponse = {
@@ -18,11 +19,17 @@ export type ProjectsResponse = {
 export const projectService = {
   // 获取项目列表
   getProjects: () => {
-    return queryFetcher<ProjectsResponse>(`${endpoints.projects}?sort=order`);
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.projects}?sort=order`,
+    });
   },
 
   // 获取单个项目详情
   getProject: (id: number) => {
-    return queryFetcher<Project>(`${endpoints.projects}/${id}`);
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.projects}/${id}`,
+    });
   },
 };

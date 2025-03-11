@@ -1,7 +1,8 @@
 import { Blog } from "@/payload-types";
 import { queryFetcher } from "@/lib/tanstack-query";
 import { endpoints } from "./config";
-
+import { request as __request } from "@/lib/request/core/request";
+import { OpenAPI } from "@/lib/request/core/OpenAPI";
 export type BlogsResponse = {
   docs: Blog[];
   totalDocs: number;
@@ -24,22 +25,28 @@ export type BlogFilters = {
 export const blogService = {
   // 获取博客列表
   getBlogs: (filters?: BlogFilters) => {
-    const searchParams = new URLSearchParams();
-    if (filters?.page) searchParams.set("page", filters.page.toString());
-    if (filters?.limit) searchParams.set("limit", filters.limit.toString());
-    if (filters?.status) searchParams.set("status", filters.status);
-
-    const url = `${endpoints.blogs}${searchParams.toString() ? `?${searchParams.toString()}` : ""}`;
-    return queryFetcher<BlogsResponse>(url);
+    return __request(OpenAPI, {
+      method: "GET",
+      url: endpoints.blogs,
+      query: {
+        ...filters,
+      },
+    });
   },
 
   // 获取单个博客详情
   getBlog: (id: number) => {
-    return queryFetcher<Blog>(`${endpoints.blogs}/${id}`);
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}/${id}`,
+    });
   },
 
   // 根据slug获取博客
   getBlogBySlug: (slug: string) => {
-    return queryFetcher<Blog>(`${endpoints.blogs}?where[slug][equals]=${slug}`);
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}?where[slug][equals]=${slug}`,
+    });
   },
 };

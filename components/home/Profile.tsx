@@ -21,8 +21,7 @@ export function Profile() {
   const { lng } = useParams();
   const { data: home } = useQuery({
     queryKey: queryKeys.home,
-    queryFn: homeService.getHome,
-    staleTime: Infinity,
+    queryFn: () => homeService.getHome(),
   });
   const iconMap = {
     "fa6-brands:square-x-twitter": <Fa6BrandsSquareXTwitter />,

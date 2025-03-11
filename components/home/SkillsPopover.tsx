@@ -38,12 +38,12 @@ export function SkillsPopover() {
   const { t } = useTranslation(lng as string);
   const { data: skills } = useQuery({
     queryKey: queryKeys.skills.all,
-    queryFn: skillService.getSkills,
+    queryFn: () => skillService.getSkills(),
     refetchOnWindowFocus: false,
   });
   const { data: skillCategories } = useQuery({
     queryKey: queryKeys.skillCategories.all,
-    queryFn: skillService.getSkillCategories,
+    queryFn: () => skillService.getSkillCategories(),
     refetchOnWindowFocus: false,
   });
 

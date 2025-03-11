@@ -11,9 +11,6 @@ const config: NextConfig = {
       },
     ],
   },
-  experimental: {
-    reactCompiler: false,
-  },
 };
 
 export default withPayload(config);

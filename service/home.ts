@@ -1,11 +1,13 @@
-import { Home } from "@/payload-types";
-import { queryFetcher } from "@/lib/tanstack-query";
+import { request as __request } from "@/lib/request/core/request";
+import { OpenAPI } from "@/lib/request/core/OpenAPI";
 import { endpoints } from "./config";
-import { experienceService } from "./experiences";
-import { skillService } from ".";
+import { Home } from "@/payload-types";
 export const homeService = {
   // 获取首页数据
   getHome: async () => {
-    return await queryFetcher<Home>(endpoints.home);
+    return __request<Home>(OpenAPI, {
+      method: "GET",
+      url: endpoints.home,
+    });
   },
 };

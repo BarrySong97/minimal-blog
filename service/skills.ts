@@ -1,5 +1,6 @@
 import { Skill, SkillCategory } from "@/payload-types";
-import { queryFetcher } from "@/lib/tanstack-query";
+import { request as __request } from "@/lib/request/core/request";
+import { OpenAPI } from "@/lib/request/core/OpenAPI";
 import { endpoints } from "./config";
 
 export type SkillsResponse = {
@@ -31,25 +32,33 @@ export type SkillCategoriesResponse = {
 export const skillService = {
   // 获取技能列表
   getSkills: () => {
-    return queryFetcher<SkillsResponse>(
-      `${endpoints.skills}?sort=order&depth=1`
-    );
+    return __request<SkillsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.skills}?sort=order&depth=1`,
+    });
   },
 
   // 获取单个技能详情
   getSkill: (id: number) => {
-    return queryFetcher<Skill>(`${endpoints.skills}/${id}?depth=1`);
+    return __request<Skill>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.skills}/${id}?depth=1`,
+    });
   },
 
   // 获取技能分类列表
   getSkillCategories: () => {
-    return queryFetcher<SkillCategoriesResponse>(
-      `${endpoints.skillCategories}?sort=order&depth=1`
-    );
+    return __request<SkillCategoriesResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.skillCategories}?sort=order&depth=1`,
+    });
   },
 
   // 获取单个技能分类详情
   getSkillCategory: (id: number) => {
-    return queryFetcher<SkillCategory>(`${endpoints.skillCategories}/${id}`);
+    return __request<SkillCategory>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.skillCategories}/${id}`,
+    });
   },
 };

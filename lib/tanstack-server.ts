@@ -1,3 +1,4 @@
+import { getQueryClient } from "@/components/tanstack/get-query-client";
 import { dehydrate, QueryClient, QueryFunction } from "@tanstack/react-query";
 
 type PrefetchQueryOptions = {
@@ -12,7 +13,7 @@ export async function prefetchQuery({
   queryFn,
   staleTime = 60 * 1000, // 默认1分钟
 }: PrefetchQueryOptions) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey,
@@ -25,7 +26,7 @@ export async function prefetchQuery({
 
 // 创建一个工具函数来包装多个预取
 export async function prefetchQueries(queries: PrefetchQueryOptions[]) {
-  const queryClient = new QueryClient();
+  const queryClient = getQueryClient();
 
   await Promise.all(
     queries.map(({ queryKey, queryFn, staleTime = 60 * 60 * 1000 }) =>

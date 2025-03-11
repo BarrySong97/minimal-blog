@@ -1,3 +1,6 @@
+import { OpenAPI } from "./request/core/OpenAPI";
+import { request as __request } from "./request/core/request";
+
 // 用于检查是否在服务器端
 export const isServer = typeof window === "undefined";
 
@@ -6,21 +9,10 @@ export async function queryFetcher<TData>(
   url: string,
   init?: RequestInit
 ): Promise<TData> {
-  const headers: HeadersInit = {
-    "Content-Type": "application/json",
-    ...init?.headers,
-  };
-
-  const res = await fetch(url, {
-    ...init,
-    headers,
+  return __request(OpenAPI, {
+    method: "GET",
+    url: url,
   });
-
-  if (!res.ok) {
-    throw new Error(`Request failed with status ${res.status}`);
-  }
-
-  return res.json();
 }
 
 // 创建通用的错误处理

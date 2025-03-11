@@ -6,7 +6,7 @@ import { queryKeys } from "@/service/config";
 export function Experience() {
   const { data: experiences } = useQuery({
     queryKey: queryKeys.experiences.all,
-    queryFn: experienceService.getExperiences,
+    queryFn: () => experienceService.getExperiences(),
   });
 
   return (
