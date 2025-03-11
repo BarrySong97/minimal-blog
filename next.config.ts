@@ -3,7 +3,6 @@ import { withPayload } from "@payloadcms/next/withPayload";
 
 /** @type {import('next').NextConfig} */
 const config: NextConfig = {
-  output: "standalone",
   images: {
     remotePatterns: [
       {
