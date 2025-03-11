@@ -1,22 +1,3 @@
-import { QueryClient } from "@tanstack/react-query";
-import { cache } from "react";
-
-// 创建一个新的QueryClient实例
-export const getQueryClient = cache(
-  () =>
-    new QueryClient({
-      defaultOptions: {
-        queries: {
-          // 在SSR时，我们通常希望设置一个默认的staleTime
-          // 以避免在客户端立即重新获取
-          staleTime: 60 * 1000,
-          // 默认缓存时间10分钟
-          gcTime: 1000 * 60 * 10,
-        },
-      },
-    })
-);
-
 // 用于检查是否在服务器端
 export const isServer = typeof window === "undefined";
 
