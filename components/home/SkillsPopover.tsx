@@ -36,19 +36,23 @@ const skillsWithIcons = {
 export function SkillsPopover() {
   const { lng } = useParams();
   const { t } = useTranslation(lng as string);
-  const { data } = useQuery({
-    queryKey: queryKeys.home,
-    queryFn: homeService.getHome,
+  const { data: skills } = useQuery({
+    queryKey: queryKeys.skills.all,
+    queryFn: skillService.getSkills,
     refetchOnWindowFocus: false,
   });
-  const { skills, skillCategories: categories } = data ?? {};
+  const { data: skillCategories } = useQuery({
+    queryKey: queryKeys.skillCategories.all,
+    queryFn: skillService.getSkillCategories,
+    refetchOnWindowFocus: false,
+  });
 
   // Group skills by category
   const skillsByCategory = React.useMemo(() => {
-    if (!skills || !categories) return {};
-    return skills.reduce(
+    if (!skills || !skillCategories) return {};
+    return skills.docs.reduce(
       (acc, skill) => {
-        const category = categories.find(
+        const category = skillCategories.docs.find(
           (cat) =>
             cat.id ===
             (typeof skill.category === "number"
@@ -63,9 +67,9 @@ export function SkillsPopover() {
         }
         return acc;
       },
-      {} as Record<string, typeof skills>
+      {} as Record<string, typeof skills.docs>
     );
-  }, [skills, categories]);
+  }, [skills, skillCategories]);
 
   return (
     <Popover
@@ -83,7 +87,7 @@ export function SkillsPopover() {
       }
     >
       <div className="space-y-4">
-        {categories?.map((category) => (
+        {skillCategories?.docs?.map((category) => (
           <div key={category.id}>
             <h3 className="font-medium mb-2">{category.name}</h3>
             <div className="flex flex-wrap gap-2">

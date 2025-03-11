@@ -21,12 +21,11 @@ import {
 export function Profile() {
   const { lng } = useParams();
   const { t } = useTranslation(lng as string);
-  const { data } = useQuery({
+  const { data: home } = useQuery({
     queryKey: queryKeys.home,
     queryFn: homeService.getHome,
     refetchOnWindowFocus: false,
   });
-  const { home } = data ?? {};
   const iconMap = {
     "fa6-brands:square-x-twitter": <Fa6BrandsSquareXTwitter />,
     "simple-icons:xiaohongshu": <SimpleIconsXiaohongshu />,

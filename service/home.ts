@@ -6,15 +6,6 @@ import { skillService } from ".";
 export const homeService = {
   // 获取首页数据
   getHome: async () => {
-    const skills = await skillService.getSkills();
-    const experiences = await experienceService.getExperiences();
-    const skillCategories = await skillService.getSkillCategories();
-    const home = await queryFetcher<Home>(endpoints.home);
-    return {
-      home,
-      skills: skills.docs,
-      experiences: experiences.docs,
-      skillCategories: skillCategories.docs,
-    };
+    return await queryFetcher<Home>(endpoints.home);
   },
 };
