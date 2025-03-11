@@ -5,7 +5,7 @@ import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import TanstackProvider from "@/components/tanstack/providers";
+import TanstackProvider from "@/components/tanstack/TanstackProvider";
 
 export async function generateMetadata({
   params,

@@ -28,22 +28,20 @@ export function BlogList({ posts, className, ...props }: BlogListProps) {
               className="object-cover w-full h-full transition-all duration-500 group-hover:scale-105 group-hover:brightness-110"
             />
           </div>
-          <div className="flex flex-1 flex-col justify-between p-6 md:p-8 relative">
+          <div className="flex flex-1 flex-col justify-between px-6 py-0  relative">
+            <div className="flex items-center gap-3 mb-4 absolute top-4 right-4">
+              <span className="inline-flex items-center rounded-full  px-3 py-1 text-xs font-medium  border border-purple-100">
+                {post.tags[0]}
+              </span>
+              <span className="text-sm ">•</span>
+              <span className="text-sm ">{post.readingTime}</span>
+            </div>
             <div className="absolute inset-0 bg-gradient-to-r from-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <div className="flex-1 relative z-10">
-              <div className="flex items-center gap-3 mb-4">
-                <span className="inline-flex items-center rounded-full  px-3 py-1 text-xs font-medium  border border-purple-100">
-                  {post.tags[0]}
-                </span>
-                <span className="text-sm ">•</span>
-                <span className="text-sm ">{post.readingTime}</span>
-              </div>
-              <h3 className="text-2xl font-semibold leading-tight text-gray-900  transition-colors duration-300 mb-4">
+            <div className="flex-1 relative z-10 flex flex-col justify-between">
+              <div></div>
+              <h3 className="text-xl font-semibold leading-tight text-gray-900  transition-colors duration-300 mb-4">
                 {post.title}
               </h3>
-              <p className="text-base leading-relaxed text-gray-600 line-clamp-2 group-hover:text-gray-700">
-                {post.excerpt}
-              </p>
             </div>
           </div>
         </Link>
