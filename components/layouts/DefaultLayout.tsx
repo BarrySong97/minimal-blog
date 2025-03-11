@@ -12,7 +12,7 @@ export function DefaultLayout({
 }: DefaultLayoutProps) {
   return (
     <div className={cn("", className)} {...props}>
-      <main className="container max-w-6xl mx-auto px-6 py-16">{children}</main>
+      <main className="container  mx-auto px-6 py-16">{children}</main>
     </div>
   );
 }

@@ -35,17 +35,17 @@ export default async function RootLayout({
 }>) {
   const { lng } = await params;
   return (
-    <html lang={lng} dir={dir(lng)} className="bg-background">
-      <body
-        className={`bg-background antialiased min-h-screen flex flex-col relative overflow-autp`}
-      >
-        <NuqsAdapter>
-          <TanstackProvider>
+    <TanstackProvider>
+      <html lang={lng} dir={dir(lng)} className="bg-background">
+        <body
+          className={`bg-background antialiased min-h-screen flex flex-col relative overflow-autp`}
+        >
+          <NuqsAdapter>
             <Navbar lng={lng} />
             <DefaultLayout>{children}</DefaultLayout>
-          </TanstackProvider>
-        </NuqsAdapter>
-      </body>
-    </html>
+          </NuqsAdapter>
+        </body>
+      </html>
+    </TanstackProvider>
   );
 }
