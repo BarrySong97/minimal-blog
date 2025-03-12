@@ -1,3 +1,8 @@
+import {
+  BlocksFeature,
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 
 const Blog: CollectionConfig = {
@@ -24,11 +29,29 @@ const Blog: CollectionConfig = {
       name: "content",
       type: "richText",
       required: true,
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          BlocksFeature({
+            blocks: [],
+          }),
+          FixedToolbarFeature(),
+        ],
+      }),
     },
     {
       name: "date",
       type: "date",
       required: true,
+      hooks: {
+        beforeChange: [
+          (args) => {
+            if (args.operation == "create" && !args.value) {
+              return new Date().getTime();
+            }
+          },
+        ],
+      },
       admin: {
         date: {
           pickerAppearance: "dayAndTime",
@@ -55,10 +78,10 @@ const Blog: CollectionConfig = {
             data,
             originalDoc,
           }: {
-            data?: { title?: string };
-            originalDoc?: { title?: string };
+            data?: { title?: string; slug?: string };
+            originalDoc?: { title?: string; slug?: string };
           }) => {
-            if (data?.title) {
+            if (data?.title && !data.slug) {
               return data.title.toLowerCase().replace(/\s+/g, "-");
             }
             return undefined;
@@ -75,7 +98,6 @@ const Blog: CollectionConfig = {
     {
       name: "tags",
       type: "array",
-      required: true,
       fields: [
         {
           name: "tag",

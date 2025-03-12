@@ -98,6 +98,7 @@ export function Navbar({ lng }: { lng: string }) {
             <NavItem href="/blogs" isActive={pathname === "/blogs"}>
               {t("common.nav.blog")}
             </NavItem>
+
             <NavItem href="/projects" isActive={pathname === "/projects"}>
               {t("common.nav.projects")}
             </NavItem>

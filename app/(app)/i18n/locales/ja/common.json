@@ -5,7 +5,8 @@
         "about": "概要",
         "blog": "ブログ",
         "contact": "お問い合わせ",
-        "projects": "プロジェクト"
+        "projects": "プロジェクト",
+        "life": "生活"
     },
     "language": {
         "en": "英語",
@@ -24,5 +25,8 @@
         "full": "全",
         "stack": "スタック",
         "engineer": "エンジニア"
+    },
+    "blog": {
+        "readingTime": "分読み"
     }
 }

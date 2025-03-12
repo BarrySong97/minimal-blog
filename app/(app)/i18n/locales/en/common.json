@@ -5,7 +5,8 @@
     "about": "About",
     "blog": "Blog",
     "contact": "Contact",
-    "projects": "Projects"
+    "projects": "Projects",
+    "life": "Life"
   },
   "language": {
     "en": "English",
@@ -24,5 +25,8 @@
     "full": "Full",
     "stack": "Stack",
     "engineer": "Engineer"
+  },
+  "blog": {
+    "readingTime": "min read"
   }
 }

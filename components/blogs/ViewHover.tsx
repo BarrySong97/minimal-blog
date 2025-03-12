@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { useRef, useState } from "react";
 import { useMouse } from "ahooks";
+import { IcSharpArrowOutward } from "../home/icon";
 
 interface ViewHoverProps extends React.HTMLAttributes<HTMLDivElement> {
   text?: string;
@@ -50,11 +51,9 @@ export function ViewHover({
                 (isNaN(mouse.elementY ?? 0) ? 0 : (mouse.elementY ?? 0)) - 60,
             }}
           >
-            <div className="flex h-full w-full items-center justify-center">
-              <Icon
-                icon="solar:arrow-right-broken"
-                className="h-6 w-6 text-white"
-              />
+            <div className="flex h-full w-full items-center gap-2 justify-center text-white">
+              <div>{text}</div>
+              <IcSharpArrowOutward className="w-4 h-4" />
             </div>
           </motion.div>
         </motion.div>

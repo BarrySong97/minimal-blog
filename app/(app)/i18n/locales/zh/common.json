@@ -5,7 +5,8 @@
         "about": "关于",
         "blog": "博客",
         "contact": "联系",
-        "projects": "项目"
+        "projects": "项目",
+        "life": "生活"
     },
     "language": {
         "en": "英文",
@@ -24,5 +25,8 @@
         "full": "全",
         "stack": "栈",
         "engineer": "工程师"
+    },
+    "blog": {
+        "readingTime": "分钟阅读"
     }
 }

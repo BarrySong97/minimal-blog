@@ -2,21 +2,26 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
-import { BlogPost } from "@/lib/blog-data";
 import { MaterialSymbolsArrowForwardRounded } from "./icon";
 import { ViewHover } from "./ViewHover";
-import { useRef, useState, useEffect, useTransition } from "react";
-import { useMouse } from "ahooks";
+import { useRef, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/service/config";
+import { blogService } from "@/service/blogs";
+import { Media } from "@/payload-types";
+import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
-interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {
-  posts: BlogPost[];
-}
+interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-export function BlogList({ posts, className, ...props }: BlogListProps) {
+export function BlogList({ className, ...props }: BlogListProps) {
+  const { data: posts } = useQuery({
+    queryKey: queryKeys.blogs.all,
+    queryFn: () => blogService.getBlogs(),
+  });
   const ref = useRef<HTMLDivElement>(null);
-  const mouse = useMouse(ref.current);
-  const [hoverId, setHoverId] = useState<string | null>(null);
-  const [_, startTransition] = useTransition();
+  const [hoverId, setHoverId] = useState<number | null>(null);
+  const { t } = useTranslation("common");
   return (
     <div
       className={cn(
@@ -27,24 +32,23 @@ export function BlogList({ posts, className, ...props }: BlogListProps) {
       ref={ref}
       {...props}
     >
-      {posts.map((post) => (
-        <div key={post.slug + post.id} className="group relative">
+      {posts?.docs.map((post) => (
+        <div key={post.id} className="group relative">
           <Link
-            key={post.slug + post.id}
             onMouseEnter={() => {
               setHoverId(post.id);
             }}
             onMouseLeave={() => {
               setHoverId(null);
             }}
-            href={`/blog/${post.slug}`}
+            href={`/blogs/${post.slug}`}
             className="group relative flex  h-[400px] flex-row overflow-hidden  border   shadow-sm transition-all duration-300 hover:shadow-purple-200/20 hover:shadow-lg hover:-translate-y-1 backdrop-blur-sm"
           >
             <ViewHover isHover={hoverId === post.id} trackMouse />
 
             <div className="aspect-[16/9] md:aspect-[4/3] w-1/2 overflow-hidden relative">
               <Image
-                src={post.coverImage}
+                src={(post.coverImage as Media).url ?? ""}
                 alt={post.title}
                 width={800}
                 height={800}
@@ -64,9 +68,13 @@ export function BlogList({ posts, className, ...props }: BlogListProps) {
             </div>
             <div className="flex flex-1 flex-col justify-between px-6 py-0  relative">
               <div className="flex items-center gap-3 mb-4 absolute top-4 right-4 text-sm">
-                <span className="">{post.date}</span>
+                <span className="">
+                  {format(new Date(post.date), "yyyy-MM-dd")}
+                </span>
                 <span className="">•</span>
-                <span className="">{post.readingTime}</span>
+                <span className="">
+                  {post.readingTime} {t("blog.readingTime")}
+                </span>
               </div>
               <div className="absolute inset-0 bg-gradient-to-r from-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="flex-1 relative z-10 flex flex-col justify-between">

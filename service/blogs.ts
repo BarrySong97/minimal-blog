@@ -1,8 +1,9 @@
 import { Blog } from "@/payload-types";
-import { queryFetcher } from "@/lib/tanstack-query";
+import { stringify } from "qs-esm";
 import { endpoints } from "./config";
 import { request as __request } from "@/lib/request/core/request";
 import { OpenAPI } from "@/lib/request/core/OpenAPI";
+import { Where } from "payload";
 export type BlogsResponse = {
   docs: Blog[];
   totalDocs: number;
@@ -25,12 +26,17 @@ export type BlogFilters = {
 export const blogService = {
   // 获取博客列表
   getBlogs: (filters?: BlogFilters) => {
-    return __request(OpenAPI, {
-      method: "GET",
-      url: endpoints.blogs,
-      query: {
-        ...filters,
+    const query: Where = {
+      status: {
+        equals: "published",
       },
+    };
+    const stringifiedQuery = stringify({
+      where: query, // ensure that `qs-esm` adds the `where` property, too!
+    });
+    return __request<BlogsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}?${stringifiedQuery}&sort=-date`,
     });
   },
 
@@ -44,7 +50,7 @@ export const blogService = {
 
   // 根据slug获取博客
   getBlogBySlug: (slug: string) => {
-    return __request(OpenAPI, {
+    return __request<{ docs: Blog[] }>(OpenAPI, {
       method: "GET",
       url: `${endpoints.blogs}?where[slug][equals]=${slug}`,
     });

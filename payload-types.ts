@@ -162,10 +162,12 @@ export interface Blog {
   /**
    * Add relevant tags for the blog post
    */
-  tags: {
-    tag?: string | null;
-    id?: string | null;
-  }[];
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   status: 'draft' | 'published';
   updatedAt: string;
   createdAt: string;
@@ -222,7 +224,10 @@ export interface Media {
 export interface Project {
   id: number;
   title: string;
-  video: number | Media;
+  github?: string | null;
+  cover?: (number | null) | Media;
+  video?: (number | null) | Media;
+  description?: string | null;
   /**
    * Project link URL
    */
@@ -408,7 +413,10 @@ export interface BlogsSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  github?: T;
+  cover?: T;
   video?: T;
+  description?: T;
   href?: T;
   order?: T;
   updatedAt?: T;

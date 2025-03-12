@@ -1,5 +1,6 @@
 import type { Config } from "tailwindcss";
 import motion from "tailwindcss-motion";
+import typo from "@tailwindcss/typography";
 export default {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx,mdx}",
@@ -83,5 +84,5 @@ export default {
       },
     },
   },
-  plugins: [motion],
+  plugins: [motion, typo],
 } satisfies Config;
