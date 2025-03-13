@@ -1,5 +1,5 @@
 import { Experience } from "@/payload-types";
-import { queryFetcher } from "@/lib/tanstack-query";
+import { queryFetcher } from "@/components/tanstack/tanstack-query";
 import { endpoints } from "./config";
 import { request as __request } from "@/lib/request/core/request";
 import { OpenAPI } from "@/lib/request/core/OpenAPI";

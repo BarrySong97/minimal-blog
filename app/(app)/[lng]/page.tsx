@@ -2,34 +2,39 @@ import { Profile } from "@/components/home/Profile";
 import { Experience } from "@/components/home/Experience";
 import { Projects } from "@/components/home/Projects";
 import { queryKeys } from "@/service/config";
-import { prefetchQueries } from "@/lib/tanstack-server";
+import { prefetchQueries } from "@/components/tanstack/tanstack-server";
 import { homeService } from "@/service/home";
-import { HydrationBoundary, QueryClient } from "@tanstack/react-query";
+import { HydrationBoundary } from "@tanstack/react-query";
 import { projectService } from "@/service/projects";
 import { experienceService } from "@/service/experiences";
 import { skillService } from "@/service/skills";
 
-export default async function Home() {
+export default async function Home({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = await params;
   const dehydratedState = await prefetchQueries([
     {
       queryKey: queryKeys.home,
-      queryFn: () => homeService.getHome(),
+      queryFn: homeService.getHome,
     },
     {
       queryKey: queryKeys.projects.all,
-      queryFn: () => projectService.getProjects(),
+      queryFn: projectService.getProjects,
     },
     {
       queryKey: queryKeys.experiences.all,
-      queryFn: () => experienceService.getExperiences(),
+      queryFn: experienceService.getExperiences,
     },
     {
       queryKey: queryKeys.skills.all,
-      queryFn: () => skillService.getSkills(),
+      queryFn: skillService.getSkills,
     },
     {
       queryKey: queryKeys.skillCategories.all,
-      queryFn: () => skillService.getSkillCategories(),
+      queryFn: skillService.getSkillCategories,
     },
   ]);
   return (

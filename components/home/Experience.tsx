@@ -33,6 +33,7 @@ export function Experience() {
   const { data: experiences } = useQuery({
     queryKey: queryKeys.experiences.all,
     queryFn: () => experienceService.getExperiences(),
+    staleTime: Infinity,
   });
 
   return (

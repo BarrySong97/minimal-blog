@@ -1,9 +1,10 @@
 import BlogContent from "@/components/blogs/detail/Content";
-import { getHeadings, HeadingNode } from "@/lib/get-headings";
-import { prefetchQuery } from "@/lib/tanstack-server";
+import Toc from "@/components/blogs/detail/Toc";
+import {
+  getHeadings,
+  HeadingNode,
+} from "@/components/common/richtext/get-headings";
 import { blogService } from "@/service/blogs";
-import { queryKeys } from "@/service/config";
-import { HydrationBoundary } from "@tanstack/react-query";
 import React, { FC } from "react";
 export interface Props {
   params: Promise<{
@@ -16,10 +17,19 @@ const BlogDetail: FC<Props> = async ({ params }) => {
   const headings = getHeadings(
     blog?.docs?.[0]?.content?.root?.children as unknown as HeadingNode[]
   );
-  console.log(headings);
   return (
-    <div>
-      <BlogContent blog={blog?.docs?.[0]} />
+    <div className="mx-auto ">
+      <div className="flex gap-12 justify-center relative">
+        <BlogContent
+          blog={blog?.docs?.[0]}
+          toc={
+            new Map(headings.map((heading) => [heading.anchor, heading])) as any
+          }
+        />
+        <div className="">
+          <Toc headings={headings} />
+        </div>
+      </div>
     </div>
   );
 };

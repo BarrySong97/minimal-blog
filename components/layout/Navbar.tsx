@@ -47,7 +47,7 @@ export function Navbar({ lng }: { lng: string }) {
 
   const updateActiveRect = () => {
     const activeLink = navRef.current?.querySelector(
-      `a[href="/${pathname.split("/")[2] ?? ""}"]`
+      `a[href="/${lng}/${pathname.split("/")[2] ?? ""}"]`
     );
 
     if (activeLink && navRef.current) {
@@ -92,17 +92,26 @@ export function Navbar({ lng }: { lng: string }) {
             ref={navRef}
             className="flex items-center space-x-6 text-sm font-medium relative"
           >
-            <NavItem href="/" isActive={pathname === "/"}>
+            <NavItem href={`/${lng}`} isActive={pathname === `/${lng}`}>
               {t("common.nav.home")}
             </NavItem>
-            <NavItem href="/blogs" isActive={pathname === "/blogs"}>
+            <NavItem
+              href={`/${lng}/blogs`}
+              isActive={pathname === `/${lng}/blogs`}
+            >
               {t("common.nav.blog")}
             </NavItem>
 
-            <NavItem href="/projects" isActive={pathname === "/projects"}>
+            <NavItem
+              href={`/${lng}/projects`}
+              isActive={pathname === `/${lng}/projects`}
+            >
               {t("common.nav.projects")}
             </NavItem>
-            <NavItem href="/about" isActive={pathname === "/about"}>
+            <NavItem
+              href={`/${lng}/about`}
+              isActive={pathname === `/${lng}/about`}
+            >
               {t("common.nav.about")}
             </NavItem>
             <Suspense>

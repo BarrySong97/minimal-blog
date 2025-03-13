@@ -4,7 +4,7 @@ import { useTranslation } from "@/app/(app)/i18n";
 import { generateBlogPosts } from "@/lib/blog-data";
 import { LayoutToggle } from "@/components/blogs/LayoutToggle";
 import { cn } from "@/lib/utils";
-import { prefetchQuery } from "@/lib/tanstack-server";
+import { prefetchQuery } from "@/components/tanstack/tanstack-server";
 import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
