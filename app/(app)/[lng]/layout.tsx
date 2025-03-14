@@ -6,6 +6,7 @@ import { Navbar } from "@/components/layout/Navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import TanstackProvider from "@/components/tanstack/TanstackProvider";
+import { PageLoading } from "@/components/layout/PageLoading";
 
 export async function generateMetadata({
   params,
@@ -35,6 +36,7 @@ export default async function RootLayout({
       <body
         className={`bg-background antialiased min-h-screen flex flex-col relative overflow-autp`}
       >
+        <PageLoading />
         <TanstackProvider>
           <NuqsAdapter>
             <Navbar lng={lng} />
