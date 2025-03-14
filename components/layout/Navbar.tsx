@@ -11,6 +11,8 @@ interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
   isActive?: boolean;
+  itemKey: string;
+  onItemClick: (key: string) => void;
 }
 
 function NavItem({
@@ -18,6 +20,8 @@ function NavItem({
   children,
   className,
   isActive,
+  itemKey,
+  onItemClick,
   ...props
 }: NavItemProps) {
   return (
@@ -29,6 +33,7 @@ function NavItem({
         isActive && "text-foreground",
         className
       )}
+      onClick={() => onItemClick(itemKey)}
       {...props}
     >
       {children}
@@ -39,16 +44,28 @@ function NavItem({
 export function Navbar({ lng }: { lng: string }) {
   const { t } = useTranslation(lng);
   const pathname = usePathname();
+  const [activeItem, setActiveItem] = useState<string | null>(null);
   const [activeItemRect, setActiveItemRect] = useState<{
     width: number;
     left: number;
   } | null>(null);
   const navRef = useRef<HTMLElement>(null);
 
-  const updateActiveRect = () => {
-    const activeLink = navRef.current?.querySelector(
-      `a[href="/${lng}/${pathname.split("/")[2] ?? ""}"]`
-    );
+  const updateActiveRect = (itemKey?: string) => {
+    // If itemKey is provided, use it; otherwise extract from pathname
+    const currentPath =
+      itemKey !== undefined ? itemKey : pathname.split("/")[2] || "";
+
+    // Set the active item
+    setActiveItem(currentPath);
+
+    // Find the active link element
+    let selector =
+      currentPath === ""
+        ? `a[href="/${lng}"]`
+        : `a[href="/${lng}/${currentPath}"]`;
+
+    const activeLink = navRef.current?.querySelector(selector);
 
     if (activeLink && navRef.current) {
       const textNode = activeLink.firstChild as Text;
@@ -63,7 +80,17 @@ export function Navbar({ lng }: { lng: string }) {
     }
   };
 
+  const handleItemClick = (key: string) => {
+    setActiveItem(key);
+    // Use setTimeout to ensure the DOM has updated before measuring
+    setTimeout(() => updateActiveRect(key), 0);
+  };
+
   useEffect(() => {
+    // Initialize active item based on current path
+    const currentPath = pathname.split("/")[2] || "";
+    setActiveItem(currentPath);
+
     // 等待下一帧以确保DOM完全更新
     requestAnimationFrame(() => {
       updateActiveRect();
@@ -71,18 +98,22 @@ export function Navbar({ lng }: { lng: string }) {
   }, []);
 
   useEffect(() => {
-    updateActiveRect();
+    // Update active item when pathname changes (for navigation not triggered by clicks)
+    const currentPath = pathname.split("/")[2] || "";
+    if (activeItem !== currentPath) {
+      updateActiveRect();
+    }
   }, [pathname]);
 
   useEffect(() => {
-    window.addEventListener("resize", updateActiveRect);
-    return () => window.removeEventListener("resize", updateActiveRect);
+    window.addEventListener("resize", () => updateActiveRect());
+    return () => window.removeEventListener("resize", () => updateActiveRect());
   }, []);
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ",
+        "sticky top-0 z-[99] w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ",
         "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy"
       )}
     >
@@ -92,25 +123,35 @@ export function Navbar({ lng }: { lng: string }) {
             ref={navRef}
             className="flex items-center space-x-6 text-sm font-medium relative"
           >
-            <NavItem href={`/${lng}`} isActive={pathname === `/${lng}`}>
+            <NavItem
+              href={`/${lng}`}
+              isActive={activeItem === ""}
+              itemKey=""
+              onItemClick={handleItemClick}
+            >
               {t("common.nav.home")}
             </NavItem>
             <NavItem
               href={`/${lng}/blogs`}
-              isActive={pathname === `/${lng}/blogs`}
+              isActive={activeItem === "blogs"}
+              itemKey="blogs"
+              onItemClick={handleItemClick}
             >
               {t("common.nav.blog")}
             </NavItem>
-
             <NavItem
               href={`/${lng}/projects`}
-              isActive={pathname === `/${lng}/projects`}
+              isActive={activeItem === "projects"}
+              itemKey="projects"
+              onItemClick={handleItemClick}
             >
               {t("common.nav.projects")}
             </NavItem>
             <NavItem
               href={`/${lng}/about`}
-              isActive={pathname === `/${lng}/about`}
+              isActive={activeItem === "about"}
+              itemKey="about"
+              onItemClick={handleItemClick}
             >
               {t("common.nav.about")}
             </NavItem>
