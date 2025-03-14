@@ -81,7 +81,7 @@ export default function Loading() {
           ))}
 
           {/* 花蕊装饰 */}
-          {Array.from({ length: 5 }).map((_, index) => (
+          {/* {Array.from({ length: 5 }).map((_, index) => (
             <motion.div
               key={`stamen-${index}`}
               className="absolute left-1/2 top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full bg-yellow-400"
@@ -96,15 +96,12 @@ export default function Loading() {
                 duration: 0.3,
               }}
             />
-          ))}
+          ))} */}
         </div>
 
         <motion.p
-          className="text-sm font-medium"
+          className="text-sm font-medium mt-8"
           style={{ color: "#ffb7c5" }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1, duration: 0.5 }}
         >
           加载中...
         </motion.p>

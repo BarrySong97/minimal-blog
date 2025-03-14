@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { useRef, useEffect, useState, Suspense } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { useTranslation } from "@/app/(app)/i18n/client";
+import { TimeWeather } from "./TimeWeather";
 
 interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -49,6 +50,7 @@ export function Navbar({ lng }: { lng: string }) {
     width: number;
     left: number;
   } | null>(null);
+  const [scrolled, setScrolled] = useState(false);
   const navRef = useRef<HTMLElement>(null);
 
   const updateActiveRect = (itemKey?: string) => {
@@ -106,19 +108,37 @@ export function Navbar({ lng }: { lng: string }) {
   }, [pathname]);
 
   useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 60) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
     window.addEventListener("resize", () => updateActiveRect());
-    return () => window.removeEventListener("resize", () => updateActiveRect());
+
+    // Initial check
+    handleScroll();
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", () => updateActiveRect());
+    };
   }, []);
 
   return (
     <header
       className={cn(
-        "sticky top-0 z-[99] w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90 ",
-        "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy"
+        "sticky top-0 z-[99] w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90",
+        "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy",
+        scrolled && "border-b border-border/40 shadow-sm"
       )}
     >
       <div className="mx-auto container px-5 sm:px-0">
-        <div className="flex h-14 items-center justify-end">
+        <div className="flex h-14 items-center justify-between">
+          <TimeWeather lng={lng} />
           <nav
             ref={navRef}
             className="flex items-center space-x-6 text-sm font-medium relative"

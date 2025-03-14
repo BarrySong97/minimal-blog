@@ -565,6 +565,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 export interface Home {
   id: number;
   name: string;
+  short_description?: string | null;
   description: string;
   avatar: number | Media;
   socialLinks: {
@@ -582,6 +583,7 @@ export interface Home {
  */
 export interface HomeSelect<T extends boolean = true> {
   name?: T;
+  short_description?: T;
   description?: T;
   avatar?: T;
   socialLinks?:

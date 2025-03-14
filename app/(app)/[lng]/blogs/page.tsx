@@ -1,10 +1,8 @@
 import { BlogList } from "@/components/blogs/BlogList";
 import { SectionHeader } from "@/components/ui/section-header";
 import { useTranslation } from "@/app/(app)/i18n";
-import { generateBlogPosts } from "@/lib/blog-data";
-import { LayoutToggle } from "@/components/blogs/LayoutToggle";
 import { cn } from "@/lib/utils";
-import { prefetchQuery } from "@/components/tanstack/tanstack-server";
+import { prefetchQueries } from "@/components/tanstack/tanstack-server";
 import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
@@ -16,10 +14,12 @@ export default async function Blogs({
 }) {
   const { lng } = await params;
   const { t } = await useTranslation(lng);
-  const state = await prefetchQuery({
-    queryKey: queryKeys.blogs.all,
-    queryFn: () => blogService.getBlogs(),
-  });
+  const state = await prefetchQueries([
+    {
+      queryKey: queryKeys.blogs.all,
+      queryFn: () => blogService.getBlogs(),
+    },
+  ]);
 
   return (
     <HydrationBoundary state={state}>
