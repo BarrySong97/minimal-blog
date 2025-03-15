@@ -58,7 +58,10 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
 
   return (
     <div
-      className={cn("aspect-[4/3] overflow-hidden bg-muted", className)}
+      className={cn(
+        "aspect-[4/3] overflow-hidden bg-muted rounded-lg",
+        className
+      )}
       {...props}
     >
       {project.video &&
@@ -70,11 +73,11 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
           muted
           loop
           playsInline
-          className="object-cover w-full h-full "
+          className="object-cover w-full h-full"
         />
       ) : (
         <Image
-          src={coverUrl}
+          src={coverUrl || "/placeholder-project.jpg"}
           alt={project.title}
           width={coverWidth || 800}
           height={coverHeight || 600}

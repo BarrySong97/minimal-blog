@@ -32,4 +32,11 @@ export const projectService = {
       url: `${endpoints.projects}/${id}`,
     });
   },
+
+  getHomeProjects: () => {
+    return __request<ProjectsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.projects}?sort=order&limit=2`,
+    });
+  },
 };

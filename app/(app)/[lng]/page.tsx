@@ -36,6 +36,10 @@ export default async function Home({
       queryKey: queryKeys.skillCategories.all,
       queryFn: skillService.getSkillCategories,
     },
+    {
+      queryKey: queryKeys.projects.home,
+      queryFn: projectService.getHomeProjects,
+    },
   ]);
   return (
     <HydrationBoundary state={dehydratedState}>

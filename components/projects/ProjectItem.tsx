@@ -42,6 +42,7 @@ const ProjectItem: FC<ProjectItemProps> = ({
         "group relative block overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg",
         className
       )}
+      target="_blank"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       {...props}

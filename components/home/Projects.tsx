@@ -2,11 +2,11 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { IcSharpArrowOutward } from "./icon";
-interface Project {
-  title: string;
-  video: string;
-  href: string;
-}
+import { useQuery } from "@tanstack/react-query";
+import { queryKeys } from "@/service/config";
+import { projectService } from "@/service/projects";
+import ProjectItem from "../projects/ProjectItem";
+import { Project } from "@/payload-types";
 
 const container = {
   hidden: { opacity: 0 },
@@ -35,20 +35,10 @@ const item = {
 };
 
 export function Projects() {
-  const projects: Project[] = [
-    {
-      title: "Motion Primitives Pro",
-      video:
-        "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/newProfileItem/d898be8a-7037-4c71-af0c-8997239b050d.mp4?_a=DATAdtAAZAA0",
-      href: "#",
-    },
-    {
-      title: "Motion Primitives",
-      video:
-        "https://res.cloudinary.com/read-cv/video/upload/t_v_b/v1/1/profileItems/W2azTw5BVbMXfj7F53G92hMVIn32/XSfIvT7BUWbPRXhrbLed/ee6871c9-8400-49d2-8be9-e32675eabf7e.mp4?_a=DATAdtAAZAA0",
-      href: "#",
-    },
-  ];
+  const { data: projects } = useQuery({
+    queryKey: queryKeys.projects.home,
+    queryFn: projectService.getHomeProjects,
+  });
 
   return (
     <section className="space-y-6">
@@ -76,29 +66,14 @@ export function Projects() {
         animate="show"
         className="grid md:grid-cols-2 gap-8"
       >
-        {projects.map((project, index) => (
-          <motion.a
-            key={project.title}
-            href={project.href}
-            className="group block"
-            variants={item}
-          >
-            <figure className="space-y-3">
-              <div className="aspect-[4/3] overflow-hidden rounded-lg bg-muted">
-                {/* <video
-                  src={project.video}
-                  muted
-                  autoPlay
-                  loop
-                  playsInline
-                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-500"
-                /> */}
-              </div>
-              <figcaption className="font-medium text-lg">
-                {project.title}
-              </figcaption>
-            </figure>
-          </motion.a>
+        {projects?.docs.map((project) => (
+          <motion.div key={project.title} variants={item} className="block">
+            <ProjectItem
+              project={project as unknown as Project}
+              href={project.href}
+              className="rounded-lg"
+            />
+          </motion.div>
         ))}
       </motion.div>
     </section>
