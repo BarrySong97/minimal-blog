@@ -10,11 +10,11 @@ import Experience from "@/app/(payload)/collections/experience";
 import Home from "@/app/(payload)/collections/home";
 import Skills from "./app/(payload)/collections/skills";
 import SkillCategories from "./app/(payload)/collections/skill-categories";
-
+import About from "./app/(payload)/collections/about";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
-  globals: [Home],
+  globals: [Home, About],
   // Define and configure your collections in this array
   collections: [Blog, Project, Experience, Media, Skills, SkillCategories],
   localization: {

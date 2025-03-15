@@ -16,6 +16,11 @@ const Projects: CollectionConfig = {
       required: true,
     },
     {
+      name: "slug",
+      type: "text",
+      required: true,
+    },
+    {
       name: "github",
       type: "text",
       required: false,
@@ -57,6 +62,12 @@ const Projects: CollectionConfig = {
       admin: {
         description: "Order in which the project should appear",
       },
+    },
+    {
+      name: "status",
+      type: "select",
+      options: ["working", "running", "archived"],
+      defaultValue: "working",
     },
   ],
   timestamps: true,

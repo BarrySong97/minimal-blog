@@ -19,7 +19,7 @@ export type ProjectsResponse = {
 export const projectService = {
   // 获取项目列表
   getProjects: () => {
-    return __request(OpenAPI, {
+    return __request<ProjectsResponse>(OpenAPI, {
       method: "GET",
       url: `${endpoints.projects}?sort=order`,
     });

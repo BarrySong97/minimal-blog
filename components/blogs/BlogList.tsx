@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import Image from "next/image";
 import { MaterialSymbolsArrowForwardRounded } from "./icon";
-import { ViewHover } from "./ViewHover";
+import { ViewHover } from "../common/ViewHover";
 import { useRef, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";

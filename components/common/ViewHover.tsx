@@ -1,8 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Icon } from "@iconify/react";
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { useMouse } from "ahooks";
 import { IcSharpArrowOutward } from "../home/icon";
 

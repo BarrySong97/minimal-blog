@@ -95,9 +95,11 @@ export interface Config {
   };
   globals: {
     home: Home;
+    about: About;
   };
   globalsSelect: {
     home: HomeSelect<false> | HomeSelect<true>;
+    about: AboutSelect<false> | AboutSelect<true>;
   };
   locale: 'en' | 'zh' | 'ja' | 'ko';
   user: User & {
@@ -224,6 +226,7 @@ export interface Media {
 export interface Project {
   id: number;
   title: string;
+  slug: string;
   github?: string | null;
   cover?: (number | null) | Media;
   video?: (number | null) | Media;
@@ -236,6 +239,7 @@ export interface Project {
    * Order in which the project should appear
    */
   order?: number | null;
+  status?: ('working' | 'running' | 'archived') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -413,12 +417,14 @@ export interface BlogsSelect<T extends boolean = true> {
  */
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
+  slug?: T;
   github?: T;
   cover?: T;
   video?: T;
   description?: T;
   href?: T;
   order?: T;
+  status?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -579,6 +585,30 @@ export interface Home {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about".
+ */
+export interface About {
+  id: number;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "home_select".
  */
 export interface HomeSelect<T extends boolean = true> {
@@ -594,6 +624,16 @@ export interface HomeSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "about_select".
+ */
+export interface AboutSelect<T extends boolean = true> {
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;
