@@ -4,7 +4,7 @@ import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslation } from "next-i18next";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
 import { CarbonLanguage } from "./icon";
 
@@ -67,6 +67,7 @@ export function MobileLanguageSelector({
   const { t } = useTranslation("common");
   const searchParams = useSearchParams();
   const pathname = usePathname();
+  const menuRef = useRef<HTMLDivElement>(null);
 
   // Get current locale from pathname
   const currentLocale = pathname.split("/")[1] || "en";
@@ -83,8 +84,27 @@ export function MobileLanguageSelector({
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
 
+  // Handle click outside to close the menu
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsOpen(false);
+      }
+    }
+
+    // Add event listener when menu is open
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
+
   return (
-    <div className={cn("block sm:hidden relative", className)}>
+    <div className={cn("block sm:hidden relative", className)} ref={menuRef}>
       {/* Mobile Language Button */}
       <button
         className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-foreground flex items-center gap-2"

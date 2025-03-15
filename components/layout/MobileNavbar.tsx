@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "framer-motion";
-import { Suspense } from "react";
+import { Suspense, useRef, useEffect } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { Icon } from "@iconify/react";
 
@@ -57,8 +57,26 @@ export function MobileNavbar({
   onItemClick,
   t,
 }: MobileNavbarProps) {
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        onClose();
+      }
+    }
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
   return (
-    <div className="block sm:hidden">
+    <div className="block sm:hidden" ref={menuRef}>
       {/* Mobile Menu Button */}
       <button
         className="p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-background focus:ring-foreground flex"

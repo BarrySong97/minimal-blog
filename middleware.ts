@@ -35,7 +35,6 @@ export function middleware(req: NextRequest) {
     !req.nextUrl.pathname.startsWith("/_next") &&
     !/\.(png|jpg|jpeg|gif|svg)$/.test(req.nextUrl.pathname)
   ) {
-    console.log(req.nextUrl.pathname);
     return NextResponse.redirect(
       new URL(`/${lng}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url)
     );

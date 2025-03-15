@@ -213,11 +213,7 @@ const MobileToc: FC<MobileTocProps> = ({ headings, className }) => {
   const strokeWidth = 2;
   const radius = (circleSize - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
-  console.log(
-    scrollProgress,
-    circumference,
-    circumference - (scrollProgress / 100) * circumference
-  );
+
   return (
     <>
       {/* Floating TOC button with circular progress */}
