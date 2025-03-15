@@ -21,7 +21,6 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   // Check if screen width is at least 1512px
   useEffect(() => {
-    console.log(window.innerWidth);
     if (typeof window === "undefined") return;
     setIsLargeScreen(window.innerWidth >= 1512);
   }, []);

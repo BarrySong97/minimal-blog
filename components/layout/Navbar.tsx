@@ -9,6 +9,7 @@ import { useTranslation } from "@/app/(app)/i18n/client";
 import { TimeWeather } from "./TimeWeather";
 import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
+import { MobileLanguageSelector } from "./MobileLanguageSelector";
 
 interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -252,14 +253,17 @@ export function Navbar({ lng }: { lng: string }) {
           </nav>
 
           {/* Mobile Navigation */}
-          <MobileNavbar
-            lng={lng}
-            isOpen={mobileMenuOpen}
-            onClose={toggleMobileMenu}
-            activeItem={activeItem}
-            onItemClick={handleItemClick}
-            t={t}
-          />
+          <div className="flex items-center gap-2  sm:hidden">
+            <MobileLanguageSelector />
+            <MobileNavbar
+              lng={lng}
+              isOpen={mobileMenuOpen}
+              onClose={toggleMobileMenu}
+              activeItem={activeItem}
+              onItemClick={handleItemClick}
+              t={t}
+            />
+          </div>
         </div>
       </div>
     </header>

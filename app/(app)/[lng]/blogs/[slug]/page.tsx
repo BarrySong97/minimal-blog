@@ -1,6 +1,7 @@
 import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
 import Toc from "@/components/blogs/detail/Toc";
+import MobileToc from "@/components/blogs/detail/MobileToc";
 import {
   getHeadings,
   HeadingNode,
@@ -48,6 +49,9 @@ const BlogDetail: FC<Props> = async ({ params }) => {
 
           <div className="hidden lg:block">
             <Toc headings={headings} />
+          </div>
+          <div className="block lg:hidden absolute">
+            <MobileToc headings={headings} />
           </div>
         </div>
       </div>
