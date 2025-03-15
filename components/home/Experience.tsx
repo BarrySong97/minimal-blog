@@ -4,7 +4,11 @@ import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { Media } from "@/payload-types";
-import { MaterialSymbolsLightPinDrop, MaterialSymbolsPerson } from "./icon";
+import {
+  IcSharpArrowOutward,
+  MaterialSymbolsLightPinDrop,
+  MaterialSymbolsPerson,
+} from "./icon";
 import { motion } from "framer-motion";
 
 const container = {
@@ -68,7 +72,9 @@ export function Experience() {
                   />
                 )}
 
-                <span>{exp.company}</span>
+                <div className=" min-[1025px]:max-w-full min-[1024px]:max-w-[160px] truncate">
+                  {exp.company}
+                </div>
               </a>
               <span className="text-sm text-muted-foreground">
                 {exp.period}

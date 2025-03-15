@@ -4,7 +4,6 @@ import Image from "next/image";
 import { SkillsPopover } from "./SkillsPopover";
 import { cn } from "@/lib/utils";
 import React from "react";
-import { useTranslation } from "@/app/(app)/i18n/client";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
@@ -31,21 +30,47 @@ export function Profile() {
     "fa6-brands:square-github": <Fa6BrandsSquareGithub />,
   };
   return (
-    <section className="flex items-start gap-12">
-      <Image
-        src={(home?.avatar as Media)?.url ?? ""}
-        alt="Profile picture"
-        width={96}
-        height={96}
-        priority
-        className={cn(
-          "object-cover w-24 h-24 rounded-lg",
-          "motion-scale-in-[0.5] motion-opacity-in-[0%] motion-ease-spring-smooth"
-        )}
-      />
+    <section className="flex flex-col sm:flex-row items-start gap-0 sm:gap-12">
+      <div className="flex items-start gap-4">
+        <Image
+          src={(home?.avatar as Media)?.url ?? ""}
+          alt="Profile picture"
+          width={96}
+          height={96}
+          priority
+          className={cn(
+            "object-cover w-24 h-24 rounded-lg",
+            "motion-scale-in-[0.5] motion-opacity-in-[0%] motion-ease-spring-smooth"
+          )}
+        />
+        <div className=" flex flex-col -mt-1 h-[96px] justify-between  sm:hidden">
+          <div>
+            <h1 className="mb-1 text-2xl font-medium">{home?.name}</h1>
+            <p className="text-sm text-muted-foreground">
+              {home?.short_description}
+            </p>
+          </div>
 
-      <div className="space-y-6">
-        <div className="space-y-4">
+          <div className="flex items-center gap-2 mt-1">
+            {home?.socialLinks.map((social) => (
+              <motion.a
+                key={social.name}
+                href={social.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-pointer"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {iconMap[social.icon as keyof typeof iconMap]}
+              </motion.a>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4 sm:space-y-6">
+        <div className="space-y-4 hidden sm:block">
           <h1 className="text-4xl font-medium">{home?.name}</h1>
 
           <SkillsPopover />
@@ -55,7 +80,7 @@ export function Profile() {
           {home?.description}
         </div>
 
-        <div className="flex items-center gap-4 mt-2">
+        <div className=" items-center gap-4 mt-2 hidden sm:flex">
           {home?.socialLinks.map((social) => (
             <motion.a
               key={social.name}

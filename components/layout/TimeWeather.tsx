@@ -4,6 +4,7 @@ import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useParams } from "next/navigation";
+import Link from "next/link";
 
 interface TimeWeatherProps extends React.HTMLAttributes<HTMLDivElement> {
   lng: string;
@@ -47,17 +48,26 @@ export function TimeWeather({ lng, className, ...props }: TimeWeatherProps) {
     return () => clearInterval(interval);
   }, [lng]);
 
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  // Check if screen width is at least 1512px
+  useEffect(() => {
+    console.log(window.innerWidth);
+    if (typeof window === "undefined") return;
+    setIsLargeScreen(window.innerWidth >= 1512);
+  }, []);
   return (
     <motion.div
       className={cn("flex items-center gap-2  text-foreground/80", className)}
       style={{
-        x: slug ? x : "0",
+        x: slug && isLargeScreen ? x : "0",
         transformOrigin: "left center",
       }}
     >
-      <div className="flex items-center font-bold gap-1">4real</div>
-      <div className="w-px h-4 bg-foreground/20" />
-      <div className="flex text-sm items-center gap-1">
+      <Link href={`/${lng}`} className="flex items-center font-bold gap-1">
+        4real
+      </Link>
+      <div className="w-px h-4 bg-foreground/20 hidden sm:block" />
+      <div className=" text-sm items-center gap-1 hidden sm:flex">
         <span>{currentTime || "--:--"}</span>
       </div>
     </motion.div>

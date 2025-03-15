@@ -43,9 +43,9 @@ export default async function Home({
   ]);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="space-y-16">
+      <div className="space-y-12 sm:space-y-16">
         <Profile />
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-12 sm:gap-24">
           <Projects />
           <Experience />
         </div>

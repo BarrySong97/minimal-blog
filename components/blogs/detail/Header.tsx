@@ -2,10 +2,12 @@
 
 import { Blog } from "@/payload-types";
 import { useTranslation } from "@/app/(app)/i18n/client";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import { Icon } from "@iconify/react";
 
 export interface HeaderProps {
   blog: Blog;
@@ -16,43 +18,107 @@ export interface HeaderProps {
 const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   const { t } = useTranslation(lng);
   const { scrollY } = useScroll();
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  // Check if screen width is at least 1512px
+  useEffect(() => {
+    console.log(window.innerWidth);
+    if (typeof window === "undefined") return;
+    setIsLargeScreen(window.innerWidth >= 1512);
+  }, []);
 
-  // Transform values based on scroll position
+  // Transform values based on scroll position (only when screen is large enough)
   const titleSize = useTransform(scrollY, [0, 100], [1, 0.6]);
-  const infoOpacity = useTransform(scrollY, [0, 60], [1, 0]); // Gradually fade out
-  const infoHeight = useTransform(scrollY, [0, 60], ["1.5rem", "0rem"]); // Shrink height as it fades
-  const infoMargin = useTransform(scrollY, [0, 60], ["0.25rem", "0rem"]); // Remove margin as it fades
+  const infoOpacity = useTransform(scrollY, [0, 60], [1, 0]);
+  const infoHeight = useTransform(scrollY, [0, 60], ["1.5rem", "0rem"]);
+  const infoMargin = useTransform(scrollY, [0, 60], ["0.25rem", "0rem"]);
+  const itemsAlignment = useTransform(scrollY, [0, 60], ["flex-end", "center"]);
+  const maxWidth = useTransform(scrollY, [0, 60], ["600px", "800px"]);
 
   return (
-    <div className={cn("sticky top-0  z-[100] w-full", className)}>
-      <div className="mx-auto container px-5 sm:px-0">
-        <div className="flex h-14 items-center bg-transparent">
-          <div className="flex flex-col justify-center">
-            <motion.div
-              className="text-3xl font-semibold bg-transparent"
-              style={{
-                scale: titleSize,
-                transformOrigin: "left center",
-              }}
-            >
-              {blog.title}
-            </motion.div>
+    <div
+      className={cn(
+        "  w-full mb-12",
+        className,
 
-            <motion.div
-              className="text-xs text-foreground/60 font-medium overflow-hidden"
-              style={{
-                opacity: infoOpacity,
-                height: infoHeight,
+        isLargeScreen ? "sticky top-0 z-[100]" : ""
+      )}
+    >
+      <div className="mx-auto container ">
+        {isLargeScreen ? (
+          <motion.div
+            className="flex h-14 bg-transparent justify-between "
+            style={{
+              alignItems: itemsAlignment,
+            }}
+          >
+            <div className="flex flex-col justify-center">
+              <motion.div
+                className="text-3xl font-semibold bg-transparent mb-1"
+                style={{
+                  scale: titleSize,
+                  transformOrigin: "left center",
+                  maxWidth: maxWidth,
+                }}
+              >
+                {blog.title}
+              </motion.div>
 
-                marginTop: infoMargin,
-                transformOrigin: "left top",
-              }}
+              <motion.div
+                className="text-xs text-foreground/60 font-medium overflow-hidden"
+                style={{
+                  opacity: infoOpacity,
+                  height: infoHeight,
+                  marginTop: infoMargin,
+                  transformOrigin: "left top",
+                }}
+              >
+                {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
+                {t("common.blog.readingTime")}
+              </motion.div>
+            </div>
+
+            <Link
+              href={`/${lng}/blogs`}
+              className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
             >
-              {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
-              {t("common.blog.readingTime")}
-            </motion.div>
+              <Icon icon="lucide:arrow-left" className="w-4 h-4" />
+              <span>返回列表</span>
+            </Link>
+          </motion.div>
+        ) : (
+          <div className="flex justify-between sm:items-end sm:flex-row flex-col-reverse gap-4 sm:gap-0 items-start">
+            <div className="flex flex-col justify-center">
+              <div
+                className="text-3xl font-semibold bg-transparent mb-1"
+                style={{
+                  maxWidth: "600px",
+                }}
+              >
+                {blog.title}
+              </div>
+
+              <div
+                className="text-xs text-foreground/60 font-medium overflow-hidden"
+                style={{
+                  height: "1.5rem",
+                  marginTop: "0.25rem",
+                  transformOrigin: "left top",
+                }}
+              >
+                {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
+                {t("common.blog.readingTime")}
+              </div>
+            </div>
+
+            <Link
+              href={`/${lng}/blogs`}
+              className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
+            >
+              <Icon icon="lucide:arrow-left" className="w-4 h-4" />
+              <span>返回列表</span>
+            </Link>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

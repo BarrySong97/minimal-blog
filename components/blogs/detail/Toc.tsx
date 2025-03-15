@@ -16,7 +16,6 @@ export interface TocProps {
 }
 
 const Toc: FC<TocProps> = ({ headings, className }) => {
-  const { lng } = useParams();
   const pathname = usePathname();
   const [activeId, setActiveId] = useState<string>("");
   const [hoveredId, setHoveredId] = useState<string>("");
@@ -163,35 +162,41 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
           }}
         />
         <nav ref={navRef} className="relative">
-          {headings.map((heading, index) => {
-            const isActive = heading.anchor === currentId;
-            return (
-              <a
-                key={index}
-                ref={(el) => {
-                  if (el) headingRefs.current.set(heading.anchor, el);
-                }}
-                href={`#${heading.anchor}`}
-                onClick={(e) => handleClick(e, heading.anchor)}
-                onMouseEnter={() => setHoveredId(heading.anchor)}
-                onMouseLeave={() => {
-                  setHoveredId("");
-                }}
-                className={cn(
-                  "block text-sm transition-colors duration-200 relative py-1",
-                  {
-                    "pl-0": heading.level === 1,
-                    "pl-4": heading.level === 2,
-                    "pl-8": heading.level === 3,
-                    "text-gray-900 font-medium": isActive,
-                    "text-gray-500": !isActive,
-                  }
-                )}
-              >
-                {heading.text}
-              </a>
-            );
-          })}
+          {headings?.length ? (
+            headings.map((heading, index) => {
+              const isActive = heading.anchor === currentId;
+              return (
+                <a
+                  key={index}
+                  ref={(el) => {
+                    if (el) headingRefs.current.set(heading.anchor, el);
+                  }}
+                  href={`#${heading.anchor}`}
+                  onClick={(e) => handleClick(e, heading.anchor)}
+                  onMouseEnter={() => setHoveredId(heading.anchor)}
+                  onMouseLeave={() => {
+                    setHoveredId("");
+                  }}
+                  className={cn(
+                    "block text-sm transition-colors duration-200 relative py-1",
+                    {
+                      "pl-0": heading.level === 1,
+                      "pl-4": heading.level === 2,
+                      "pl-8": heading.level === 3,
+                      "text-gray-900 font-medium": isActive,
+                      "text-gray-500": !isActive,
+                    }
+                  )}
+                >
+                  {heading.text}
+                </a>
+              );
+            })
+          ) : (
+            <div className="block text-gray-500 text-sm transition-colors duration-200 relative py-1">
+              暂无目录
+            </div>
+          )}
         </nav>
       </div>
 

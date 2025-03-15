@@ -7,6 +7,8 @@ import { useRef, useEffect, useState, Suspense } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { useTranslation } from "@/app/(app)/i18n/client";
 import { TimeWeather } from "./TimeWeather";
+import { MobileNavbar } from "./MobileNavbar";
+import { useResponsive } from "ahooks";
 
 interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
@@ -51,7 +53,12 @@ export function Navbar({ lng }: { lng: string }) {
     left: number;
   } | null>(null);
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+
+  // 使用 useResponsive 替代手动检测
+  const responsive = useResponsive();
+  const isMobile = !responsive?.md;
 
   const updateActiveRect = (itemKey?: string) => {
     // If itemKey is provided, use it; otherwise extract from pathname
@@ -61,31 +68,40 @@ export function Navbar({ lng }: { lng: string }) {
     // Set the active item
     setActiveItem(currentPath);
 
-    // Find the active link element
-    let selector =
-      currentPath === ""
-        ? `a[href="/${lng}"]`
-        : `a[href="/${lng}/${currentPath}"]`;
+    // Only update the indicator if not in mobile view
+    if (!isMobile && navRef.current) {
+      // Find the active link element
+      let selector =
+        currentPath === ""
+          ? `a[href="/${lng}"]`
+          : `a[href="/${lng}/${currentPath}"]`;
 
-    const activeLink = navRef.current?.querySelector(selector);
+      const activeLink = navRef.current?.querySelector(selector);
 
-    if (activeLink && navRef.current) {
-      const textNode = activeLink.firstChild as Text;
-      const range = document.createRange();
-      range.selectNodeContents(textNode);
-      const textRect = range.getBoundingClientRect();
+      if (activeLink && navRef.current) {
+        const textNode = activeLink.firstChild as Text;
+        const range = document.createRange();
+        range.selectNodeContents(textNode);
+        const textRect = range.getBoundingClientRect();
 
-      setActiveItemRect({
-        width: textRect.width,
-        left: (activeLink as HTMLElement).offsetLeft,
-      });
+        setActiveItemRect({
+          width: textRect.width,
+          left: (activeLink as HTMLElement).offsetLeft,
+        });
+      }
     }
   };
 
   const handleItemClick = (key: string) => {
     setActiveItem(key);
+    // Close mobile menu when an item is clicked
+    setMobileMenuOpen(false);
     // Use setTimeout to ensure the DOM has updated before measuring
     setTimeout(() => updateActiveRect(key), 0);
+  };
+
+  const toggleMobileMenu = () => {
+    setMobileMenuOpen(!mobileMenuOpen);
   };
 
   useEffect(() => {
@@ -105,6 +121,8 @@ export function Navbar({ lng }: { lng: string }) {
     if (activeItem !== currentPath) {
       updateActiveRect();
     }
+    // Close mobile menu when navigating
+    setMobileMenuOpen(false);
   }, [pathname]);
 
   useEffect(() => {
@@ -117,16 +135,45 @@ export function Navbar({ lng }: { lng: string }) {
     };
 
     window.addEventListener("scroll", handleScroll);
-    window.addEventListener("resize", () => updateActiveRect());
 
     // Initial check
     handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", () => updateActiveRect());
     };
   }, []);
+
+  // 当响应式状态变化时更新指示器
+  useEffect(() => {
+    updateActiveRect();
+  }, [responsive]);
+
+  // Close mobile menu when escape key is pressed
+  useEffect(() => {
+    const handleEscKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("keydown", handleEscKey);
+    return () => {
+      window.removeEventListener("keydown", handleEscKey);
+    };
+  }, [mobileMenuOpen]);
+
+  // Prevent scrolling when mobile menu is open
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   return (
     <header
@@ -136,12 +183,16 @@ export function Navbar({ lng }: { lng: string }) {
         scrolled && "border-b border-border/40 shadow-sm"
       )}
     >
-      <div className="mx-auto container px-5 sm:px-0">
+      <div className="mx-auto container px-6 2xl:px-0">
         <div className="flex h-14 items-center justify-between">
           <TimeWeather lng={lng} />
+
+          {/* Desktop Navigation */}
           <nav
             ref={navRef}
-            className="flex items-center space-x-6 text-sm font-medium relative"
+            className={cn(
+              "items-center space-x-6 text-sm font-medium relative hidden sm:flex"
+            )}
           >
             <NavItem
               href={`/${lng}`}
@@ -199,6 +250,16 @@ export function Navbar({ lng }: { lng: string }) {
               />
             )}
           </nav>
+
+          {/* Mobile Navigation */}
+          <MobileNavbar
+            lng={lng}
+            isOpen={mobileMenuOpen}
+            onClose={toggleMobileMenu}
+            activeItem={activeItem}
+            onItemClick={handleItemClick}
+            t={t}
+          />
         </div>
       </div>
     </header>

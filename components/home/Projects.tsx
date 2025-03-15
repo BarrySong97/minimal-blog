@@ -7,6 +7,8 @@ import { queryKeys } from "@/service/config";
 import { projectService } from "@/service/projects";
 import ProjectItem from "../projects/ProjectItem";
 import { Project } from "@/payload-types";
+import { useState } from "react";
+import { ViewHover } from "../common/ViewHover";
 
 const container = {
   hidden: { opacity: 0 },
@@ -40,6 +42,28 @@ export function Projects() {
     queryFn: projectService.getHomeProjects,
   });
 
+  // 添加状态管理
+  const [hoverId, setHoverId] = useState<number | null>(null);
+  const [hoverType, setHoverType] = useState<"default" | "github">("default");
+
+  // 鼠标事件处理函数
+  const handleMouseEnter = (id: number) => {
+    setHoverId(id);
+    setHoverType("default");
+  };
+
+  const handleMouseLeave = () => {
+    setHoverId(null);
+  };
+
+  const handleGithubHover = () => {
+    setHoverType("github");
+  };
+
+  const handleGithubLeave = () => {
+    setHoverType("default");
+  };
+
   return (
     <section className="space-y-6">
       <motion.h2
@@ -67,11 +91,24 @@ export function Projects() {
         className="grid md:grid-cols-2 gap-8"
       >
         {projects?.docs.map((project) => (
-          <motion.div key={project.title} variants={item} className="block">
+          <motion.div
+            key={project.title}
+            variants={item}
+            className="block relative"
+          >
             <ProjectItem
               project={project as unknown as Project}
               href={project.href}
               className="rounded-lg"
+              onMouseEnter={() => handleMouseEnter(project.id)}
+              onMouseLeave={handleMouseLeave}
+              onGithubHover={handleGithubHover}
+              onGithubLeave={handleGithubLeave}
+            />
+            <ViewHover
+              isHover={hoverId === project.id}
+              trackMouse
+              text={hoverType === "github" ? "Go to GitHub" : "Read More"}
             />
           </motion.div>
         ))}

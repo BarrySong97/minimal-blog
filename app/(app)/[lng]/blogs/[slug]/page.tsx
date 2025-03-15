@@ -46,11 +46,9 @@ const BlogDetail: FC<Props> = async ({ params }) => {
             />
           </div>
 
-          {headings.length > 0 && (
-            <div className="hidden lg:block">
-              <Toc headings={headings} />
-            </div>
-          )}
+          <div className="hidden lg:block">
+            <Toc headings={headings} />
+          </div>
         </div>
       </div>
     </HydrationBoundary>

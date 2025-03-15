@@ -1,7 +1,7 @@
 "use client";
 
 import { Media, Project } from "@/payload-types";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 
@@ -18,19 +18,45 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
   ...props
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [isVideoReady, setIsVideoReady] = useState(false);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // 使用useEffect监听isHovering状态变化
   useEffect(() => {
-    if (videoRef.current) {
-      if (isHovering) {
-        videoRef.current.play().catch((error) => {
-          console.error("Error playing video:", error);
-        });
-      } else {
-        videoRef.current.pause();
-      }
+    // Clear any existing timeout to prevent race conditions
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
-  }, [isHovering]);
+
+    if (!videoRef.current || !isVideoReady) return;
+
+    if (isHovering) {
+      // Add a small delay before playing to avoid rapid play/pause cycles
+      timeoutRef.current = setTimeout(() => {
+        if (videoRef.current && isHovering) {
+          videoRef.current.play().catch((error) => {
+            console.error("Error playing video:", error);
+          });
+        }
+      }, 50);
+    } else {
+      videoRef.current.pause();
+    }
+
+    // Cleanup function
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [isHovering, isVideoReady]);
+
+  // Handle video load event
+  const handleVideoLoaded = () => {
+    setIsVideoReady(true);
+  };
 
   // Helper function to safely get media URL
   const getMediaUrl = (media: (number | null | Media) | undefined): string => {
@@ -74,6 +100,8 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
           loop
           playsInline
           className="object-cover w-full h-full"
+          onLoadedData={handleVideoLoaded}
+          preload="metadata"
         />
       ) : (
         <Image
