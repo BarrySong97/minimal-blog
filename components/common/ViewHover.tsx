@@ -26,7 +26,7 @@ export function ViewHover({
       {isHover && (
         <motion.div
           ref={containerRef}
-          className="absolute inset-0 z-[200] pointer-events-none"
+          className="absolute inset-0 z-[200] pointer-events-none hidden sm:block"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
         >
