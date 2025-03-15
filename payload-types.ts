@@ -72,6 +72,7 @@ export interface Config {
     media: Media;
     skills: Skill;
     'skill-categories': SkillCategory;
+    photos: Photo;
     users: User;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -85,6 +86,7 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
     'skill-categories': SkillCategoriesSelect<false> | SkillCategoriesSelect<true>;
+    photos: PhotosSelect<false> | PhotosSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -297,6 +299,19 @@ export interface SkillCategory {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos".
+ */
+export interface Photo {
+  id: number;
+  title: string;
+  image: number | Media;
+  excerpt: string;
+  date: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "users".
  */
 export interface User {
@@ -342,6 +357,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'skill-categories';
         value: number | SkillCategory;
+      } | null)
+    | ({
+        relationTo: 'photos';
+        value: number | Photo;
       } | null)
     | ({
         relationTo: 'users';
@@ -514,6 +533,18 @@ export interface SkillsSelect<T extends boolean = true> {
 export interface SkillCategoriesSelect<T extends boolean = true> {
   name?: T;
   order?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "photos_select".
+ */
+export interface PhotosSelect<T extends boolean = true> {
+  title?: T;
+  image?: T;
+  excerpt?: T;
+  date?: T;
   updatedAt?: T;
   createdAt?: T;
 }

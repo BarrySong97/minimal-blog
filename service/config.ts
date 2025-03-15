@@ -22,6 +22,8 @@ export const endpoints = {
   projects: `/projects`,
   skills: `/skills`,
   skillCategories: `/skill-categories`,
+  about: `/globals/about`,
+  photos: `/photos`,
 } as const;
 
 // Query Keys Configuration
@@ -48,6 +50,10 @@ export const queryKeys = {
   skillCategories: {
     all: ["skillCategories"] as const,
     detail: (id: number) => [...queryKeys.skillCategories.all, id] as const,
+  },
+  about: ["about"] as const,
+  photos: {
+    all: ["photos"] as const,
   },
 } as const;
 

@@ -11,6 +11,42 @@ import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
 import { MobileLanguageSelector } from "./MobileLanguageSelector";
 
+// Define a type for navigation items
+interface NavItem {
+  key: string;
+  translationKey: string;
+  href: (lng: string) => string;
+}
+
+// Create a navigation items array
+const navItems: NavItem[] = [
+  {
+    key: "",
+    translationKey: "common.nav.home",
+    href: (lng) => `/${lng}`,
+  },
+  {
+    key: "blogs",
+    translationKey: "common.nav.blog",
+    href: (lng) => `/${lng}/blogs`,
+  },
+  {
+    key: "photos",
+    translationKey: "common.nav.photos",
+    href: (lng) => `/${lng}/photo`,
+  },
+  {
+    key: "projects",
+    translationKey: "common.nav.projects",
+    href: (lng) => `/${lng}/projects`,
+  },
+  {
+    key: "about",
+    translationKey: "common.nav.about",
+    href: (lng) => `/${lng}/about`,
+  },
+];
+
 interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
@@ -195,38 +231,17 @@ export function Navbar({ lng }: { lng: string }) {
               "items-center space-x-6 text-sm font-medium relative hidden sm:flex"
             )}
           >
-            <NavItem
-              href={`/${lng}`}
-              isActive={activeItem === ""}
-              itemKey=""
-              onItemClick={handleItemClick}
-            >
-              {t("common.nav.home")}
-            </NavItem>
-            <NavItem
-              href={`/${lng}/blogs`}
-              isActive={activeItem === "blogs"}
-              itemKey="blogs"
-              onItemClick={handleItemClick}
-            >
-              {t("common.nav.blog")}
-            </NavItem>
-            <NavItem
-              href={`/${lng}/projects`}
-              isActive={activeItem === "projects"}
-              itemKey="projects"
-              onItemClick={handleItemClick}
-            >
-              {t("common.nav.projects")}
-            </NavItem>
-            <NavItem
-              href={`/${lng}/about`}
-              isActive={activeItem === "about"}
-              itemKey="about"
-              onItemClick={handleItemClick}
-            >
-              {t("common.nav.about")}
-            </NavItem>
+            {navItems.map((item) => (
+              <NavItem
+                key={item.key}
+                href={item.href(lng)}
+                isActive={activeItem === item.key}
+                itemKey={item.key}
+                onItemClick={handleItemClick}
+              >
+                {t(item.translationKey)}
+              </NavItem>
+            ))}
             <Suspense>
               <LanguageSelector />
             </Suspense>
@@ -262,6 +277,7 @@ export function Navbar({ lng }: { lng: string }) {
               activeItem={activeItem}
               onItemClick={handleItemClick}
               t={t}
+              navItems={navItems}
             />
           </div>
         </div>

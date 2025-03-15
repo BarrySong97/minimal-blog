@@ -6,6 +6,13 @@ import { Suspense, useRef, useEffect } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { Icon } from "@iconify/react";
 
+// Import the NavItem interface
+interface NavItem {
+  key: string;
+  translationKey: string;
+  href: (lng: string) => string;
+}
+
 interface MobileNavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
@@ -47,6 +54,7 @@ interface MobileNavbarProps {
   activeItem: string | null;
   onItemClick: (key: string) => void;
   t: (key: string) => string;
+  navItems: NavItem[];
 }
 
 export function MobileNavbar({
@@ -56,6 +64,7 @@ export function MobileNavbar({
   activeItem,
   onItemClick,
   t,
+  navItems,
 }: MobileNavbarProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -98,38 +107,17 @@ export function MobileNavbar({
           >
             <div className="container mx-auto px-6 py-4">
               <div className="flex flex-col space-y-1">
-                <MobileNavItem
-                  href={`/${lng}`}
-                  isActive={activeItem === ""}
-                  itemKey=""
-                  onItemClick={onItemClick}
-                >
-                  {t("common.nav.home")}
-                </MobileNavItem>
-                <MobileNavItem
-                  href={`/${lng}/blogs`}
-                  isActive={activeItem === "blogs"}
-                  itemKey="blogs"
-                  onItemClick={onItemClick}
-                >
-                  {t("common.nav.blog")}
-                </MobileNavItem>
-                <MobileNavItem
-                  href={`/${lng}/projects`}
-                  isActive={activeItem === "projects"}
-                  itemKey="projects"
-                  onItemClick={onItemClick}
-                >
-                  {t("common.nav.projects")}
-                </MobileNavItem>
-                <MobileNavItem
-                  href={`/${lng}/about`}
-                  isActive={activeItem === "about"}
-                  itemKey="about"
-                  onItemClick={onItemClick}
-                >
-                  {t("common.nav.about")}
-                </MobileNavItem>
+                {navItems.map((item) => (
+                  <MobileNavItem
+                    key={item.key}
+                    href={item.href(lng)}
+                    isActive={activeItem === item.key}
+                    itemKey={item.key}
+                    onItemClick={onItemClick}
+                  >
+                    {t(item.translationKey)}
+                  </MobileNavItem>
+                ))}
               </div>
             </div>
           </motion.div>

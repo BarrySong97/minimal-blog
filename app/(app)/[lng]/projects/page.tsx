@@ -11,10 +11,7 @@ export interface ProjectsProps {}
 const Projects: FC<ProjectsProps> = async () => {
   const state = await prefetchQuery({
     queryKey: queryKeys.projects.all,
-    queryFn: async () => {
-      const projects = await projectService.getProjects();
-      return projects;
-    },
+    queryFn: projectService.getProjects,
   });
   return (
     <HydrationBoundary state={state}>

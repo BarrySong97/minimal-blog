@@ -23,7 +23,7 @@ export interface BlogProps {
   blog?: BlogType;
   toc: Map<string, Heading>;
 }
-const CustomUploadComponent: React.FC<{
+export const CustomUploadComponent: React.FC<{
   node: SerializedUploadNode;
 }> = ({ node }) => {
   if (node.relationTo === "media") {
