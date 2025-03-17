@@ -6,6 +6,7 @@ import { prefetchQueries } from "@/components/tanstack/tanstack-server";
 import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
+import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 
 export default async function Blogs({
   params,
@@ -23,18 +24,20 @@ export default async function Blogs({
 
   return (
     <HydrationBoundary state={state}>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <SectionHeader
-            title={t("common.nav.blog")}
-            className={cn(
-              "pl-0",
-              "motion-scale-in-[0.37] motion-opacity-in-[0%]"
-            )}
-          />
+      <DefaultLayout isScroll={false}>
+        <div className="space-y-8">
+          <div className="flex items-center justify-between">
+            <SectionHeader
+              title={t("common.nav.blog")}
+              className={cn(
+                "pl-0",
+                "motion-scale-in-[0.37] motion-opacity-in-[0%]"
+              )}
+            />
+          </div>
+          <BlogList />
         </div>
-        <BlogList />
-      </div>
+      </DefaultLayout>
     </HydrationBoundary>
   );
 }

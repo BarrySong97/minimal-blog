@@ -73,19 +73,16 @@ const PhotoList: FC<PhotoListProps> = ({ className, ...props }) => {
   return (
     <div
       ref={containerRef}
-      className={cn(
-        "w-full h-[calc(100vh-12rem)] overflow-hidden rounded-lg ",
-        className
-      )}
+      className={cn("w-full h-[calc(100vh-9.5rem)]  ", className)}
       {...props}
     >
-      <VList className="w-full h-full pb-12 scrollbar-hide" overscan={5}>
+      <VList className="w-full h-full pb-12 " overscan={5}>
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
             className="grid w-full pb-4"
             style={{
-              gridTemplateColumns: `repeat(${columnCount}, 1fr)`,
+              gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
               gap: "0.5rem",
             }}
           >

@@ -35,7 +35,7 @@ export function BlogItem({
       >
         <ViewHover isHover={isHovered} trackMouse />
 
-        <div className="w-full aspect-[1/1] md:w-1/2  md:aspect-[4/3] overflow-hidden relative">
+        <div className="w-full aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
           <Image
             src={(post.coverImage as Media).url ?? ""}
             alt={post.title}
@@ -56,7 +56,7 @@ export function BlogItem({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col justify-between p-4 md:px-6 md:py-0 relative">
+        <div className="flex flex-1 flex-col justify-between p-4 md:px-6 md:py-4 relative">
           <div className="flex items-center gap-3 mb-4 text-sm md:absolute md:top-4 md:right-4">
             <span className="">
               {format(new Date(post.date), "yyyy-MM-dd")}
@@ -75,7 +75,7 @@ export function BlogItem({
               <h3 className="text-xl font-semibold leading-tight text-gray-900 transition-colors duration-300 mb-4">
                 {post.title}
               </h3>
-              <p className="text-sm text-gray-600 line-clamp-2  mb-4 md:mb-0">
+              <p className="text-sm text-gray-600 line-clamp-2 mb-4 md:mb-0">
                 {post.excerpt}
               </p>
             </div>

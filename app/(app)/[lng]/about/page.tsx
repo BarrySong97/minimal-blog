@@ -1,4 +1,5 @@
 import AboutContent from "@/components/about/content";
+import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { prefetchQuery } from "@/components/tanstack/tanstack-server";
 import { aboutService } from "@/service/about";
 import { queryKeys } from "@/service/config";
@@ -12,7 +13,9 @@ const About: FC<AboutProps> = async () => {
   });
   return (
     <HydrationBoundary state={state}>
-      <AboutContent />
+      <DefaultLayout>
+        <AboutContent />
+      </DefaultLayout>
     </HydrationBoundary>
   );
 };

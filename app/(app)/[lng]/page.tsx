@@ -8,6 +8,7 @@ import { HydrationBoundary } from "@tanstack/react-query";
 import { projectService } from "@/service/projects";
 import { experienceService } from "@/service/experiences";
 import { skillService } from "@/service/skills";
+import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 
 export default async function Home({
   params,
@@ -43,13 +44,17 @@ export default async function Home({
   ]);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <div className="space-y-12 sm:space-y-16">
-        <Profile />
-        <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-12 sm:gap-24">
-          <Projects />
-          <Experience />
+      <DefaultLayout>
+        <div className="space-y-12 sm:space-y-16">
+          <div className="space-y-12 sm:space-y-16">
+            <Profile />
+            <div className="grid grid-cols-1 lg:grid-cols-[2fr,1fr] gap-12 sm:gap-24">
+              <Projects />
+              <Experience />
+            </div>
+          </div>
         </div>
-      </div>
+      </DefaultLayout>
     </HydrationBoundary>
   );
 }

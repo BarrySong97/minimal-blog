@@ -6,6 +6,7 @@ import { photoService } from "@/service/photo";
 import { HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 import PhotoList from "@/components/photo/list";
+import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 
 const PhotoPage = async () => {
   const state = await prefetchQuery({
@@ -14,19 +15,21 @@ const PhotoPage = async () => {
   });
   return (
     <HydrationBoundary state={state}>
-      <div className="space-y-8">
-        <div className="flex items-center justify-between">
-          <SectionHeader
-            title={"照片"}
-            className={cn(
-              "pl-0",
-              "motion-scale-in-[0.37] motion-opacity-in-[0%]"
-            )}
-          />
-        </div>
+      <DefaultLayout isScroll={false}>
+        <div className="space-y-8">
+          <div className="flex items-center justify-between">
+            <SectionHeader
+              title={"照片"}
+              className={cn(
+                "pl-0",
+                "motion-scale-in-[0.37] motion-opacity-in-[0%]"
+              )}
+            />
+          </div>
 
-        <PhotoList />
-      </div>
+          <PhotoList />
+        </div>
+      </DefaultLayout>
     </HydrationBoundary>
   );
 };

@@ -2,38 +2,28 @@
 
 import { Icon } from "@iconify/react";
 import { motion, AnimatePresence } from "framer-motion";
-import { useTranslation } from "next-i18next";
 import { usePathname, useSearchParams } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 import { cn } from "@/lib/utils";
-import { CarbonLanguage } from "./icon";
-
-interface LanguageOption {
-  locale: string;
-  label: string;
-  icon: string;
-}
-
-const languages: LanguageOption[] = [
-  { locale: "en", label: "English", icon: "emojione:flag-for-united-states" },
-  { locale: "zh", label: "中文", icon: "emojione:flag-for-china" },
-  { locale: "ja", label: "日本語", icon: "emojione:flag-for-japan" },
-  { locale: "ko", label: "한국어", icon: "emojione:flag-for-south-korea" },
-];
+import { useLanguage } from "@/hooks/useLanguage";
 
 interface MobileLanguageItemProps {
-  lang: LanguageOption;
+  locale: string;
+  label: string;
+  icon: React.ReactNode;
   isActive: boolean;
   onClick: () => void;
-  t: (key: string) => string;
 }
 
 function MobileLanguageItem({
-  lang,
+  locale,
+  label,
+  icon,
   isActive,
   onClick,
-  t,
 }: MobileLanguageItemProps) {
+  const { t } = useLanguage();
+
   return (
     <motion.button
       initial={{ opacity: 0, x: -5 }}
@@ -50,8 +40,8 @@ function MobileLanguageItem({
       )}
       onClick={onClick}
     >
-      <Icon icon={lang.icon} className="h-5 w-5" />
-      {t(`language.${lang.locale}`)}
+      {icon}
+      {t(`language.${locale}`)}
     </motion.button>
   );
 }
@@ -64,22 +54,9 @@ export function MobileLanguageSelector({
   className,
 }: MobileLanguageSelectorProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const { t } = useTranslation("common");
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
+  const { languages, currentLocale, currentLanguage, switchLanguage } =
+    useLanguage();
   const menuRef = useRef<HTMLDivElement>(null);
-
-  // Get current locale from pathname
-  const currentLocale = pathname.split("/")[1] || "en";
-
-  const switchLanguage = (locale: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    const redirectPath = `${pathname}${
-      params.size ? "?" + params.toString() : ""
-    }`;
-    const path = redirectPath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, `/${locale}`);
-    window.location.href = path;
-  };
 
   const toggleMenu = () => setIsOpen(!isOpen);
   const closeMenu = () => setIsOpen(false);
@@ -111,8 +88,7 @@ export function MobileLanguageSelector({
         onClick={toggleMenu}
         aria-label="Select language"
       >
-        <CarbonLanguage className="h-5 w-5" />
-        <span className="text-sm font-medium uppercase">{currentLocale}</span>
+        {currentLanguage?.icon}
       </button>
 
       {/* Mobile Language Dropdown */}
@@ -130,13 +106,14 @@ export function MobileLanguageSelector({
                 {languages.map((lang) => (
                   <MobileLanguageItem
                     key={lang.locale}
-                    lang={lang}
+                    locale={lang.locale}
+                    label={lang.label}
+                    icon={lang.icon}
                     isActive={currentLocale === lang.locale}
                     onClick={() => {
                       switchLanguage(lang.locale);
                       closeMenu();
                     }}
-                    t={t}
                   />
                 ))}
               </div>

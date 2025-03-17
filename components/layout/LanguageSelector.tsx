@@ -2,51 +2,25 @@
 
 import { Icon } from "@iconify/react";
 import { motion } from "framer-motion";
-import { useTranslation } from "next-i18next";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Popover } from "@/components/ui/Popover";
 import { cn } from "@/lib/utils";
 import { CarbonLanguage } from "./icon";
-
-interface LanguageOption {
-  locale: string;
-  label: string;
-  icon: string;
-}
-
-const languages: LanguageOption[] = [
-  { locale: "en", label: "English", icon: "emojione:flag-for-united-states" },
-  { locale: "zh", label: "中文", icon: "emojione:flag-for-china" },
-  { locale: "ja", label: "日本語", icon: "emojione:flag-for-japan" },
-  { locale: "ko", label: "한국어", icon: "emojione:flag-for-south-korea" },
-];
+import { useLanguage } from "@/hooks/useLanguage";
 
 export function LanguageSelector() {
-  const { t } = useTranslation("common");
-  const searchParams = useSearchParams();
-  const pathname = usePathname();
-  const router = useRouter();
-
-  // Get current locale from pathname
-  const currentLocale = pathname.split("/")[1] || "en";
-
-  const switchLanguage = (locale: string) => {
-    const params = new URLSearchParams(searchParams.toString());
-    const redirectPath = `${pathname}${
-      params.size ? "?" + params.toString() : ""
-    }`;
-    const path = redirectPath.replace(/^\/[a-z]{2}(-[A-Z]{2})?/, `/${locale}`);
-    window.location.href = path;
-  };
+  const { languages, currentLocale, currentLanguage, switchLanguage, t } =
+    useLanguage();
 
   return (
     <Popover
       trigger={
         <button
-          className="inline-flex items-center justify-center rounded-md p-2 hover:bg-accent hover:text-accent-foreground focus:outline-none"
+          className="inline-flex gap-2 items-center justify-center rounded-md p-2 hover:bg-accent hover:text-accent-foreground focus:outline-none"
           aria-label="Select language"
         >
           <CarbonLanguage className="h-5 w-5" />
+          {currentLanguage?.icon}
         </button>
       }
       className="w-[200px] p-2 text-popover-foreground"
@@ -73,7 +47,7 @@ export function LanguageSelector() {
             )}
             onClick={() => switchLanguage(lang.locale)}
           >
-            <Icon icon={lang.icon} className="h-4 w-4" />
+            {lang.icon}
             {t(`language.${lang.locale}`)}
           </motion.button>
         ))}
