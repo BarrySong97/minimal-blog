@@ -35,7 +35,7 @@ export default async function RootLayout({
   return (
     <html lang={lng} dir={dir(lng)} className="bg-background">
       <body
-        className={`bg-background antialiased min-h-screen flex flex-col relative overflow-autp`}
+        className={`bg-background overflow-hidden antialiased min-h-screen flex flex-col relative overflow-autp`}
       >
         <PageLoading />
         <TanstackProvider>

@@ -37,7 +37,8 @@
     "react-dom": "^19.0.0",
     "react-i18next": "^15.4.1",
     "sharp": "^0.33.5",
-    "tailwind-merge": "^3.0.1"
+    "tailwind-merge": "^3.0.1",
+    "virtua": "^0.40.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",

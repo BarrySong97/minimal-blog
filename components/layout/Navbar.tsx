@@ -3,7 +3,7 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState, Suspense } from "react";
+import React, { useRef, useEffect, useState, Suspense } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { useTranslation } from "@/app/(app)/i18n/client";
 import { TimeWeather } from "./TimeWeather";
@@ -47,51 +47,71 @@ const navItems: NavItem[] = [
   },
 ];
 
-interface NavItemProps extends React.HTMLAttributes<HTMLAnchorElement> {
+interface NavItemProps {
   href: string;
   children: React.ReactNode;
+  className?: string;
   isActive?: boolean;
   itemKey: string;
   onItemClick: (key: string) => void;
+  onMouseEnter: (key: string) => void;
+  onMouseLeave: () => void;
 }
 
-function NavItem({
-  href,
-  children,
-  className,
-  isActive,
-  itemKey,
-  onItemClick,
-  ...props
-}: NavItemProps) {
-  return (
-    <Link
-      href={href}
-      className={cn(
-        "text-sm transition-colors relative py-1",
-        "hover:text-foreground/80 text-foreground/60",
-        isActive && "text-foreground",
-        className
-      )}
-      onClick={() => onItemClick(itemKey)}
-      {...props}
-    >
-      {children}
-    </Link>
-  );
-}
+const NavItem = React.forwardRef<HTMLAnchorElement, NavItemProps>(
+  (
+    {
+      href,
+      children,
+      className,
+      isActive,
+      itemKey,
+      onItemClick,
+      onMouseEnter,
+      onMouseLeave,
+    },
+    ref
+  ) => {
+    return (
+      <Link
+        href={href}
+        className={cn(
+          "text-sm transition-colors relative py-1",
+          "hover:text-foreground/80 text-foreground/60",
+          isActive && "text-foreground",
+          className
+        )}
+        onClick={() => onItemClick(itemKey)}
+        onMouseEnter={() => onMouseEnter(itemKey)}
+        onMouseLeave={onMouseLeave}
+        ref={ref}
+      >
+        {children}
+      </Link>
+    );
+  }
+);
+
+NavItem.displayName = "NavItem";
 
 export function Navbar({ lng }: { lng: string }) {
   const { t } = useTranslation(lng);
   const pathname = usePathname();
   const [activeItem, setActiveItem] = useState<string | null>(null);
+  const [hoveredItem, setHoveredItem] = useState<string>("");
+  const [clickedItem, setClickedItem] = useState<string>("");
   const [activeItemRect, setActiveItemRect] = useState<{
+    width: number;
+    left: number;
+  } | null>(null);
+  const [hoveredItemRect, setHoveredItemRect] = useState<{
     width: number;
     left: number;
   } | null>(null);
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
+  const navItemRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
 
   // 使用 useResponsive 替代手动检测
   const responsive = useResponsive();
@@ -129,12 +149,41 @@ export function Navbar({ lng }: { lng: string }) {
     }
   };
 
+  const updateHoveredRect = (key: string) => {
+    if (!isMobile && navRef.current) {
+      const navItem = navItemRefs.current.get(key);
+
+      if (navItem) {
+        const textNode = navItem.firstChild as Text;
+        const range = document.createRange();
+        range.selectNodeContents(textNode);
+        const textRect = range.getBoundingClientRect();
+
+        setHoveredItemRect({
+          width: textRect.width,
+          left: navItem.offsetLeft,
+        });
+      }
+    }
+  };
+
   const handleItemClick = (key: string) => {
+    setClickedItem(key);
     setActiveItem(key);
     // Close mobile menu when an item is clicked
     setMobileMenuOpen(false);
     // Use setTimeout to ensure the DOM has updated before measuring
     setTimeout(() => updateActiveRect(key), 0);
+  };
+
+  const handleItemHover = (key: string) => {
+    setHoveredItem(key);
+    updateHoveredRect(key);
+  };
+
+  const handleItemLeave = () => {
+    setHoveredItem("");
+    setHoveredItemRect(null);
   };
 
   const toggleMobileMenu = () => {
@@ -145,6 +194,7 @@ export function Navbar({ lng }: { lng: string }) {
     // Initialize active item based on current path
     const currentPath = pathname.split("/")[2] || "";
     setActiveItem(currentPath);
+    setClickedItem(currentPath);
 
     // 等待下一帧以确保DOM完全更新
     requestAnimationFrame(() => {
@@ -156,6 +206,7 @@ export function Navbar({ lng }: { lng: string }) {
     // Update active item when pathname changes (for navigation not triggered by clicks)
     const currentPath = pathname.split("/")[2] || "";
     if (activeItem !== currentPath) {
+      setClickedItem(currentPath);
       updateActiveRect();
     }
     // Close mobile menu when navigating
@@ -212,6 +263,10 @@ export function Navbar({ lng }: { lng: string }) {
     };
   }, [mobileMenuOpen]);
 
+  // 决定使用哪个指示器位置
+  const showHoverIndicator =
+    hoveredItem !== undefined && hoveredItem !== clickedItem;
+
   return (
     <header
       className={cn(
@@ -238,6 +293,11 @@ export function Navbar({ lng }: { lng: string }) {
                 isActive={activeItem === item.key}
                 itemKey={item.key}
                 onItemClick={handleItemClick}
+                onMouseEnter={handleItemHover}
+                onMouseLeave={handleItemLeave}
+                ref={(el) => {
+                  if (el) navItemRefs.current.set(item.key, el);
+                }}
               >
                 {t(item.translationKey)}
               </NavItem>
@@ -245,6 +305,8 @@ export function Navbar({ lng }: { lng: string }) {
             <Suspense>
               <LanguageSelector />
             </Suspense>
+
+            {/* Active/Clicked Indicator */}
             {activeItemRect && (
               <motion.div
                 className="absolute bottom-0 !m-0 h-[2px] bg-foreground origin-center"
@@ -257,6 +319,31 @@ export function Navbar({ lng }: { lng: string }) {
                   width: activeItemRect.width,
                   x: activeItemRect.left,
                   opacity: 1,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 400,
+                  damping: 25,
+                }}
+              />
+            )}
+
+            {/* Hover Indicator */}
+            {showHoverIndicator && hoveredItemRect && (
+              <motion.div
+                className="absolute bottom-0 !m-0 h-[2px] bg-foreground/60 origin-center"
+                initial={{
+                  width: 0,
+                  x: hoveredItemRect.left + hoveredItemRect.width / 2,
+                  opacity: 0,
+                }}
+                animate={{
+                  width: hoveredItemRect.width,
+                  x: hoveredItemRect.left,
+                  opacity: 1,
+                }}
+                exit={{
+                  opacity: 0,
                 }}
                 transition={{
                   type: "spring",
