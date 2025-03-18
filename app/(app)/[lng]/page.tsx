@@ -23,7 +23,7 @@ export default async function Home({
     },
     {
       queryKey: queryKeys.projects.all,
-      queryFn: projectService.getProjects,
+      queryFn: projectService.getHomeProjects,
     },
     {
       queryKey: queryKeys.experiences.all,
