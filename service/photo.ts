@@ -21,7 +21,7 @@ export const photoService = {
   getPhotos: () => {
     return __request<PhotosResponse>(OpenAPI, {
       method: "GET",
-      url: `${endpoints.photos}?sort=order`,
+      url: `${endpoints.photos}?sort=-date`,
     });
   },
 };
