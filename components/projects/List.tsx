@@ -1,7 +1,7 @@
 "use client";
 import { Project } from "@/payload-types";
-import React, { FC, useRef, useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import React, { FC, useRef, useState, useEffect, useCallback } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { projectService } from "@/service/projects";
 import { queryKeys } from "@/service/config";
 import ProjectItem from "./ProjectItem";
@@ -15,15 +15,29 @@ export interface ProjectListProps
   extends React.HTMLAttributes<HTMLDivElement> {}
 
 const ProjectList: FC<ProjectListProps> = ({ className, ...props }) => {
-  const { data: projects, isLoading } = useQuery({
-    queryKey: queryKeys.projects.all,
-    queryFn: () => projectService.getProjects(),
+  const {
+    data: projectsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+  } = useInfiniteQuery({
+    queryKey: queryKeys.projects.infinite,
+    queryFn: ({ pageParam = 1 }) =>
+      projectService.getProjects({ page: pageParam }),
+    getNextPageParam: (lastPage) =>
+      lastPage.hasNextPage ? lastPage.nextPage : undefined,
+    initialPageParam: 1,
   });
+
   const containerRef = useRef<HTMLDivElement>(null);
+  const vListRef = useRef<any>(null);
   const [hoverId, setHoverId] = useState<number | null>(null);
   const [hoverType, setHoverType] = useState<"default" | "github">("default");
   const responsive = useResponsive();
   const [columnCount, setColumnCount] = useState(2);
+  const totalItemsRef = useRef<number>(0);
 
   // 根据屏幕宽度确定列数
   useEffect(() => {
@@ -41,6 +55,37 @@ const ProjectList: FC<ProjectListProps> = ({ className, ...props }) => {
     }
   }, [responsive?.sm, responsive?.md, responsive?.lg, responsive?.xl]);
 
+  // 将所有页面的项目合并为一个数组
+  const allProjects = projectsData?.pages.flatMap((page) => page.docs) || [];
+
+  // 更新总项目数
+  useEffect(() => {
+    totalItemsRef.current = allProjects.length;
+  }, [allProjects.length]);
+
+  // 处理滚动加载更多
+  const handleScroll = useCallback(async () => {
+    if (!vListRef.current) return;
+
+    // 如果有下一页并且不在加载中，并且当前查看的索引接近末尾
+    if (
+      hasNextPage &&
+      !isFetchingNextPage &&
+      !isFetching &&
+      vListRef.current.findEndIndex() + 10 >
+        Math.ceil(allProjects.length / columnCount)
+    ) {
+      fetchNextPage();
+    }
+  }, [
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+    fetchNextPage,
+    allProjects.length,
+    columnCount,
+  ]);
+
   // 加载状态
   if (isLoading) {
     return (
@@ -55,7 +100,7 @@ const ProjectList: FC<ProjectListProps> = ({ className, ...props }) => {
   }
 
   // 空状态
-  if (!projects?.docs.length) {
+  if (!allProjects.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <Icon icon="mdi:folder-outline" className="w-16 h-16 text-gray-400" />
@@ -66,27 +111,29 @@ const ProjectList: FC<ProjectListProps> = ({ className, ...props }) => {
 
   // 将项目数据分组为行
   const rows: Project[][] = [];
-  for (let i = 0; i < projects.docs.length; i += columnCount) {
-    rows.push(projects.docs.slice(i, i + columnCount) as Project[]);
+  for (let i = 0; i < allProjects.length; i += columnCount) {
+    rows.push(allProjects.slice(i, i + columnCount) as Project[]);
   }
 
   return (
     <div
       ref={containerRef}
-      className={cn("w-full h-[calc(100vh-9.5rem)]", className)}
+      className={cn("w-full h-[calc(100vh-9.5rem)] relative", className)}
       {...props}
     >
       <VList
+        ref={vListRef}
         className={cn(
           "w-full h-full pb-12 scrollbar-hide",
           "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth"
         )}
         overscan={5}
+        onScroll={handleScroll}
       >
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="grid w-full pb-4"
+            className="grid w-full pb-4 px-6  2xl:px-0 container mx-auto"
             style={{
               gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
               gap: "1rem",
@@ -122,6 +169,14 @@ const ProjectList: FC<ProjectListProps> = ({ className, ...props }) => {
             ))}
           </div>
         ))}
+        {(isFetchingNextPage || isFetching) && (
+          <div className="flex justify-center items-center py-6">
+            <Icon
+              icon="line-md:loading-twotone-loop"
+              className="w-8 h-8 text-primary animate-spin"
+            />
+          </div>
+        )}
       </VList>
     </div>
   );

@@ -31,12 +31,30 @@ export const blogService = {
         equals: "published",
       },
     };
-    const stringifiedQuery = stringify({
-      where: query, // ensure that `qs-esm` adds the `where` property, too!
-    });
+
+    // 构建查询参数
+    const queryParams: Record<string, any> = {
+      where: query,
+      sort: "-date",
+    };
+
+    // 添加分页参数
+    if (filters?.page) {
+      queryParams.page = filters.page;
+    }
+
+    if (filters?.limit) {
+      queryParams.limit = filters.limit;
+    } else {
+      // 设置默认每页数量
+      queryParams.limit = 10;
+    }
+
+    const stringifiedQuery = stringify(queryParams);
+
     return __request<BlogsResponse>(OpenAPI, {
       method: "GET",
-      url: `${endpoints.blogs}?${stringifiedQuery}&sort=-date`,
+      url: `${endpoints.blogs}?${stringifiedQuery}`,
     });
   },
 

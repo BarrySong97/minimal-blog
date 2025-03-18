@@ -15,7 +15,7 @@ export function DefaultLayout({
   return (
     <main
       className={cn(
-        "h-screen container mx-auto px-6 py-8 2xl:px-0 md:py-8 2xl:py-16 ",
+        "h-screen py-8 md:py-8 2xl:py-16",
         isScroll ? "overflow-auto" : "overflow-hidden",
         className
       )}

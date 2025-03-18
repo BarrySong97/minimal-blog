@@ -32,6 +32,7 @@ export const queryKeys = {
     all: ["blogs"] as const,
     detail: (id: number) => [...queryKeys.blogs.all, id] as const,
     bySlug: (slug: string) => [...queryKeys.blogs.all, "slug", slug] as const,
+    infinite: ["blogs", "infinite"] as const,
   },
   experiences: {
     all: ["experiences"] as const,
@@ -42,6 +43,7 @@ export const queryKeys = {
     all: ["projects"] as const,
     detail: (id: number) => [...queryKeys.projects.all, id] as const,
     home: ["projects", "home"] as const,
+    infinite: ["projects", "infinite"] as const,
   },
   skills: {
     all: ["skills"] as const,
@@ -54,6 +56,7 @@ export const queryKeys = {
   about: ["about"] as const,
   photos: {
     all: ["photos"] as const,
+    infinite: ["photos", "infinite"] as const,
   },
 } as const;
 

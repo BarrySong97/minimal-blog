@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
-import { useRef, useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useRef, useState, useEffect, useCallback } from "react";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { blogService } from "@/service/blogs";
 import { BlogItem } from "./BlogItem";
@@ -13,15 +13,27 @@ import { Blog } from "@/payload-types";
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function BlogList({ className, ...props }: BlogListProps) {
-  const { data: posts, isLoading } = useQuery({
-    queryKey: queryKeys.blogs.all,
-    queryFn: () => blogService.getBlogs(),
+  const {
+    data: blogsData,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+  } = useInfiniteQuery({
+    queryKey: queryKeys.blogs.infinite,
+    queryFn: ({ pageParam = 1 }) => blogService.getBlogs({ page: pageParam }),
+    getNextPageParam: (lastPage) =>
+      lastPage.hasNextPage ? lastPage.nextPage : undefined,
+    initialPageParam: 1,
   });
 
   const containerRef = useRef<HTMLDivElement>(null);
+  const vListRef = useRef<any>(null);
   const [hoverId, setHoverId] = useState<number | null>(null);
   const responsive = useResponsive();
   const [columnCount, setColumnCount] = useState(2);
+  const totalItemsRef = useRef<number>(0);
 
   // 根据屏幕宽度确定列数
   useEffect(() => {
@@ -39,6 +51,37 @@ export function BlogList({ className, ...props }: BlogListProps) {
     }
   }, [responsive?.sm, responsive?.md, responsive?.lg, responsive?.xl]);
 
+  // 将所有页面的博客合并为一个数组
+  const allBlogs = blogsData?.pages.flatMap((page) => page.docs) || [];
+
+  // 更新总项目数
+  useEffect(() => {
+    totalItemsRef.current = allBlogs.length;
+  }, [allBlogs.length]);
+
+  // 处理滚动加载更多
+  const handleScroll = useCallback(async () => {
+    if (!vListRef.current) return;
+
+    // 如果有下一页并且不在加载中，并且当前查看的索引接近末尾
+    if (
+      hasNextPage &&
+      !isFetchingNextPage &&
+      !isFetching &&
+      vListRef.current.findEndIndex() + 10 >
+        Math.ceil(allBlogs.length / columnCount)
+    ) {
+      fetchNextPage();
+    }
+  }, [
+    hasNextPage,
+    isFetchingNextPage,
+    isFetching,
+    fetchNextPage,
+    allBlogs.length,
+    columnCount,
+  ]);
+
   // 加载状态
   if (isLoading) {
     return (
@@ -53,7 +96,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
   }
 
   // 空状态
-  if (!posts?.docs.length) {
+  if (!allBlogs.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <Icon
@@ -67,21 +110,30 @@ export function BlogList({ className, ...props }: BlogListProps) {
 
   // 将博客数据分组为行
   const rows: Blog[][] = [];
-  for (let i = 0; i < posts.docs.length; i += columnCount) {
-    rows.push(posts.docs.slice(i, i + columnCount) as Blog[]);
+  for (let i = 0; i < allBlogs.length; i += columnCount) {
+    rows.push(allBlogs.slice(i, i + columnCount) as Blog[]);
   }
 
   return (
     <div
       ref={containerRef}
-      className={cn("w-full h-[calc(100vh-9.5rem)]", className)}
+      className={cn(
+        "w-full h-[calc(100vh-9.5rem)] relative",
+        "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
+        className
+      )}
       {...props}
     >
-      <VList className="w-full h-full pb-12 scrollbar-hide" overscan={5}>
+      <VList
+        ref={vListRef}
+        className="w-full h-full pb-12 scrollbar-hide"
+        overscan={5}
+        onScroll={handleScroll}
+      >
         {rows.map((row, rowIndex) => (
           <div
             key={rowIndex}
-            className="grid w-full pb-4"
+            className="grid w-full pb-4 px-6 2xl:px-0 container mx-auto"
             style={{
               gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
               gap: "1rem",
@@ -98,6 +150,14 @@ export function BlogList({ className, ...props }: BlogListProps) {
             ))}
           </div>
         ))}
+        {(isFetchingNextPage || isFetching) && (
+          <div className="flex justify-center items-center py-6">
+            <Icon
+              icon="line-md:loading-twotone-loop"
+              className="w-8 h-8 text-primary animate-spin"
+            />
+          </div>
+        )}
       </VList>
     </div>
   );

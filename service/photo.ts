@@ -16,12 +16,30 @@ export type PhotosResponse = {
   nextPage: number | null;
 };
 
+export interface GetPhotosParams {
+  page?: number;
+  limit?: number;
+  sort?: string;
+}
+
 export const photoService = {
   // 获取项目列表
   getPhotos: () => {
     return __request<PhotosResponse>(OpenAPI, {
       method: "GET",
       url: `${endpoints.photos}?sort=-date`,
+    });
+  },
+
+  // 分页获取照片
+  getPhotosPaginated: ({
+    page = 1,
+    limit = 9,
+    sort = "-date",
+  }: GetPhotosParams = {}) => {
+    return __request<PhotosResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.photos}?page=${page}&limit=${limit}&sort=${sort}`,
     });
   },
 };

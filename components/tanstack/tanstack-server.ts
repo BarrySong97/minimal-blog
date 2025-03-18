@@ -5,6 +5,15 @@ type PrefetchQueryOptions = {
   queryFn: QueryFunction;
   staleTime?: number;
 };
+
+// 用于无限查询的类型
+type PrefetchInfiniteQueryOptions = {
+  queryKey: readonly unknown[];
+  queryFn: (context: { pageParam: any }) => Promise<any>;
+  initialPageParam: any;
+  staleTime?: number;
+};
+
 export const DEFAULT_STALE_TIME = 60 * 1000;
 
 // 用于在服务端预取数据
@@ -18,6 +27,25 @@ export async function prefetchQuery({
   await queryClient.prefetchQuery({
     queryKey,
     queryFn,
+    staleTime,
+  });
+
+  return dehydrate(queryClient);
+}
+
+// 用于在服务端预取无限查询数据
+export async function prefetchInfiniteQuery({
+  queryKey,
+  queryFn,
+  initialPageParam,
+  staleTime = DEFAULT_STALE_TIME, // 默认1分钟
+}: PrefetchInfiniteQueryOptions) {
+  const queryClient = getQueryClient();
+
+  await queryClient.prefetchInfiniteQuery({
+    queryKey,
+    queryFn,
+    initialPageParam,
     staleTime,
   });
 
