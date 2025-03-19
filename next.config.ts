@@ -12,6 +12,10 @@ const config: NextConfig = {
         protocol: "http",
         hostname: "localhost",
       },
+      {
+        protocol: "https",
+        hostname: "4real.ltd",
+      },
     ],
   },
 };
