@@ -127,7 +127,7 @@ const PhotoList: FC<PhotoListProps> = ({ className, ...props }) => {
       <VList
         ref={vListRef}
         className="w-full h-full pb-12 scrollbar-hide"
-        overscan={5}
+        overscan={10}
         onScroll={handleScroll}
       >
         {rows.map((row, rowIndex) => (
