@@ -11,6 +11,7 @@ import Home from "./app/(payload)/collections/home";
 import Skills from "./app/(payload)/collections/skills";
 import SkillCategories from "./app/(payload)/collections/skill-categories";
 import About from "./app/(payload)/collections/about";
+import computeBlurhash from "payload-blurhash-plugin";
 import Photo from "./app/(payload)/collections/photo";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
@@ -48,6 +49,9 @@ export default buildConfig({
         },
         region: process.env.S3_REGION || "",
       },
+    }),
+    computeBlurhash({
+      showBlurhashField: true,
     }),
   ],
   // Whichever Database Adapter you're using should go here
