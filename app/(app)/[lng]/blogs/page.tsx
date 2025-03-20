@@ -4,7 +4,11 @@ import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
 import Loading from "./loading";
+import { useTranslation } from "@/app/(app)/i18n";
+import { SectionHeader } from "@/components/ui/section-header";
+import { cn } from "@/lib/utils";
 export default async function Blogs() {
+  const { t } = await useTranslation("common");
   // 预获取无限滚动的第一页数据
   const state = await prefetchInfiniteQuery({
     queryKey: queryKeys.blogs.infinite,
@@ -13,7 +17,18 @@ export default async function Blogs() {
   });
   return (
     <HydrationBoundary state={state}>
-      <BlogList />
+      <div className="space-y-8">
+        <div className="flex items-center justify-between container mx-auto px-6  2xl:px-0 ">
+          <SectionHeader
+            title={t("common.nav.blog")}
+            className={cn(
+              "pl-0",
+              "motion-scale-in-[0.37] motion-opacity-in-[0%]"
+            )}
+          />
+        </div>
+        <BlogList />
+      </div>
     </HydrationBoundary>
   );
 }

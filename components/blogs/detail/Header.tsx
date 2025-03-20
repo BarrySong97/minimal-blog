@@ -32,13 +32,13 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   const infoMargin = useTransform(scrollY, [0, 60], ["0.25rem", "0rem"]);
   const itemsAlignment = useTransform(scrollY, [0, 60], ["flex-end", "center"]);
   const maxWidth = useTransform(scrollY, [0, 60], ["600px", "800px"]);
+  console.log("titleSize", titleSize);
 
   return (
     <div
       className={cn(
         "  w-full mb-12",
         className,
-
         isLargeScreen ? "sticky top-0 z-[100]" : ""
       )}
     >
