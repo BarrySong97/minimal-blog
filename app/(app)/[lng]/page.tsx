@@ -44,7 +44,7 @@ export default async function Home({
   ]);
   return (
     <HydrationBoundary state={dehydratedState}>
-      <DefaultLayout className="px-6 min-h-screen 2xl:px-0 container mx-auto">
+      <DefaultLayout className="px-6 h-[calc(100vh-56px)] 2xl:px-0 container mx-auto ">
         <div className="space-y-12 sm:space-y-16">
           <div className="space-y-12 sm:space-y-16">
             <Profile />

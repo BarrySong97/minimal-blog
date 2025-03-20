@@ -18,20 +18,20 @@ export function DefaultLayout({
   const [isBlogDetail, setIsBlogDetail] = useState(false);
   useEffect(() => {
     if (pathname.includes("/blogs/")) {
-      console.log("isBlogDetail", pathname);
-      console.log("isBlogDetail", isScroll && isBlogDetail);
       setIsBlogDetail(true);
     } else {
       setIsBlogDetail(false);
     }
   }, [pathname]);
-  console.log("isBlogDetail", isScroll && isBlogDetail, isScroll, isBlogDetail);
   return (
     <main
       className={cn(
-        "h-screen py-8 md:py-8 2xl:py-16",
-        isScroll ? "overflow-auto" : "overflow-hidden",
-        isBlogDetail ? "overflow-auto" : "",
+        "py-8 md:py-8 2xl:py-16",
+        isBlogDetail
+          ? "px-6 2xl:px-0"
+          : isScroll
+          ? "overflow-auto"
+          : "overflow-hidden",
         className
       )}
       {...props}

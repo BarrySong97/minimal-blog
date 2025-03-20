@@ -7,5 +7,9 @@ export default async function Blogs({
   children: React.ReactNode;
   pathname: string;
 }) {
-  return <DefaultLayout isScroll={false}>{children}</DefaultLayout>;
+  return (
+    <DefaultLayout id="blog-layout" isScroll={false}>
+      {children}
+    </DefaultLayout>
+  );
 }

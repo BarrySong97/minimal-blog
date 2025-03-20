@@ -2,7 +2,7 @@
 
 import { Blog } from "@/payload-types";
 import { useTranslation } from "@/app/(app)/i18n/client";
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -17,13 +17,19 @@ export interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   const { t } = useTranslation(lng);
-  const { scrollY } = useScroll();
   const [isLargeScreen, setIsLargeScreen] = useState(true);
-  // Check if screen width is at least 1512px
   useEffect(() => {
     if (typeof window === "undefined") return;
     setIsLargeScreen(window.innerWidth >= 1512);
+    const body = document.body;
+    body.classList.remove("overflow-hidden");
+    return () => {
+      body.classList.add("overflow-hidden");
+    };
   }, []);
+  const { scrollY } = useScroll();
+
+  // Check if screen width is at least 1512px
 
   // Transform values based on scroll position (only when screen is large enough)
   const titleSize = useTransform(scrollY, [0, 100], [1, 0.6]);
@@ -32,7 +38,6 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   const infoMargin = useTransform(scrollY, [0, 60], ["0.25rem", "0rem"]);
   const itemsAlignment = useTransform(scrollY, [0, 60], ["flex-end", "center"]);
   const maxWidth = useTransform(scrollY, [0, 60], ["600px", "800px"]);
-  console.log("titleSize", titleSize);
 
   return (
     <div
@@ -52,7 +57,7 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
           >
             <div className="flex flex-col justify-center">
               <motion.div
-                className="text-3xl font-semibold bg-transparent mb-1"
+                className={cn("text-3xl font-semibold bg-transparent ")}
                 style={{
                   scale: titleSize,
                   transformOrigin: "left center",
