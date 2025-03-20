@@ -1,5 +1,4 @@
 import { cn } from "@/lib/utils";
-import BlurImage from "@/components/common/BlurImage";
 import PhotoMeta from "@/components/photo/PhotoMeta";
 import Image from "next/image";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
