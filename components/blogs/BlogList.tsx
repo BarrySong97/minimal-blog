@@ -118,7 +118,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
     <div
       ref={containerRef}
       className={cn(
-        "w-full h-[calc(100vh-9.5rem)] relative",
+        "w-full h-[calc(100dvh-9.5rem)] relative",
         "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
         className
       )}

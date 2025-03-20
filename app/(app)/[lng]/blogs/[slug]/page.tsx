@@ -12,6 +12,7 @@ import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { HydrationBoundary } from "@tanstack/react-query";
 import React, { FC } from "react";
+import Loading from "./loading";
 export interface Props {
   params: Promise<{
     slug: string;

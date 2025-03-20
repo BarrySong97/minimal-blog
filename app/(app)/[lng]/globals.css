@@ -151,3 +151,7 @@ body {
 .scrollbar-hide::-webkit-scrollbar-track {
   display: none;
 }
+
+.prose img {
+  margin: 0 auto;
+}

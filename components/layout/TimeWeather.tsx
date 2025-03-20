@@ -8,22 +8,20 @@ import Link from "next/link";
 
 interface TimeWeatherProps extends React.HTMLAttributes<HTMLDivElement> {
   lng: string;
+  isLargeScreen: boolean;
 }
 
-export function TimeWeather({ lng, className, ...props }: TimeWeatherProps) {
+export function TimeWeather({
+  lng,
+  className,
+  isLargeScreen,
+  ...props
+}: TimeWeatherProps) {
   const [currentTime, setCurrentTime] = useState<string>("");
   const { slug } = useParams();
-  const [weather, setWeather] = useState<{
-    temp: number;
-    condition: string;
-    icon: string;
-  }>({
-    temp: 0,
-    condition: "loading",
-    icon: "mdi:weather-cloudy",
-  });
+
   const { scrollY } = useScroll();
-  const x = useTransform(scrollY, [0, 60], ["0", "-46px"]);
+  const x = useTransform(scrollY, [0, 60], ["0", "-88px"]);
 
   // Update time every second
   // Update time every second
@@ -48,12 +46,6 @@ export function TimeWeather({ lng, className, ...props }: TimeWeatherProps) {
     return () => clearInterval(interval);
   }, [lng]);
 
-  const [isLargeScreen, setIsLargeScreen] = useState(true);
-  // Check if screen width is at least 1512px
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    setIsLargeScreen(window.innerWidth >= 1512);
-  }, []);
   return (
     <motion.div
       className={cn("flex items-center gap-2  text-foreground/80", className)}

@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import React, { useRef, useEffect, useState, Suspense } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { useTranslation } from "@/app/(app)/i18n/client";
@@ -267,6 +267,13 @@ export function Navbar({ lng }: { lng: string }) {
   const showHoverIndicator =
     hoveredItem !== undefined && hoveredItem !== clickedItem;
 
+  const { scrollY } = useScroll();
+  const x = useTransform(scrollY, [0, 60], ["0", "48px"]);
+  const [isLargeScreen, setIsLargeScreen] = useState(true);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    setIsLargeScreen(window.innerWidth < 1680 && window.innerWidth >= 1512);
+  }, []);
   return (
     <header
       className={cn(
@@ -277,11 +284,12 @@ export function Navbar({ lng }: { lng: string }) {
     >
       <div className="mx-auto container px-6 2xl:px-0">
         <div className="flex h-14 items-center justify-between">
-          <TimeWeather lng={lng} />
+          <TimeWeather lng={lng} isLargeScreen={isLargeScreen} />
 
           {/* Desktop Navigation */}
-          <nav
+          <motion.nav
             ref={navRef}
+            style={{ x: isLargeScreen ? x : "0" }}
             className={cn(
               "items-center space-x-6 text-sm font-medium relative hidden sm:flex"
             )}
@@ -352,7 +360,7 @@ export function Navbar({ lng }: { lng: string }) {
                 }}
               />
             )}
-          </nav>
+          </motion.nav>
 
           {/* Mobile Navigation */}
           <div className="flex items-center gap-2  sm:hidden">

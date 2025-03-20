@@ -23,7 +23,13 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
     setIsLargeScreen(window.innerWidth >= 1512);
     const body = document.body;
     body.classList.remove("overflow-hidden");
+
     return () => {
+      // 如果上面的方法不起作用，可以尝试延迟执行
+      setTimeout(() => {
+        window.scroll({ top: -1, left: 0, behavior: "smooth" });
+      }, 10);
+
       body.classList.add("overflow-hidden");
     };
   }, []);
