@@ -1,10 +1,7 @@
-import { SectionHeader } from "@/components/ui/section-header";
-import { cn } from "@/lib/utils";
 import { queryKeys } from "@/service/config";
 import { photoService } from "@/service/photo";
 import { HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
-import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { prefetchInfiniteQuery } from "@/components/tanstack/tanstack-server";
 import PhotoList from "@/components/photo/list";
 
@@ -19,21 +16,7 @@ const PhotoPage = async () => {
 
   return (
     <HydrationBoundary state={state}>
-      <DefaultLayout isScroll={false}>
-        <div className="space-y-8">
-          <div className="flex items-center justify-between container mx-auto px-6 2xl:px-0">
-            <SectionHeader
-              title={"照片"}
-              className={cn(
-                "pl-0",
-                "motion-scale-in-[0.37] motion-opacity-in-[0%]"
-              )}
-            />
-          </div>
-
-          <PhotoList />
-        </div>
-      </DefaultLayout>
+      <PhotoList />
     </HydrationBoundary>
   );
 };

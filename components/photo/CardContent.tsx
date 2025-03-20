@@ -28,7 +28,7 @@ const CardContent: React.FC<CardContentProps> = ({
         <Image
           src={imageUrl || "/placeholder-image.jpg"}
           alt={title}
-          placeholder="blur"
+          placeholder={blurDataURL ? "blur" : "empty"}
           blurDataURL={blurDataURL ?? ""}
           width={1000}
           height={1000}
