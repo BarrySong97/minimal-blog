@@ -53,8 +53,18 @@ export default {
         "move-background": "move-background 20s linear infinite",
         "slow-spin": "slow-spin 20s linear infinite",
         "float-dust": "float-dust 10s ease-in-out infinite",
+        "fade-in": "fade-in 0.5s ease-out forwards",
       },
       keyframes: {
+        "fade-in": {
+          "0%": { opacity: "0" },
+          "100%": { opacity: "1" },
+        },
+        sway: {
+          "0%, 100%": { transform: "rotate(0deg)" },
+          "25%": { transform: "rotate(2deg)" },
+          "75%": { transform: "rotate(-2deg)" },
+        },
         "move-background": {
           "0%": { backgroundPosition: "0 0" },
           "100%": { backgroundPosition: "20px 20px" },
