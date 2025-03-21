@@ -24,10 +24,7 @@ export function TimeWeather({
 
   return (
     <motion.div
-      className={cn(
-        "flex items-center gap-2 text-foreground/80 -ml-2",
-        className
-      )}
+      className={cn("flex items-center gap-2 text-foreground/80 ", className)}
       style={{
         x: slug && isLargeScreen ? x : "0",
         transformOrigin: "left center",

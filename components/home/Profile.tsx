@@ -15,6 +15,7 @@ import {
   SimpleIconsXiaohongshu,
   AntDesignBilibiliFilled,
 } from "./icon";
+import { ImageWithError } from "../common/ImageWithError";
 
 export function Profile() {
   const { lng } = useParams();
@@ -32,7 +33,7 @@ export function Profile() {
   return (
     <section className="flex flex-col sm:flex-row items-start gap-0 sm:gap-12">
       <div className="flex items-start gap-4">
-        <Image
+        <ImageWithError
           src={(home?.avatar as Media)?.url ?? ""}
           alt="Profile picture"
           width={96}
