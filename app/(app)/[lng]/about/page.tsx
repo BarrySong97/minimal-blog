@@ -5,6 +5,12 @@ import { aboutService } from "@/service/about";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
 import React, { FC } from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "About",
+  description: "Barry Song's about page",
+};
 export interface AboutProps {}
 const About: FC<AboutProps> = async () => {
   const state = await prefetchQuery({

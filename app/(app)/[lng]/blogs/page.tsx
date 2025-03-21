@@ -3,10 +3,16 @@ import { prefetchInfiniteQuery } from "@/components/tanstack/tanstack-server";
 import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
-import Loading from "./loading";
 import { useTranslation } from "@/app/(app)/i18n";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Blogs",
+  description: "Barry Song's blog, share his thoughts and experiences.",
+};
+
 export default async function Blogs() {
   const { t } = await useTranslation("common");
   // 预获取无限滚动的第一页数据

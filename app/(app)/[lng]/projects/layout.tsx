@@ -2,10 +2,16 @@ import { cn } from "@/lib/utils";
 import { SectionHeader } from "@/components/ui/section-header";
 import React, { FC } from "react";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import Loading from "../loading";
+import { Metadata } from "next/types";
 export interface ProjectsProps {
   children: React.ReactNode;
 }
+
+export const metadata: Metadata = {
+  title: "Projects",
+  description: "Barry Song's projects",
+};
+
 const Projects: FC<ProjectsProps> = ({ children }) => {
   return (
     <DefaultLayout isScroll={false}>

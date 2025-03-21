@@ -268,7 +268,7 @@ export function Navbar({ lng }: { lng: string }) {
     hoveredItem !== undefined && hoveredItem !== clickedItem;
 
   const { scrollY } = useScroll();
-  const x = useTransform(scrollY, [0, 60], ["0", "48px"]);
+  const x = useTransform(scrollY, [0, 60], ["0", "100px"]);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   useEffect(() => {
     if (typeof window === "undefined") return;

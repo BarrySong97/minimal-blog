@@ -4,7 +4,12 @@ import { HydrationBoundary } from "@tanstack/react-query";
 import React from "react";
 import { prefetchInfiniteQuery } from "@/components/tanstack/tanstack-server";
 import PhotoList from "@/components/photo/list";
+import { Metadata } from "next";
 
+export const metadata: Metadata = {
+  title: "Photo",
+  description: "Barry Song's photo gallery",
+};
 const PhotoPage = async () => {
   // 针对无限查询正确预加载第一页数据
   const state = await prefetchInfiniteQuery({
