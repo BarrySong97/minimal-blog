@@ -1,4 +1,4 @@
-import { Photo } from "@/payload-types";
+import { Media, Photo } from "@/payload-types";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 import CardContent from "@/components/photo/CardContent";
@@ -9,8 +9,6 @@ export interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className }) => {
-  const { url, blurHash } = getMediaUrl(photo.image);
-
   return (
     <motion.div
       className={cn(
@@ -22,11 +20,10 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className }) => {
       transition={{ duration: 0.3 }}
     >
       <CardContent
-        imageUrl={url}
+        image={photo.image as Media}
         title={photo.title}
         excerpt={photo.excerpt}
         date={photo.date}
-        blurHash={blurHash}
       />
     </motion.div>
   );

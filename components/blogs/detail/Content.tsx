@@ -10,8 +10,7 @@ import {
   RichText,
 } from "@payloadcms/richtext-lexical/react";
 import { Heading as HeadingComponent } from "@/components/common/richtext/Heading";
-import Image from "next/image";
-import { Blog as BlogType } from "@/payload-types";
+import { Blog as BlogType, Media } from "@/payload-types";
 import {
   AddHeading,
   Heading,
@@ -19,6 +18,7 @@ import {
   IContext,
 } from "@/components/common/richtext/context";
 import React, { FC, useCallback, useState } from "react";
+import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 export interface BlogProps {
   blog?: BlogType;
   toc: Map<string, Heading>;
@@ -32,7 +32,14 @@ export const CustomUploadComponent: React.FC<{
       return null;
     }
     const { alt, height, url, width } = uploadDoc as any;
-    return <Image alt={alt ?? "img"} height={height} src={url} width={width} />;
+    return (
+      <ImageWithFallback
+        alt={alt ?? "img"}
+        height={height}
+        image={uploadDoc as Media}
+        width={width}
+      />
+    );
   }
 
   return null;

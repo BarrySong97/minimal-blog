@@ -1,17 +1,17 @@
 import { cn } from "@/lib/utils";
 import PhotoMeta from "@/components/photo/PhotoMeta";
-import Image from "next/image";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
+import { ImageWithFallback } from "../common/ImageWithFallback";
+import { Media } from "@/payload-types";
 interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
-  imageUrl: string;
+  image: Media;
   title: string;
   excerpt?: string;
   date: string;
-  blurHash: string;
 }
 
 const CardContent: React.FC<CardContentProps> = ({
-  imageUrl,
+  image,
   title,
   excerpt,
   date,
@@ -24,8 +24,8 @@ const CardContent: React.FC<CardContentProps> = ({
     <div className={cn("relative", className)} {...props}>
       {/* Image container */}
       <div className="aspect-[4/3] overflow-hidden">
-        <Image
-          src={imageUrl || "/placeholder-image.jpg"}
+        <ImageWithFallback
+          image={image}
           alt={title}
           placeholder={blurDataURL ? "blur" : "empty"}
           blurDataURL={blurDataURL ?? ""}

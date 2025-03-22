@@ -9,6 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { Media } from "@/payload-types";
+import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 
 export interface TocProps {
   headings: ProcessedHeading[];
@@ -130,8 +131,8 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
   return (
     <div className={cn("w-full sticky top-[5rem]", className)}>
       <div className="mb-4 flex items-center gap-3">
-        <Image
-          src={(home?.avatar as Media)?.url ?? ""}
+        <ImageWithFallback
+          image={home?.avatar as Media}
           alt="Profile picture"
           width={96}
           height={96}

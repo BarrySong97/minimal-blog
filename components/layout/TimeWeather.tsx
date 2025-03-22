@@ -1,11 +1,9 @@
 "use client";
-import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
-
 interface TimeWeatherProps extends React.HTMLAttributes<HTMLDivElement> {
   lng: string;
   isLargeScreen: boolean;

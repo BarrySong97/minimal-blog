@@ -2,9 +2,8 @@
 
 import { Media, Project } from "@/payload-types";
 import React, { useRef, useEffect, useState } from "react";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-
+import { ImageWithFallback } from "../common/ImageWithFallback";
 export interface ProjectDisplayProps
   extends React.HTMLAttributes<HTMLDivElement> {
   project: Project;
@@ -91,11 +90,13 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
   };
 
   // Helper function to safely get media URL
-  const getMediaUrl = (media: (number | null | Media) | undefined): string => {
+  const getMediaUrl = (
+    media: (number | null | Media) | undefined
+  ): Media | null => {
     if (!media || typeof media === "number" || media === null) {
-      return "";
+      return null;
     }
-    return media.url || "";
+    return media as Media;
   };
 
   // Helper function to safely get media dimensions
@@ -109,8 +110,8 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
     return media[dimension] || 0;
   };
 
-  const videoUrl = getMediaUrl(project.video);
-  const coverUrl = getMediaUrl(project.cover);
+  const videoUrl = project.video as Media;
+  const cover = getMediaUrl(project.cover);
   const coverWidth = getMediaDimension(project.cover, "width");
   const coverHeight = getMediaDimension(project.cover, "height");
 
@@ -128,7 +129,7 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
       project.video !== null ? (
         <video
           ref={videoRef}
-          src={videoUrl}
+          src={videoUrl.url!}
           muted
           loop
           playsInline
@@ -138,8 +139,8 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
           controlsList="nodownload nofullscreen noremoteplayback"
         />
       ) : (
-        <Image
-          src={coverUrl || "/placeholder-project.jpg"}
+        <ImageWithFallback
+          image={cover as Media}
           alt={project.title}
           width={coverWidth || 800}
           height={coverHeight || 600}

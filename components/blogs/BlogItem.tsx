@@ -7,6 +7,7 @@ import { ViewHover } from "../common/ViewHover";
 import { Media, Blog } from "@/payload-types";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
 interface BlogItemProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Blog;
@@ -36,8 +37,8 @@ export function BlogItem({
         <ViewHover isHover={isHovered} trackMouse />
 
         <div className="w-full aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
-          <Image
-            src={(post.coverImage as Media).url ?? ""}
+          <ImageWithFallback
+            image={post.coverImage as Media}
             alt={post.title}
             width={800}
             height={800}

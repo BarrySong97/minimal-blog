@@ -10,6 +10,7 @@ import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { Media } from "@/payload-types";
 import { AnimatePresence, motion } from "framer-motion";
+import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 
 export interface MobileTocProps {
   headings: ProcessedHeading[];
@@ -313,8 +314,8 @@ const MobileToc: FC<MobileTocProps> = ({ headings, className }) => {
             <div className="flex-1 overflow-y-auto p-4">
               {/* Author info */}
               <div className="mb-4 flex items-center gap-3">
-                <Image
-                  src={(home?.avatar as Media)?.url ?? ""}
+                <ImageWithFallback
+                  image={home?.avatar as Media}
                   alt="Profile picture"
                   width={96}
                   height={96}

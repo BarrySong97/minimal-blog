@@ -11,8 +11,35 @@ import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { HydrationBoundary } from "@tanstack/react-query";
-import React, { FC } from "react";
-import Loading from "./loading";
+import React, { cache, FC } from "react";
+import { Media } from "@/payload-types";
+const getBlog = async (slug: string) => {
+  const blog = await blogService.getBlogBySlug(slug);
+  return blog;
+};
+const getBlogCache = cache(getBlog);
+export async function generateMetadata({ params }: Props) {
+  const { slug } = await params;
+  const blog = await getBlogCache(slug);
+  const cover = blog?.docs?.[0]?.coverImage as Media;
+  return {
+    title: blog?.docs?.[0]?.title,
+    description: blog?.docs?.[0]?.excerpt,
+    openGraph: {
+      images: [
+        {
+          url: cover?.url,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${blog?.docs?.[0]?.title} | Barry Song's Blog`,
+      description: blog?.docs?.[0]?.excerpt,
+      images: [cover?.url],
+    },
+  };
+}
 export interface Props {
   params: Promise<{
     slug: string;
@@ -21,7 +48,7 @@ export interface Props {
 }
 const BlogDetail: FC<Props> = async ({ params }) => {
   const { slug, lng } = await params;
-  const blog = await blogService.getBlogBySlug(slug);
+  const blog = await getBlogCache(slug);
   const blogDoc = blog?.docs?.[0];
   const headings = getHeadings(
     blogDoc?.content?.root?.children as unknown as HeadingNode[]

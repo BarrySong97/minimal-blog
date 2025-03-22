@@ -10,6 +10,7 @@ import {
   MaterialSymbolsPerson,
 } from "./icon";
 import { motion } from "framer-motion";
+import { ImageWithFallback } from "../common/ImageWithFallback";
 
 const container = {
   hidden: { opacity: 0 },
@@ -64,8 +65,8 @@ export function Experience() {
                 className="text-base flex items-center gap-2 font-medium hover:underline transition-colors"
               >
                 {exp.companyLogo && (
-                  <Image
-                    src={(exp.companyLogo as Media).url ?? ""}
+                  <ImageWithFallback
+                    image={exp.companyLogo as Media}
                     alt={exp.company}
                     width={12}
                     height={12}
