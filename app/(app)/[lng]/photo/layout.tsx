@@ -19,7 +19,7 @@ const PhotoPage = ({
     <DefaultLayout isScroll={false}>
       {/* 通过并行路由显示照片详情 */}
 
-      {photo}
+      <AnimatePresence mode="popLayout">{photo}</AnimatePresence>
 
       <div className="space-y-8" key={"photo-page"}>
         <div className="flex items-center justify-between container mx-auto px-6 2xl:px-0">
