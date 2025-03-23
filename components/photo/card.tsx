@@ -16,6 +16,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className, lang }) => {
         title={photo.title}
         excerpt={photo.excerpt}
         date={photo.date}
+        lang={lang}
         id={photo.id.toString()}
       />
     </div>
