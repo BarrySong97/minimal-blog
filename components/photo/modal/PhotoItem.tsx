@@ -45,9 +45,8 @@ const PhotoItem = ({
           image={photo.image as Media}
           alt={photo.title}
           className="object-contain"
-          width={dimensions.width}
+          fill
           priority
-          height={dimensions.height}
           style={{ width: "100%", height: "100%" }}
         />
       </motion.div>

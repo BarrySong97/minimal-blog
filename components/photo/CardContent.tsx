@@ -41,8 +41,7 @@ const CardContent: React.FC<CardContentProps> = ({
             <ImageWithFallback
               image={image}
               alt={title}
-              width={600}
-              height={600}
+              fill
               className="h-full w-full object-cover transition-all duration-300 "
             />
           </motion.div>
