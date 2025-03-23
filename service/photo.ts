@@ -31,6 +31,12 @@ export const photoService = {
     });
   },
 
+  getPhotoById: (id: string) => {
+    return __request<Photo>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.photos}/${id}`,
+    });
+  },
   // 分页获取照片
   getPhotosPaginated: ({
     page = 1,

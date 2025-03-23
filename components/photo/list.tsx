@@ -10,9 +10,11 @@ import { VList } from "virtua";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react";
 
-export interface PhotoListProps extends React.HTMLAttributes<HTMLDivElement> {}
+export interface PhotoListProps extends React.HTMLAttributes<HTMLDivElement> {
+  lang: string;
+}
 
-const PhotoList: FC<PhotoListProps> = ({ className, ...props }) => {
+const PhotoList: FC<PhotoListProps> = ({ className, lang, ...props }) => {
   const {
     data: photosData,
     isLoading,
@@ -141,7 +143,7 @@ const PhotoList: FC<PhotoListProps> = ({ className, ...props }) => {
           >
             {row.map((photo) => (
               <div key={photo.id} className="aspect-[4/3] w-full">
-                <PhotoCard photo={photo} />
+                <PhotoCard photo={photo} lang={lang} />
               </div>
             ))}
           </div>

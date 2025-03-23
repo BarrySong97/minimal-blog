@@ -10,7 +10,8 @@ export const metadata: Metadata = {
   title: "Photo",
   description: "Barry Song's photo gallery",
 };
-const PhotoPage = async () => {
+const PhotoPage = async ({ params }: { params: Promise<{ lng: string }> }) => {
+  const { lng } = await params;
   // 针对无限查询正确预加载第一页数据
   const state = await prefetchInfiniteQuery({
     queryKey: queryKeys.photos.infinite,
@@ -21,7 +22,7 @@ const PhotoPage = async () => {
 
   return (
     <HydrationBoundary state={state}>
-      <PhotoList />
+      <PhotoList lang={lng} />
     </HydrationBoundary>
   );
 };

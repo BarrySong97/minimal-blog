@@ -4,6 +4,7 @@ import { Media } from "@/payload-types";
 import Image from "next/image";
 import { ImageProps } from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export const ImageWithFallback = ({
   alt,

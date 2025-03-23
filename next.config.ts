@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 import { withPayload } from "@payloadcms/next/withPayload";
-/** @type {import('next').NextConfig} */
+
 const config: NextConfig = {
+  experimental: {
+    viewTransition: true,
+  },
   images: {
     remotePatterns: [
       {

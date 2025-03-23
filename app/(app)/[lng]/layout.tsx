@@ -1,14 +1,11 @@
-import { fallbackLng, languages } from "@/app/(app)/i18n/settings";
-import { useTranslation } from "@/app/(app)/i18n";
 import { dir } from "i18next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import TanstackProvider from "@/components/tanstack/TanstackProvider";
 import { PageLoading } from "@/components/layout/PageLoading";
-import { SakuraTree } from "@/components/common/flowers/SakuraTree";
 import { Metadata } from "next";
+import { GlobalProviders } from "@/components/common/providers";
 
 export const metadata: Metadata = {
   title: {
@@ -76,12 +73,10 @@ export default async function RootLayout({
         className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative`}
       >
         <PageLoading />
-        <TanstackProvider>
-          <NuqsAdapter>
-            <Navbar lng={lng} />
-            {children}
-          </NuqsAdapter>
-        </TanstackProvider>
+        <GlobalProviders>
+          <Navbar lng={lng} />
+          {children}
+        </GlobalProviders>
       </body>
     </html>
   );

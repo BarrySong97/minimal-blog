@@ -1,31 +1,24 @@
 import { Media, Photo } from "@/payload-types";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
 import CardContent from "@/components/photo/CardContent";
-import { getMediaUrl } from "@/components/photo/MediaUtils";
+import Link from "next/link";
 
 export interface PhotoCardProps extends React.HTMLAttributes<HTMLDivElement> {
   photo: Photo;
+  lang: string;
 }
 
-const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className }) => {
+const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className, lang }) => {
   return (
-    <motion.div
-      className={cn(
-        "group relative overflow-hidden rounded-lg bg-card shadow-sm transition-all duration-300 hover:shadow-md",
-        className
-      )}
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div className={cn("group relative ", className)}>
       <CardContent
         image={photo.image as Media}
         title={photo.title}
         excerpt={photo.excerpt}
         date={photo.date}
+        id={photo.id.toString()}
       />
-    </motion.div>
+    </div>
   );
 };
 
