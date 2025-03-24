@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import { MaterialSymbolsArrowForwardRounded } from "./icon";
 import { ViewHover } from "../common/ViewHover";
 import { Media, Blog } from "@/payload-types";
@@ -76,6 +76,7 @@ export function BlogItem({
               <h3 className="text-xl font-semibold leading-tight text-gray-900 transition-colors duration-300 mb-4">
                 {post.title}
               </h3>
+
               <p className="text-sm text-gray-600 line-clamp-2 mb-4 md:mb-0">
                 {post.excerpt}
               </p>

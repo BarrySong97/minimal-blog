@@ -1,8 +1,7 @@
 "use client";
 import { ProcessedHeading } from "@/components/common/richtext/get-headings";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { useParams, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { FC, useEffect, useState, useRef } from "react";
 import { Icon } from "@iconify/react";
 import { useQuery } from "@tanstack/react-query";

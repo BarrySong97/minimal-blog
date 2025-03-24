@@ -1,14 +1,14 @@
 "use client";
 
-import { Blog } from "@/payload-types";
+import { Blog, Media } from "@/payload-types";
 import { useTranslation } from "@/app/(app)/i18n/client";
-import React, { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-
+import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 export interface HeaderProps {
   blog: Blog;
   lng: string;
@@ -64,6 +64,7 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
             <div className="flex flex-col justify-center">
               <motion.div
                 className={cn("text-3xl font-semibold bg-transparent ")}
+                // layoutId={`blog-title-${blog.id}`}
                 style={{
                   scale: titleSize,
                   transformOrigin: "left center",
