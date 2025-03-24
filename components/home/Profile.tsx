@@ -36,6 +36,7 @@ export function Profile() {
         <ImageWithFallback
           image={home?.avatar as Media}
           alt="Profile picture"
+          enableTransition={false}
           width={96}
           height={96}
           priority

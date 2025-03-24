@@ -130,12 +130,12 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
         <video
           ref={videoRef}
           src={videoUrl.url!}
+          poster={cover?.url ?? undefined}
           muted
           loop
           playsInline
           className="object-cover w-full h-full"
           onLoadedData={handleVideoLoaded}
-          preload="auto" // Changed from "metadata" to "auto" for better Safari support
           controlsList="nodownload nofullscreen noremoteplayback"
         />
       ) : (
