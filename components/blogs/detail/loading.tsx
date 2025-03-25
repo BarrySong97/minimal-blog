@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 export interface LoadingProps {}
 
-const Loading: FC<LoadingProps> = () => {
+const BlogLoading: FC<LoadingProps> = () => {
   return (
     <div className="mx-auto">
       <div className="flex gap-12 justify-center relative">
@@ -87,4 +87,4 @@ const Loading: FC<LoadingProps> = () => {
   );
 };
 
-export default Loading;
+export default BlogLoading;

@@ -13,6 +13,7 @@ import React from "react";
 import { useParams } from "next/navigation";
 import { getQueryClient } from "@/components/tanstack/get-query-client";
 import { BlogsResponse } from "@/service";
+import BlogLoading from "@/components/blogs/detail/loading";
 const BlogDetail = () => {
   const params = useParams();
   const slug = params.slug as string;
@@ -24,10 +25,13 @@ const BlogDetail = () => {
   const blog = blogData?.pages
     .flatMap((page) => page.docs)
     ?.find((blog) => blog.slug === slug);
+
+  if (!blog) {
+    return <BlogLoading />;
+  }
   const headings = getHeadings(
     blog?.content?.root?.children as unknown as HeadingNode[]
   );
-
   return (
     <div className="mx-auto ">
       <div className="flex gap-12 justify-center relative">

@@ -25,21 +25,7 @@ const Blog: CollectionConfig = {
       type: "textarea",
       required: true,
     },
-    {
-      name: "content",
-      type: "richText",
-      required: true,
-      editor: lexicalEditor({
-        features: ({ defaultFeatures }) => [
-          ...defaultFeatures,
-          BlocksFeature({
-            blocks: [],
-          }),
-          FixedToolbarFeature(),
-        ],
-      }),
-    },
-    {
+        {
       name: "date",
       type: "date",
       required: true,
@@ -124,6 +110,21 @@ const Blog: CollectionConfig = {
         },
       ],
     },
+    {
+      name: "content",
+      type: "richText",
+      required: true,
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          BlocksFeature({
+            blocks: [],
+          }),
+          FixedToolbarFeature(),
+        ],
+      }),
+    },
+    
   ],
   timestamps: true,
 };

@@ -1,4 +1,5 @@
 "use client";
+import { motion } from "framer-motion";
 import type {
   DefaultNodeTypes,
   SerializedLinkNode,
@@ -89,7 +90,36 @@ const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
     toc: Array.from(toc).reverse(),
   };
   return (
-    <div className="max-w-4xl  prose prose-md !text-primary ">
+    <div className="max-w-4xl prose prose-md !text-primary">
+      <motion.div
+        initial={{
+          opacity: 0,
+          scale: 0.9,
+          z: -100,
+          filter: "blur(12px)",
+          perspective: 1000,
+        }}
+        animate={{
+          opacity: 1,
+          scale: 1,
+          z: 0,
+          filter: "blur(0px)",
+        }}
+        transition={{
+          duration: 1.5,
+          ease: [0.23, 1, 0.32, 1],
+        }}
+        style={{ transformStyle: "preserve-3d" }}
+      >
+        <ImageWithFallback
+          image={blog.coverImage as Media}
+          height={(blog.coverImage as Media).height ?? 400}
+          width={400}
+          className="w-full object-cover rounded-lg shadow-lg"
+          alt={`${blog.title}-cover`}
+        />
+      </motion.div>
+
       <RichTextContext.Provider value={context}>
         <RichText
           converters={jsxConverters({ toc: !!initialToc })}

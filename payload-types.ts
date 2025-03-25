@@ -138,21 +138,6 @@ export interface Blog {
   id: number;
   title: string;
   excerpt: string;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
   date: string;
   /**
    * Estimated reading time (e.g. '5 min read')
@@ -173,6 +158,21 @@ export interface Blog {
       }[]
     | null;
   status: 'draft' | 'published';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -416,7 +416,6 @@ export interface PayloadMigration {
 export interface BlogsSelect<T extends boolean = true> {
   title?: T;
   excerpt?: T;
-  content?: T;
   date?: T;
   readingTime?: T;
   slug?: T;
@@ -428,6 +427,7 @@ export interface BlogsSelect<T extends boolean = true> {
         id?: T;
       };
   status?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
