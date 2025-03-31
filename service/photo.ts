@@ -1,4 +1,4 @@
-import { Photo } from "@/payload-types";
+import { Blog, Photo } from "@/payload-types";
 import { request as __request } from "@/lib/request/core/request";
 import { OpenAPI } from "@/lib/request/core/OpenAPI";
 import { endpoints } from "./config";
@@ -37,6 +37,7 @@ export const photoService = {
       url: `${endpoints.photos}/${id}`,
     });
   },
+
   // 分页获取照片
   getPhotosPaginated: ({
     page = 1,

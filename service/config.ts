@@ -57,6 +57,7 @@ export const queryKeys = {
   photos: {
     all: ["photos"] as const,
     infinite: ["photos", "infinite"] as const,
+    detail: (id: string) => [...queryKeys.photos.all, id] as const,
   },
 } as const;
 

@@ -1,5 +1,4 @@
 "use client";
-import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "framer-motion";
@@ -10,6 +9,7 @@ import { TimeWeather } from "./TimeWeather";
 import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
 import { MobileLanguageSelector } from "./MobileLanguageSelector";
+import { Link, useTransitionState } from "next-transition-router";
 
 // Define a type for navigation items
 interface NavItem {
@@ -274,12 +274,16 @@ export function Navbar({ lng }: { lng: string }) {
     if (typeof window === "undefined") return;
     setIsLargeScreen(window.innerWidth < 1680 && window.innerWidth >= 1512);
   }, []);
+  const { stage } = useTransitionState();
   return (
     <header
       className={cn(
-        "sticky top-0 z-[99] w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90",
+        "sticky top-0 z-[99] w-full ",
         "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy",
-        scrolled && "border-b border-border/40 shadow-sm"
+        scrolled && "border-b border-border/40 shadow-sm",
+        stage === "none"
+          ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
+          : ""
       )}
     >
       <div className="mx-auto container px-6 2xl:px-0">

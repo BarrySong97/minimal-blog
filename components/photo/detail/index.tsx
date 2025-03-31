@@ -1,29 +1,24 @@
 "use client";
 import PhotoItem from "@/components/photo/modal/PhotoItem";
-import { getQueryClient } from "@/components/tanstack/get-query-client";
-import { useLayoutNavigation } from "@/hooks/use-layout-navigation";
 import { queryKeys } from "@/service";
-import { PhotosResponse } from "@/service/photo";
-import { InfiniteData } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
-import { useEffect, useState, useLayoutEffect } from "react";
+import { photoService } from "@/service/photo";
+import { useQuery } from "@tanstack/react-query";
+import { motion } from "framer-motion";
+import { useState, useLayoutEffect } from "react";
 import { Media } from "@/payload-types";
+import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
 
 // 增加退出动画持续时间，使其更慢更平滑
 
-const Modal = ({ id }: { id: string }) => {
-  const { isOpen, open, setIsOpen } = useLayoutNavigation();
-  const queryClient = getQueryClient();
-  const photoData = queryClient.getQueryData<InfiniteData<PhotosResponse>>(
-    queryKeys.photos.infinite
-  );
+const PhotoDetail = ({ id }: { id: string }) => {
   const [conterinDimensions, setconterinDimensions] = useState({
     width: 0,
     height: 0,
   });
-  const photo = photoData?.pages
-    .flatMap((page) => page.docs)
-    .find((photo) => String(photo.id) === id);
+  const { data: photo } = useQuery({
+    queryKey: queryKeys.photos.detail(id),
+    queryFn: () => photoService.getPhotoById(id),
+  });
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dimensionsCalculated, setDimensionsCalculated] = useState(false);
@@ -95,46 +90,37 @@ const Modal = ({ id }: { id: string }) => {
     if (dimensionsCalculated) {
       open();
     }
-  }, [dimensionsCalculated, open, setIsOpen]);
-  useEffect(() => {
-    return () => {
-      setIsOpen(false);
-    };
-  }, []);
+  }, [dimensionsCalculated]);
 
   if (!photo) return null;
-
   return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          transition={{ duration: 0.4, delay: 0.1 }}
-          className="fixed inset-0 z-[9999] will-change-auto"
-        >
-          {/* White background mask with fade animation */}
-          <motion.div
-            className="absolute z-0 inset-0 bg-white will-change-opacity"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, delay: 0.1 }}
-          />
+    <motion.div
+      transition={{ duration: 0.4, delay: 0.1 }}
+      className="fixed inset-0 z-[9999] min-h-screen will-change-auto"
+    >
+      {/* White background mask with fade animation */}
+      <motion.div
+        className="absolute z-0 inset-0 bg-white will-change-opacity"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.4, delay: 0.1 }}
+      />
 
-          {/* Content container */}
-          <div className="relative z-10 w-full min-h-screen">
-            <motion.div className="w-full h-screen bg-white">
-              <PhotoItem
-                key={`photo-item-${photo.id}`}
-                photo={photo}
-                containerDimensions={conterinDimensions}
-                dimensions={dimensions}
-              />
-            </motion.div>
-          </div>
+      {/* Content container */}
+      <div className="relative z-10 w-full min-h-screen">
+        <motion.div className="w-full h-screen bg-white">
+          <PhotoItem
+            key={`photo-item-${photo.id}`}
+            isPage
+            photo={photo}
+            containerDimensions={conterinDimensions}
+            dimensions={dimensions}
+          />
         </motion.div>
-      )}
-    </AnimatePresence>
+      </div>
+    </motion.div>
   );
 };
 
-export default Modal;
+export default PhotoDetail;
