@@ -91,7 +91,7 @@ const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
   };
   return (
     <div className="max-w-4xl prose prose-md !text-primary">
-      <motion.div
+      {/* <motion.div
         initial={{
           opacity: 0,
           scale: 0.9,
@@ -118,7 +118,7 @@ const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
           className="w-full object-cover rounded-lg shadow-lg"
           alt={`${blog.title}-cover`}
         />
-      </motion.div>
+      </motion.div> */}
 
       <RichTextContext.Provider value={context}>
         <RichText

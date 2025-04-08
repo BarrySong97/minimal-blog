@@ -29,8 +29,9 @@ export function middleware(req: NextRequest) {
   if (!lng) lng = fallbackLng;
 
   // Redirect if lng in path is not supported
-
+  const noLocale = ["gallery", "books", "demos"];
   if (
+    !noLocale.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !languages.some((loc) => req.nextUrl.pathname.startsWith(`/${loc}`)) &&
     !req.nextUrl.pathname.startsWith("/_next") &&
     !/\.(png|jpg|jpeg|gif|svg|webp)$/.test(req.nextUrl.pathname)
