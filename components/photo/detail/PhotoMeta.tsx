@@ -96,7 +96,7 @@ const PhotoMeta: FC<PhotoMetaProps> = ({ photo, className }) => {
       </div>
       <div className="prose prose-md !text-primary ">
         <motion.div
-          initial={{ maskPosition: "0% 100%" }}
+          initial={{ maskPosition: "0% 40%" }}
           style={{
             transform: "none",
             maskClip: "border-box",
@@ -110,7 +110,7 @@ const PhotoMeta: FC<PhotoMetaProps> = ({ photo, className }) => {
           }}
           whileInView={{ maskPosition: "0% 0%" }}
           viewport={{ once: true }}
-          transition={{ duration: 2, ease: "easeInOut" }}
+          transition={{ duration: 3, ease: "easeInOut" }}
         >
           <RichText
             converters={jsxConverters({})}

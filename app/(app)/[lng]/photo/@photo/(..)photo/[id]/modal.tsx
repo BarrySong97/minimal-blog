@@ -130,7 +130,7 @@ const Modal = ({ id }: { id: string }) => {
                 containerDimensions={conterinDimensions}
                 dimensions={dimensions}
               />
-              <PhotoMeta dimensions={dimensions} photo={photo} />
+              <PhotoMeta photo={photo} />
             </motion.div>
           </div>
         </motion.div>

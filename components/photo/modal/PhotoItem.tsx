@@ -49,10 +49,10 @@ const PhotoItem = ({
         <Icon icon="mdi:arrow-left" className="w-6 h-6" />
       </button>
 
-      <img
+      {/* <img
         src={blurImage}
         className="h-full opacity-90 blur-[1px]   w-full object-cover z-0 absolute "
-      />
+      /> */}
 
       {isPage ? (
         <motion.div
