@@ -12,11 +12,9 @@ import {
 } from "@payloadcms/richtext-lexical/react";
 import React, { FC } from "react";
 import { motion } from "framer-motion";
+import { cn } from "@/lib/utils";
 export interface PhotoMetaProps {
-  dimensions: {
-    width: number;
-    height: number;
-  };
+  className?: string;
   photo: Photo;
 }
 export const CustomUploadComponent: React.FC<{
@@ -53,9 +51,14 @@ const jsxConverters: (args: {
       },
     };
   };
-const PhotoMeta: FC<PhotoMetaProps> = ({ photo, dimensions }) => {
+const PhotoMeta: FC<PhotoMetaProps> = ({ photo, className }) => {
   return (
-    <div className="p-12 max-w-3xl flex flex-col justify-center h-full mx-auto">
+    <div
+      className={cn(
+        "p-12 max-w-3xl flex flex-col justify-center h-full mx-auto",
+        className
+      )}
+    >
       <div className="text-sm text-gray-600 line-clamp-2 mb-4 overflow-hidden">
         <motion.div
           initial={{
@@ -91,8 +94,8 @@ const PhotoMeta: FC<PhotoMetaProps> = ({ photo, dimensions }) => {
           {photo.title}
         </motion.div>
       </div>
-      <div className="prose prose-md !text-primary blur-[1px]">
-        <motion.p
+      <div className="prose prose-md !text-primary ">
+        <motion.div
           initial={{ maskPosition: "0% 100%" }}
           style={{
             transform: "none",
@@ -113,7 +116,7 @@ const PhotoMeta: FC<PhotoMetaProps> = ({ photo, dimensions }) => {
             converters={jsxConverters({})}
             data={photo?.content as unknown as any}
           />
-        </motion.p>
+        </motion.div>
       </div>
     </div>
   );

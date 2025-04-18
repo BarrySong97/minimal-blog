@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import { useState, useLayoutEffect } from "react";
 import { Media } from "@/payload-types";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
+import PhotoMeta from "./PhotoMeta";
 
 // 增加退出动画持续时间，使其更慢更平滑
 
@@ -109,7 +110,7 @@ const PhotoDetail = ({ id }: { id: string }) => {
 
       {/* Content container */}
       <div className="relative z-10 w-full min-h-screen">
-        <motion.div className="w-full h-screen bg-white">
+        <motion.div className="w-full flex h-screen bg-white">
           <PhotoItem
             key={`photo-item-${photo.id}`}
             isPage
@@ -117,6 +118,7 @@ const PhotoDetail = ({ id }: { id: string }) => {
             containerDimensions={conterinDimensions}
             dimensions={dimensions}
           />
+          <PhotoMeta photo={photo} className="flex-1" />
         </motion.div>
       </div>
     </motion.div>
