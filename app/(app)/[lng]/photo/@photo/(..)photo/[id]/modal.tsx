@@ -8,6 +8,7 @@ import { InfiniteData } from "@tanstack/react-query";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { Media } from "@/payload-types";
+import PhotoMeta from "@/components/photo/detail/PhotoMeta";
 
 // 增加退出动画持续时间，使其更慢更平滑
 
@@ -34,8 +35,8 @@ const Modal = ({ id }: { id: string }) => {
     const calculateDimensions = () => {
       const containerHeight = document.documentElement.clientHeight;
       const containerWidth = window.innerWidth / 2;
-      const imageWidth = (photo.image as Media).width || 1;
-      const imageHeight = (photo.image as Media).height || 1;
+      const imageWidth = (photo.images[0].image as Media).width || 1;
+      const imageHeight = (photo.images[0].image as Media).height || 1;
 
       // Calculate aspect ratios
       const containerRatio = containerWidth / containerHeight;
@@ -122,13 +123,14 @@ const Modal = ({ id }: { id: string }) => {
 
           {/* Content container */}
           <div className="relative z-10 w-full min-h-screen">
-            <motion.div className="w-full h-screen bg-white">
+            <motion.div className="w-full h-screen bg-white flex">
               <PhotoItem
                 key={`photo-item-${photo.id}`}
                 photo={photo}
                 containerDimensions={conterinDimensions}
                 dimensions={dimensions}
               />
+              <PhotoMeta dimensions={dimensions} photo={photo} />
             </motion.div>
           </div>
         </motion.div>

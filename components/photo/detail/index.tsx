@@ -29,8 +29,8 @@ const PhotoDetail = ({ id }: { id: string }) => {
     const calculateDimensions = () => {
       const containerHeight = document.documentElement.clientHeight;
       const containerWidth = window.innerWidth / 2;
-      const imageWidth = (photo.image as Media).width || 1;
-      const imageHeight = (photo.image as Media).height || 1;
+      const imageWidth = (photo.images[0].image as Media).width || 1;
+      const imageHeight = (photo.images[0].image as Media).height || 1;
 
       // Calculate aspect ratios
       const containerRatio = containerWidth / containerHeight;

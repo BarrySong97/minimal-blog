@@ -45,14 +45,6 @@ export const CustomUploadComponent: React.FC<{
 
   return null;
 };
-const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const { relationTo, value } = linkNode.fields.doc!;
-  if (typeof value !== "object") {
-    throw new Error("Expected value to be an object");
-  }
-  const slug = value.slug;
-  return relationTo === "posts" ? `/posts/${slug}` : `/${slug}`;
-};
 
 const jsxConverters: (args: {
   toc?: boolean;

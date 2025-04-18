@@ -1,3 +1,8 @@
+import {
+  FixedToolbarFeature,
+  lexicalEditor,
+} from "@payloadcms/richtext-lexical";
+import { BlocksFeature } from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 
 const Photo: CollectionConfig = {
@@ -16,10 +21,22 @@ const Photo: CollectionConfig = {
       required: true,
     },
     {
-      name: "image",
-      type: "upload",
-      relationTo: "media",
+      name: "location",
+      type: "text",
+    },
+
+    {
+      name: "images",
+      type: "array",
       required: true,
+      fields: [
+        {
+          name: "image",
+          type: "upload",
+          relationTo: "media",
+          required: true,
+        },
+      ],
     },
     {
       name: "excerpt",
@@ -45,6 +62,19 @@ const Photo: CollectionConfig = {
           pickerAppearance: "dayAndTime",
         },
       },
+    },
+    {
+      name: "content",
+      type: "richText",
+      editor: lexicalEditor({
+        features: ({ defaultFeatures }) => [
+          ...defaultFeatures,
+          BlocksFeature({
+            blocks: [],
+          }),
+          FixedToolbarFeature(),
+        ],
+      }),
     },
   ],
   timestamps: true,

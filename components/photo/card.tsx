@@ -12,7 +12,7 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ photo, className, lang }) => {
   return (
     <div className={cn("group relative ", className)}>
       <CardContent
-        image={photo.image as Media}
+        image={photo.images[0].image as Media}
         title={photo.title}
         excerpt={photo.excerpt}
         date={photo.date}

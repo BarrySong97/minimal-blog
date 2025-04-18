@@ -305,9 +305,28 @@ export interface SkillCategory {
 export interface Photo {
   id: number;
   title: string;
-  image: number | Media;
+  location?: string | null;
+  images: {
+    image: number | Media;
+    id?: string | null;
+  }[];
   excerpt: string;
   date: string;
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -544,9 +563,16 @@ export interface SkillCategoriesSelect<T extends boolean = true> {
  */
 export interface PhotosSelect<T extends boolean = true> {
   title?: T;
-  image?: T;
+  location?: T;
+  images?:
+    | T
+    | {
+        image?: T;
+        id?: T;
+      };
   excerpt?: T;
   date?: T;
+  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }

@@ -1,12 +1,10 @@
 import { dir } from "i18next";
 import "./globals.css";
 import { Navbar } from "@/components/layout/Navbar";
-import { NuqsAdapter } from "nuqs/adapters/next/app";
-import TanstackProvider from "@/components/tanstack/TanstackProvider";
 import { PageLoading } from "@/components/layout/PageLoading";
 import { Metadata } from "next";
 import { GlobalProviders } from "@/components/common/providers";
-
+import { Inter } from "next/font/google";
 export const metadata: Metadata = {
   title: {
     default: "Barry Song's blog",
@@ -58,6 +56,7 @@ export const metadata: Metadata = {
     },
   },
 };
+const font = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
   children,
@@ -70,7 +69,7 @@ export default async function RootLayout({
   return (
     <html lang={lng} dir={dir(lng)} className="bg-background">
       <body
-        className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative`}
+        className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative ${font.className}`}
       >
         <PageLoading />
         <GlobalProviders>

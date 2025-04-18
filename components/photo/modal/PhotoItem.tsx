@@ -5,6 +5,8 @@ import { Media, Photo } from "@/payload-types";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
+import { Icon } from "@iconify/react";
+import { useRouter } from "next/navigation";
 
 interface PhotoItemProps {
   photo: Photo;
@@ -25,9 +27,11 @@ const PhotoItem = ({
   dimensions,
   isPage = false,
 }: PhotoItemProps) => {
-  // 设置退出动画参数
+  const router = useRouter();
 
-  const blurImage = blurHashToDataURL((photo.image as Media).blurhash!);
+  const blurImage = blurHashToDataURL(
+    (photo.images[0].image as Media).blurhash!
+  );
   return (
     <motion.div
       layoutId={`photo-${photo.id}`}
@@ -37,10 +41,17 @@ const PhotoItem = ({
         height: containerDimensions.height,
       }}
     >
-      {/* <div className="bg-gradient-to-t from-black/60 to-transparent absolute z-[5] h-full w-full"></div> */}
+      <button
+        onClick={() => router.back()}
+        className="absolute top-4 left-4 z-20 text-white bg-black/30 rounded-full p-2 hover:bg-black/50 transition-colors"
+        aria-label="Go back"
+      >
+        <Icon icon="mdi:arrow-left" className="w-6 h-6" />
+      </button>
+
       <img
         src={blurImage}
-        className="h-full blur-[1px]  w-full object-cover z-0 absolute "
+        className="h-full opacity-90 blur-[1px]   w-full object-cover z-0 absolute "
       />
 
       {isPage ? (
@@ -70,7 +81,7 @@ const PhotoItem = ({
           }}
         >
           <ImageWithFallback
-            image={photo.image as Media}
+            image={photo.images[0].image as Media}
             alt={photo.title}
             className="object-contain shadow-lg"
             fill
@@ -88,7 +99,7 @@ const PhotoItem = ({
           }}
         >
           <ImageWithFallback
-            image={photo.image as Media}
+            image={photo.images[0].image as Media}
             alt={photo.title}
             className="object-contain"
             fill
