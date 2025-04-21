@@ -31,10 +31,48 @@ const Photo: CollectionConfig = {
       required: true,
       fields: [
         {
+          name: "title",
+          type: "text",
+        },
+        {
+          name: "location",
+          type: "text",
+        },
+        {
           name: "image",
           type: "upload",
           relationTo: "media",
-          required: true,
+        },
+        {
+          name: "content",
+          type: "richText",
+          editor: lexicalEditor({
+            features: ({ defaultFeatures }) => [
+              ...defaultFeatures,
+              BlocksFeature({
+                blocks: [],
+              }),
+              FixedToolbarFeature(),
+            ],
+          }),
+        },
+        {
+          name: "date",
+          type: "date",
+          hooks: {
+            beforeChange: [
+              (args) => {
+                if (args.operation == "create" && !args.value) {
+                  return new Date().getTime();
+                }
+              },
+            ],
+          },
+          admin: {
+            date: {
+              pickerAppearance: "dayAndTime",
+            },
+          },
         },
       ],
     },

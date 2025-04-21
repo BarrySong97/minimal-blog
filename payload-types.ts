@@ -307,7 +307,25 @@ export interface Photo {
   title: string;
   location?: string | null;
   images: {
-    image: number | Media;
+    title?: string | null;
+    location?: string | null;
+    image?: (number | null) | Media;
+    content?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    date?: string | null;
     id?: string | null;
   }[];
   excerpt: string;
@@ -567,7 +585,11 @@ export interface PhotosSelect<T extends boolean = true> {
   images?:
     | T
     | {
+        title?: T;
+        location?: T;
         image?: T;
+        content?: T;
+        date?: T;
         id?: T;
       };
   excerpt?: T;

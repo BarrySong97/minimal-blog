@@ -1,12 +1,10 @@
 "use client";
 
+import { useState, useEffect } from "react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { Media, Photo } from "@/payload-types";
-import { motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+import { motion, AnimatePresence } from "framer-motion";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
-import { Icon } from "@iconify/react";
-import { useRouter } from "next/navigation";
 
 interface PhotoItemProps {
   photo: Photo;
@@ -18,20 +16,31 @@ interface PhotoItemProps {
     width: number;
     height: number;
   };
+  photoIndex: number;
   isPage?: boolean;
 }
+
+const imageVariants = {
+  enter: {
+    opacity: 0,
+  },
+  center: {
+    zIndex: 1,
+    opacity: 1,
+  },
+  exit: {
+    zIndex: 0,
+    opacity: 0,
+  },
+};
 
 const PhotoItem = ({
   photo,
   containerDimensions,
   dimensions,
   isPage = false,
+  photoIndex,
 }: PhotoItemProps) => {
-  const router = useRouter();
-
-  const blurImage = blurHashToDataURL(
-    (photo.images[0].image as Media).blurhash!
-  );
   return (
     <motion.div
       layoutId={`photo-${photo.id}`}
@@ -41,14 +50,6 @@ const PhotoItem = ({
         height: containerDimensions.height,
       }}
     >
-      <button
-        onClick={() => router.back()}
-        className="absolute top-4 left-4 z-20 text-white bg-black/30 rounded-full p-2 hover:bg-black/50 transition-colors"
-        aria-label="Go back"
-      >
-        <Icon icon="mdi:arrow-left" className="w-6 h-6" />
-      </button>
-
       {/* <img
         src={blurImage}
         className="h-full opacity-90 blur-[1px]   w-full object-cover z-0 absolute "
@@ -81,7 +82,7 @@ const PhotoItem = ({
           }}
         >
           <ImageWithFallback
-            image={photo.images[0].image as Media}
+            image={photo.images[photoIndex].image as Media}
             alt={photo.title}
             className="object-contain shadow-lg"
             fill
@@ -99,7 +100,7 @@ const PhotoItem = ({
           }}
         >
           <ImageWithFallback
-            image={photo.images[0].image as Media}
+            image={photo.images[photoIndex].image as Media}
             alt={photo.title}
             className="object-contain"
             fill

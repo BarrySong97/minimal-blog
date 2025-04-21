@@ -5,9 +5,13 @@ import { photoService } from "@/service/photo";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
 import { useState, useLayoutEffect } from "react";
-import { Media } from "@/payload-types";
-import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
+import { Media, Photo } from "@/payload-types";
 import PhotoMeta from "./PhotoMeta";
+import { parseAsInteger } from "nuqs";
+import { useQueryState } from "nuqs";
+import PhotoScroll from "./scroll";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { useRouter } from "next/navigation";
 
 // 增加退出动画持续时间，使其更慢更平滑
 
@@ -24,6 +28,10 @@ const PhotoDetail = ({ id }: { id: string }) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dimensionsCalculated, setDimensionsCalculated] = useState(false);
 
+  const [photoIndex, setPhotoIndex] = useQueryState(
+    "index",
+    parseAsInteger.withDefault(0)
+  );
   useLayoutEffect(() => {
     if (!photo) return;
 
@@ -92,6 +100,7 @@ const PhotoDetail = ({ id }: { id: string }) => {
       open();
     }
   }, [dimensionsCalculated]);
+  const router = useRouter();
 
   if (!photo) return null;
   return (
@@ -110,15 +119,30 @@ const PhotoDetail = ({ id }: { id: string }) => {
 
       {/* Content container */}
       <div className="relative z-10 w-full min-h-screen">
+        <button
+          onClick={() => router.back()}
+          className="absolute top-4 left-4 z-20 text-white bg-black/30 rounded-full p-2 hover:bg-black/50 transition-colors"
+          aria-label="Go back"
+        >
+          <Icon icon="mdi:arrow-left" className="w-6 h-6" />
+        </button>
         <motion.div className="w-full flex h-screen bg-white">
+          <PhotoMeta photo={photo} className="flex-1" />
           <PhotoItem
             key={`photo-item-${photo.id}`}
+            photoIndex={photoIndex}
             isPage
             photo={photo}
             containerDimensions={conterinDimensions}
             dimensions={dimensions}
           />
-          <PhotoMeta photo={photo} className="flex-1" />
+          <PhotoScroll
+            photoIndex={photoIndex}
+            onSelect={(index) => {
+              setPhotoIndex(index);
+            }}
+            photos={photo.images as unknown as Photo[]}
+          />
         </motion.div>
       </div>
     </motion.div>
