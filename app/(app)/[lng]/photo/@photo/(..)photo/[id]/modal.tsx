@@ -20,6 +20,7 @@ const Modal = ({ id }: { id: string }) => {
   const { isOpen, open, setIsOpen } = useLayoutNavigation();
   const router = useRouter();
   const queryClient = getQueryClient();
+  const [isMobile, setisMobile] = useState(false);
   const photoData = queryClient.getQueryData<InfiniteData<PhotosResponse>>(
     queryKeys.photos.infinite
   );
@@ -37,13 +38,16 @@ const Modal = ({ id }: { id: string }) => {
 
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dimensionsCalculated, setDimensionsCalculated] = useState(false);
+  const [isJustifyStart, setIsJustifyStart] = useState(false);
 
   useLayoutEffect(() => {
     if (!photo) return;
 
     const calculateDimensions = () => {
       const containerHeight = document.documentElement.clientHeight;
-      const containerWidth = window.innerWidth / 2;
+      const containerWidth = isMobile
+        ? window.innerWidth
+        : window.innerWidth / 2;
       const imageWidth = (photo.images[0].image as Media).width || 1;
       const imageHeight = (photo.images[0].image as Media).height || 1;
 
@@ -86,6 +90,19 @@ const Modal = ({ id }: { id: string }) => {
         width: containerWidth,
         height: containerHeight,
       });
+      if (!isMobile) {
+        console.log(
+          document.documentElement.clientHeight,
+          photo.images.length * 70
+        );
+        setIsJustifyStart(
+          document.documentElement.clientHeight <= photo.images.length * 70
+        );
+      } else {
+        setIsJustifyStart(
+          document.documentElement.clientWidth <= photo.images.length * 70
+        );
+      }
       setDimensionsCalculated(true);
     };
 
@@ -99,13 +116,18 @@ const Modal = ({ id }: { id: string }) => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [photo]);
+  }, [photo, isMobile]);
 
   useLayoutEffect(() => {
     if (dimensionsCalculated) {
       open();
     }
   }, [dimensionsCalculated, open, setIsOpen]);
+  useEffect(() => {
+    if (window && window.innerWidth < 768) {
+      setisMobile(true);
+    }
+  }, []);
   useEffect(() => {
     return () => {
       setIsOpen(false);
@@ -139,8 +161,8 @@ const Modal = ({ id }: { id: string }) => {
           </button>
           {/* Content container */}
           <div className="relative z-10 w-full min-h-screen">
-            <motion.div className="w-full h-screen bg-white flex">
-              <PhotoMeta photo={photo} />
+            <motion.div className="w-full h-screen bg-white sm:flex">
+              {!isMobile ? <PhotoMeta photo={photo} /> : null}
               <PhotoItem
                 key={`photo-item-${photo.id}`}
                 photo={photo}
@@ -150,6 +172,15 @@ const Modal = ({ id }: { id: string }) => {
               />
               <PhotoScroll
                 photoIndex={photoIndex}
+                className={
+                  isMobile
+                    ? `absolute bottom-12 w-screen  flex  flex-nowrap   overflow-x-auto overflow-y-hidden ${
+                        isJustifyStart ? "justify-start" : "justify-center"
+                      }`
+                    : `flex overflow-y-auto py-2 ${
+                        isJustifyStart ? "justify-start" : "justify-center"
+                      }`
+                }
                 onSelect={(index) => {
                   setPhotoIndex(index);
                 }}

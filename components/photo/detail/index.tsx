@@ -4,7 +4,7 @@ import { queryKeys } from "@/service";
 import { photoService } from "@/service/photo";
 import { useQuery } from "@tanstack/react-query";
 import { motion } from "framer-motion";
-import { useState, useLayoutEffect } from "react";
+import { useState, useLayoutEffect, useEffect } from "react";
 import { Media, Photo } from "@/payload-types";
 import PhotoMeta from "./PhotoMeta";
 import { parseAsInteger } from "nuqs";
@@ -28,6 +28,8 @@ const PhotoDetail = ({ id }: { id: string }) => {
   const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
   const [dimensionsCalculated, setDimensionsCalculated] = useState(false);
 
+  const [isMobile, setisMobile] = useState(false);
+  const [isJustifyStart, setIsJustifyStart] = useState(false);
   const [photoIndex, setPhotoIndex] = useQueryState(
     "index",
     parseAsInteger.withDefault(0)
@@ -37,7 +39,9 @@ const PhotoDetail = ({ id }: { id: string }) => {
 
     const calculateDimensions = () => {
       const containerHeight = document.documentElement.clientHeight;
-      const containerWidth = window.innerWidth / 2;
+      const containerWidth = isMobile
+        ? window.innerWidth
+        : window.innerWidth / 2;
       const imageWidth = (photo.images[0].image as Media).width || 1;
       const imageHeight = (photo.images[0].image as Media).height || 1;
 
@@ -80,6 +84,19 @@ const PhotoDetail = ({ id }: { id: string }) => {
         width: containerWidth,
         height: containerHeight,
       });
+      if (!isMobile) {
+        console.log(
+          document.documentElement.clientHeight,
+          photo.images.length * 70
+        );
+        setIsJustifyStart(
+          document.documentElement.clientHeight <= photo.images.length * 70
+        );
+      } else {
+        setIsJustifyStart(
+          document.documentElement.clientWidth <= photo.images.length * 70
+        );
+      }
       setDimensionsCalculated(true);
     };
 
@@ -93,8 +110,13 @@ const PhotoDetail = ({ id }: { id: string }) => {
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [photo]);
+  }, [photo, isMobile]);
 
+  useEffect(() => {
+    if (window && window.innerWidth < 768) {
+      setisMobile(true);
+    }
+  }, []);
   useLayoutEffect(() => {
     if (dimensionsCalculated) {
       open();
@@ -127,7 +149,7 @@ const PhotoDetail = ({ id }: { id: string }) => {
           <Icon icon="mdi:arrow-left" className="w-6 h-6" />
         </button>
         <motion.div className="w-full flex h-screen bg-white">
-          <PhotoMeta photo={photo} className="flex-1" />
+          {!isMobile ? <PhotoMeta photo={photo} className="flex-1" /> : null}
           <PhotoItem
             key={`photo-item-${photo.id}`}
             photoIndex={photoIndex}
@@ -138,6 +160,15 @@ const PhotoDetail = ({ id }: { id: string }) => {
           />
           <PhotoScroll
             photoIndex={photoIndex}
+            className={
+              isMobile
+                ? `absolute bottom-12 w-screen  flex  flex-nowrap   overflow-x-auto overflow-y-hidden ${
+                    isJustifyStart ? "justify-start" : "justify-center"
+                  }`
+                : `flex overflow-y-auto py-2 ${
+                    isJustifyStart ? "justify-start" : "justify-center"
+                  }`
+            }
             onSelect={(index) => {
               setPhotoIndex(index);
             }}
