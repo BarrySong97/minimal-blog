@@ -13,6 +13,7 @@ import SkillCategories from "./app/(payload)/collections/skill-categories";
 import About from "./app/(payload)/collections/about";
 import computeBlurhash from "payload-blurhash-plugin";
 import Photo from "./app/(payload)/collections/photo";
+import Books from "./app/(payload)/collections/books";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor(),
@@ -26,6 +27,7 @@ export default buildConfig({
     Skills,
     SkillCategories,
     Photo,
+    Books,
   ],
   localization: {
     locales: ["en", "zh", "ja", "ko"], // required

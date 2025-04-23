@@ -4,11 +4,29 @@ import { FC, useRef, useState, useEffect } from "react";
 import { motion, useScroll, AnimatePresence, useInView } from "framer-motion";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { Book } from "./types";
+import { Book, Media } from "@/payload-types";
+import {
+  JSXConvertersFunction,
+  RichText,
+} from "@payloadcms/richtext-lexical/react";
+import { DefaultNodeTypes } from "@payloadcms/richtext-lexical";
+import { CustomUploadComponent } from "../photo/detail/PhotoMeta";
 
 interface BookScrollerProps extends React.HTMLAttributes<HTMLDivElement> {
   books: Book[];
 }
+const jsxConverters: (args: {
+  toc?: boolean;
+}) => JSXConvertersFunction<DefaultNodeTypes> =
+  () =>
+  ({ defaultConverters }) => {
+    return {
+      ...defaultConverters,
+      upload: ({ node }) => {
+        return <CustomUploadComponent node={node} />;
+      },
+    };
+  };
 
 const BookScroller: FC<BookScrollerProps> = ({
   books,
@@ -95,7 +113,7 @@ const BookScroller: FC<BookScrollerProps> = ({
   }, [activeBookIndex, books, revealedBooks]);
 
   // Handle image load complete
-  const handleImageLoad = (bookId: string) => {
+  const handleImageLoad = (bookId: number) => {
     // If this is the first image and hasn't been revealed yet, mark it for reveal
     if (bookId === books[0]?.id && !revealedBooks[bookId]) {
       setRevealedBooks((prev) => ({
@@ -143,13 +161,13 @@ const BookScroller: FC<BookScrollerProps> = ({
                 bookRefs.current[index] = el;
               }}
               className={cn(
-                "w-[70%] aspect-[2/3] min-h-[calc(100vh-4rem)] overflow-hidden relative"
+                "w-[70%] aspect-[3/4] min-h-[calc(100vh-4rem)] overflow-hidden relative"
               )}
             >
-              <div className="w-full h-full relative overflow-hidden">
-                <motion.div className="w-full h-full relative">
+              <div className="w-full h-full relative ">
+                <motion.div className="w-full h-full relative ">
                   <Image
-                    src={book.coverUrl}
+                    src={(book.image as Media)?.url!}
                     alt={`${book.title} by ${book.author}`}
                     fill
                     sizes="(max-width: 768px) 100vw, 50vw"
@@ -165,7 +183,7 @@ const BookScroller: FC<BookScrollerProps> = ({
                     transition={{
                       duration: 1.2,
                       ease: [0.6, 0.01, 0.05, 0.95],
-                      delay: 0.2,
+                      delay: 0.1,
                     }}
                   />
                 </motion.div>
@@ -187,9 +205,12 @@ const BookScroller: FC<BookScrollerProps> = ({
             exit={{ opacity: 0, x: 20 }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-gray-800 leading-relaxed italic">
-              {books[activeBookIndex]?.notes}
-            </p>
+            <div className="text-gray-800 leading-relaxed italic">
+              <RichText
+                converters={jsxConverters({})}
+                data={books[activeBookIndex]?.note as unknown as any}
+              />
+            </div>
           </motion.div>
         </AnimatePresence>
       </div>

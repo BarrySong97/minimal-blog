@@ -17,6 +17,7 @@ export const CACHE_TIME = Number(process.env.NEXT_PUBLIC_CACHE_TIME || 300); // 
 // API Endpoints
 export const endpoints = {
   blogs: `/blogs`,
+  books: `/books`,
   experiences: `/experiences`,
   home: `/globals/home`,
   projects: `/projects`,
@@ -33,6 +34,11 @@ export const queryKeys = {
     detail: (id: number) => [...queryKeys.blogs.all, id] as const,
     bySlug: (slug: string) => [...queryKeys.blogs.all, "slug", slug] as const,
     infinite: ["blogs", "infinite"] as const,
+  },
+  books: {
+    all: ["books"] as const,
+    detail: (id: number) => [...queryKeys.books.all, id] as const,
+    infinite: ["books", "infinite"] as const,
   },
   experiences: {
     all: ["experiences"] as const,
