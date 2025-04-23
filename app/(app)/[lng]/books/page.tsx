@@ -1,6 +1,5 @@
 import { FC } from "react";
 import BookScroller from "@/components/books/BookScroller";
-import { mockBooks } from "@/components/books/mockData";
 import { Metadata } from "next";
 import { bookService } from "@/service/books";
 export const metadata: Metadata = {
