@@ -9,7 +9,6 @@ import { projectService } from "@/service/projects";
 import { experienceService } from "@/service/experiences";
 import { skillService } from "@/service/skills";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import { Metadata } from "next";
 
 export default async function Home({
   params,
