@@ -1,14 +1,9 @@
 "use client";
 import { experienceService } from "@/service";
-import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { Media } from "@/payload-types";
-import {
-  IcSharpArrowOutward,
-  MaterialSymbolsLightPinDrop,
-  MaterialSymbolsPerson,
-} from "./icon";
+
 import { motion } from "framer-motion";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 
@@ -22,22 +17,10 @@ const container = {
   },
 };
 
-const item = {
-  hidden: { opacity: 0, y: 20 },
-  show: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.5,
-      ease: "easeOut",
-    },
-  },
-};
-
 export function Experience() {
   const { data: experiences } = useQuery({
     queryKey: queryKeys.experiences.all,
-    queryFn: () => experienceService.getExperiences(),
+    queryFn: experienceService.getExperiences,
     staleTime: Infinity,
   });
 
@@ -54,7 +37,17 @@ export function Experience() {
         {experiences?.docs.map((exp, index) => (
           <motion.div
             key={exp.company}
-            variants={item}
+            variants={{
+              hidden: { opacity: 0, y: 20 },
+              show: {
+                opacity: 1,
+                y: 0,
+                transition: {
+                  duration: 0.5,
+                  ease: "easeOut",
+                },
+              },
+            }}
             className="group space-y-2"
           >
             <div className="flex items-center justify-between">

@@ -24,7 +24,7 @@ importers:
         specifier: ^3.28.1
         version: 3.42.0(@types/react@19.1.8)(monaco-editor@0.52.2)(next@15.2.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.77.4))(payload@3.42.0(graphql@16.11.0)(typescript@5.8.3))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(typescript@5.8.3)
       '@tanstack/react-query':
-        specifier: ^5.66.9
+        specifier: ^5.80.7
         version: 5.80.7(react@19.1.0)
       '@tanstack/react-query-devtools':
         specifier: ^5.66.9
@@ -45,7 +45,7 @@ importers:
         specifier: ^4.1.0
         version: 4.1.0
       framer-motion:
-        specifier: ^12.4.7
+        specifier: ^12.17.3
         version: 12.17.3(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       graphql:
         specifier: ^16.10.0
