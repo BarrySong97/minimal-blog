@@ -20,7 +20,7 @@ export const experienceService = {
   getExperiences: () => {
     return __request<ExperiencesResponse>(OpenAPI, {
       method: "GET",
-      url: `${endpoints.experiences}?sort=order`,
+      url: `${endpoints.experiences}?sort=+order`,
     });
   },
 
