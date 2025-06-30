@@ -1,9 +1,15 @@
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
+import { GlobalConfig } from "payload";
 import {
-  BlocksFeature,
+  lexicalEditor,
   FixedToolbarFeature,
+  BlocksFeature,
 } from "@payloadcms/richtext-lexical";
-import type { GlobalConfig } from "payload";
+import {
+  BgColorFeature,
+  HighlightColorFeature,
+  TextColorFeature,
+  YoutubeFeature,
+} from "payloadcms-lexical-ext";
 
 const About: GlobalConfig = {
   slug: "about",
@@ -22,6 +28,7 @@ const About: GlobalConfig = {
             blocks: [],
           }),
           FixedToolbarFeature(),
+          YoutubeFeature(),
         ],
       }),
     },

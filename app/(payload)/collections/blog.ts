@@ -3,6 +3,12 @@ import {
   FixedToolbarFeature,
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
+import {
+  BgColorFeature,
+  HighlightColorFeature,
+  TextColorFeature,
+  YoutubeFeature,
+} from "payloadcms-lexical-ext";
 import type { CollectionConfig } from "payload";
 
 const Blog: CollectionConfig = {
@@ -25,7 +31,7 @@ const Blog: CollectionConfig = {
       type: "textarea",
       required: true,
     },
-        {
+    {
       name: "date",
       type: "date",
       required: true,
@@ -121,10 +127,10 @@ const Blog: CollectionConfig = {
             blocks: [],
           }),
           FixedToolbarFeature(),
+          YoutubeFeature(),
         ],
       }),
     },
-    
   ],
   timestamps: true,
 };

@@ -1,8 +1,7 @@
 "use client";
-import { motion } from "framer-motion";
+import "payloadcms-lexical-ext/client/client.css";
 import type {
   DefaultNodeTypes,
-  SerializedLinkNode,
   SerializedUploadNode,
 } from "@payloadcms/richtext-lexical";
 
@@ -10,6 +9,7 @@ import {
   type JSXConvertersFunction,
   RichText,
 } from "@payloadcms/richtext-lexical/react";
+import { JSXConverters } from "payloadcms-lexical-ext";
 import { Heading as HeadingComponent } from "@/components/common/richtext/Heading";
 import { Blog as BlogType, Media } from "@/payload-types";
 import {
@@ -56,6 +56,7 @@ const jsxConverters: (args: {
     }
     return {
       ...defaultConverters,
+      ...JSXConverters,
       upload: ({ node }) => {
         return <CustomUploadComponent node={node} />;
       },

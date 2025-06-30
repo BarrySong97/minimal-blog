@@ -155,7 +155,7 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
         {/* Single indicator that will move */}
         <div
           ref={indicatorRef}
-          className="absolute left-[2px] top-0 w-[3px] bg-gray-900 rounded-full opacity-0 transition-all duration-300"
+          className="absolute left-[-8px] top-0 w-[3px] bg-gray-900 rounded-full opacity-0 transition-all duration-300"
           style={{
             opacity: currentId ? 1 : 0,
             height: "16px", // 默认高度，会被JS动态更新

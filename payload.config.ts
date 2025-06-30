@@ -14,9 +14,12 @@ import About from "./app/(payload)/collections/about";
 import computeBlurhash from "payload-blurhash-plugin";
 import Photo from "./app/(payload)/collections/photo";
 import Books from "./app/(payload)/collections/books";
+import { YoutubeFeature } from "payloadcms-lexical-ext";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
-  editor: lexicalEditor(),
+  editor: lexicalEditor({
+    features: [YoutubeFeature()],
+  }),
   globals: [Home, About],
   // Define and configure your collections in this array
   collections: [
