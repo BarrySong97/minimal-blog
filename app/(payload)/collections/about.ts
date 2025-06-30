@@ -4,12 +4,7 @@ import {
   FixedToolbarFeature,
   BlocksFeature,
 } from "@payloadcms/richtext-lexical";
-import {
-  BgColorFeature,
-  HighlightColorFeature,
-  TextColorFeature,
-  YoutubeFeature,
-} from "payloadcms-lexical-ext";
+import { YoutubeFeature } from "payloadcms-lexical-ext";
 
 const About: GlobalConfig = {
   slug: "about",

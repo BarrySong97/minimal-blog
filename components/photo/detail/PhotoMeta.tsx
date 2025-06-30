@@ -1,4 +1,4 @@
-"use clients";
+"use client";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { format } from "date-fns";
 import { Media, Photo } from "@/payload-types";
