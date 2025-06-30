@@ -8,32 +8,11 @@ import { RichTextContext } from "../common/richtext/context";
 import { IContext } from "../common/richtext/context";
 import { AddHeading } from "../common/richtext/context";
 import { Heading } from "../common/richtext/context";
-import {
-  JSXConvertersFunction,
-  RichText,
-} from "@payloadcms/richtext-lexical/react";
-import { DefaultNodeTypes } from "@payloadcms/richtext-lexical";
-import { CustomUploadComponent } from "../blogs/detail/Content";
-import { Heading as HeadingComponent } from "@/components/common/richtext/Heading";
-import { JSXConverters } from "payloadcms-lexical-ext";
+import { RichText } from "@payloadcms/richtext-lexical/react";
+import jsxConverters from "../common/richtext/jsx-converter";
+
 export interface AboutContentProps {}
 
-const jsxConverters: (args: {
-  toc?: boolean;
-}) => JSXConvertersFunction<DefaultNodeTypes> =
-  ({ toc }) =>
-  ({ defaultConverters }) => {
-    if (defaultConverters.heading) {
-      defaultConverters.heading = HeadingComponent as any;
-    }
-    return {
-      ...defaultConverters,
-      ...JSXConverters,
-      upload: ({ node }) => {
-        return <CustomUploadComponent node={node} />;
-      },
-    };
-  };
 const AboutContent: FC<AboutContentProps> = () => {
   const { data: about } = useQuery({
     queryKey: queryKeys.about,

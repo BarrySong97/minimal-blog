@@ -1,5 +1,5 @@
+"use client";
 import { JumplistNode } from "./Jumplist";
-import { slugify } from "@/components/common/richtext/get-headings";
 import { useEffect } from "react";
 
 import { useRichText } from "./context";
@@ -54,7 +54,7 @@ export const Heading: React.FC<any> = ({ node, nodesToJSX }) => {
 
   const childrenText = node.children?.[0]?.text as string;
 
-  const { label, tag } = formatAnchor(childrenText);
+  const { label } = formatAnchor(childrenText);
   const { addHeading } = useRichText();
 
   const anchor = childrenText.split(" ").join("-");

@@ -1,16 +1,8 @@
 "use client";
 import "payloadcms-lexical-ext/client/client.css";
-import type {
-  DefaultNodeTypes,
-  SerializedUploadNode,
-} from "@payloadcms/richtext-lexical";
+import type { SerializedUploadNode } from "@payloadcms/richtext-lexical";
 
-import {
-  type JSXConvertersFunction,
-  RichText,
-} from "@payloadcms/richtext-lexical/react";
-import { JSXConverters } from "payloadcms-lexical-ext";
-import { Heading as HeadingComponent } from "@/components/common/richtext/Heading";
+import { RichText } from "@payloadcms/richtext-lexical/react";
 import { Blog as BlogType, Media } from "@/payload-types";
 import {
   AddHeading,
@@ -20,6 +12,7 @@ import {
 } from "@/components/common/richtext/context";
 import React, { FC, useCallback, useState } from "react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
+import jsxConverters from "@/components/common/richtext/jsx-converter";
 export interface BlogProps {
   blog?: BlogType;
   toc: Map<string, Heading>;
@@ -45,23 +38,6 @@ export const CustomUploadComponent: React.FC<{
 
   return null;
 };
-
-const jsxConverters: (args: {
-  toc?: boolean;
-}) => JSXConvertersFunction<DefaultNodeTypes> =
-  ({ toc }) =>
-  ({ defaultConverters }) => {
-    if (defaultConverters.heading) {
-      defaultConverters.heading = HeadingComponent as any;
-    }
-    return {
-      ...defaultConverters,
-      ...JSXConverters,
-      upload: ({ node }) => {
-        return <CustomUploadComponent node={node} />;
-      },
-    };
-  };
 
 const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
   if (!blog) {
