@@ -5,6 +5,7 @@ import { PageLoading } from "@/components/layout/PageLoading";
 import { Metadata } from "next";
 import { GlobalProviders } from "@/components/common/providers";
 import { Inter } from "next/font/google";
+import Script from "next/script";
 export const metadata: Metadata = {
   title: {
     default: "Barry Song's blog",
@@ -76,6 +77,11 @@ export default async function RootLayout({
           <Navbar lng={lng} />
           {children}
         </GlobalProviders>
+        <Script
+          src="https://4realrybbit.zeabur.app/api/script.js"
+          data-site-id="1"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
