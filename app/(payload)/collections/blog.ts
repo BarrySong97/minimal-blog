@@ -32,6 +32,12 @@ const Blog: CollectionConfig = {
       required: true,
     },
     {
+      name: "ogImage",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+    },
+    {
       name: "date",
       type: "date",
       required: true,
