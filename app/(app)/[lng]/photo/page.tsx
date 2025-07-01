@@ -7,6 +7,7 @@ import PhotoList from "@/components/photo/list";
 import { Metadata } from "next";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "../../i18n";
 
 export const metadata: Metadata = {
   title: "Photo",
@@ -21,13 +22,13 @@ const PhotoPage = async ({ params }: { params: Promise<{ lng: string }> }) => {
       photoService.getPhotosPaginated({ page: pageParam }),
     initialPageParam: 1,
   });
-
+  const { t } = await useTranslation(lng);
   return (
     <HydrationBoundary state={state}>
       <div className="space-y-8" key={"photo-page"}>
         <div className="flex items-center justify-between container mx-auto px-6 2xl:px-0">
           <SectionHeader
-            title={"照片"}
+            title={t("common.nav.photos")}
             className={cn(
               "pl-0",
               "motion-scale-in-[0.37] motion-opacity-in-[0%]"

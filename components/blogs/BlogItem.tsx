@@ -36,7 +36,7 @@ export function BlogItem({
       >
         <ViewHover isHover={isHovered} trackMouse />
 
-        <div className="w-full aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
+        <div className=" aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
           <ImageWithFallback
             image={post.coverImage as Media}
             alt={post.title}

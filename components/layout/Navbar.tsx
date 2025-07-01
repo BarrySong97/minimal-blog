@@ -115,7 +115,6 @@ export function Navbar({ lng }: { lng: string }) {
 
   // 使用 useResponsive 替代手动检测
   const responsive = useResponsive();
-  const isMobile = !responsive?.md;
 
   const updateActiveRect = (itemKey?: string) => {
     // If itemKey is provided, use it; otherwise extract from pathname
@@ -270,11 +269,14 @@ export function Navbar({ lng }: { lng: string }) {
   const { scrollY } = useScroll();
   const x = useTransform(scrollY, [0, 60], ["0", "100px"]);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
     setIsLargeScreen(window.innerWidth < 1680 && window.innerWidth >= 1512);
+    setIsMobile(window.innerWidth < 768);
   }, []);
   const { stage } = useTransitionState();
+
   return (
     <header
       className={cn(
@@ -367,18 +369,20 @@ export function Navbar({ lng }: { lng: string }) {
           </motion.nav>
 
           {/* Mobile Navigation */}
-          <div className="flex items-center gap-2  sm:hidden">
-            <MobileLanguageSelector />
-            <MobileNavbar
-              lng={lng}
-              isOpen={mobileMenuOpen}
-              onClose={toggleMobileMenu}
-              activeItem={activeItem}
-              onItemClick={handleItemClick}
-              t={t}
-              navItems={navItems}
-            />
-          </div>
+          {isMobile && (
+            <div className="flex items-center gap-2  sm:hidden">
+              <MobileLanguageSelector />
+              <MobileNavbar
+                lng={lng}
+                isOpen={mobileMenuOpen}
+                onClose={toggleMobileMenu}
+                activeItem={activeItem}
+                onItemClick={handleItemClick}
+                t={t}
+                navItems={navItems}
+              />
+            </div>
+          )}
         </div>
       </div>
     </header>

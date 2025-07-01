@@ -13,8 +13,13 @@ export const metadata: Metadata = {
   description: "Barry Song's blog, share his thoughts and experiences.",
 };
 
-export default async function Blogs() {
-  const { t } = await useTranslation("common");
+export default async function Blogs({
+  params,
+}: {
+  params: Promise<{ lng: string }>;
+}) {
+  const { lng } = await params;
+  const { t } = await useTranslation(lng);
   // 预获取无限滚动的第一页数据
   const state = await prefetchInfiniteQuery({
     queryKey: queryKeys.blogs.infinite,
