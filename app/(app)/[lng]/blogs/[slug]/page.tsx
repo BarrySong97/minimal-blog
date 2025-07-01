@@ -28,7 +28,7 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       images: [
         {
-          url: cover?.url,
+          url: `${process.env.DOMAIN_URL}${cover?.url}`,
         },
       ],
     },

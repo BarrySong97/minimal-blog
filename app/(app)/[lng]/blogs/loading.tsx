@@ -51,7 +51,7 @@ const Loading = ({ className, ...props }: LoadingProps) => {
               <div key={colIndex} className="group relative animate-pulse">
                 <div className="group relative flex flex-col md:flex-row h-auto md:h-[400px] overflow-hidden border shadow-sm backdrop-blur-sm">
                   {/* 图片区域 */}
-                  <div className="w-full aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative bg-gray-200 dark:bg-gray-800">
+                  <div className=" aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative bg-gray-200 dark:bg-gray-800">
                     {/* Read More 按钮位置 */}
                     <div className="absolute bottom-0 right-0 bg-gray-300 dark:bg-gray-700 z-50 py-2 px-4 hidden"></div>
                   </div>
