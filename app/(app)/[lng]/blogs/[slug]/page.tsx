@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props) {
     openGraph: {
       images: [
         {
-          url: `${process.env.DOMAIN_URL}${cover?.sizes?.card?.url}`,
+          url: `${process.env.DOMAIN_URL}${cover?.url}`,
         },
       ],
     },
@@ -38,7 +38,7 @@ export async function generateMetadata({ params }: Props) {
       card: "summary_large_image",
       title: `${blog?.docs?.[0]?.title} | Barry Song's Blog`,
       description: blog?.docs?.[0]?.excerpt,
-      images: [cover?.url],
+      images: [`${process.env.DOMAIN_URL}${cover?.url}`],
     },
   };
 }
