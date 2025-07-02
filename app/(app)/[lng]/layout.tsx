@@ -36,6 +36,9 @@ export const metadata: Metadata = {
       },
     ],
   },
+  verification: {
+    google: "tddB2AD5Icy6qgVQwdDbcIXmfvpD4d3qsZLnpKaBmZc",
+  },
   twitter: {
     card: "summary_large_image",
     title: "4Real | Barry Song's blog",
@@ -45,6 +48,7 @@ export const metadata: Metadata = {
   authors: [{ name: "4Real" }],
   creator: "4Real",
   publisher: "4Real",
+
   robots: {
     index: true,
     follow: true,
