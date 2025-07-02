@@ -10,9 +10,11 @@ export const ImageWithFallback = ({
   alt,
   className,
   enableTransition = true,
+  isThumbnail = false,
   ...props
 }: Omit<ImageProps, "src"> & {
   image: Media;
+  isThumbnail?: boolean;
   enableTransition?: boolean;
 }) => {
   const [error, setError] = useState(false);

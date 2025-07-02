@@ -23,13 +23,14 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const blog = await getBlogCache(slug);
   const cover = blog?.docs?.[0]?.ogImage as Media;
+  console.log(cover);
   return {
     title: blog?.docs?.[0]?.title,
     description: blog?.docs?.[0]?.excerpt,
     openGraph: {
       images: [
         {
-          url: `${process.env.DOMAIN_URL}${cover?.url}`,
+          url: `${process.env.DOMAIN_URL}${cover?.sizes?.card?.url}`,
         },
       ],
     },
