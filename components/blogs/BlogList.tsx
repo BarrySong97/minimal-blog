@@ -4,15 +4,21 @@ import { useRef, useState, useEffect, useCallback } from "react";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { blogService } from "@/service/blogs";
-import { BlogItem } from "./BlogItem";
 import { VList } from "virtua";
 import { useResponsive } from "ahooks";
 import { Icon } from "@iconify/react";
 import { Blog } from "@/payload-types";
+import { useQueryState } from "nuqs";
+import { BlogGridItem } from "./BlogGridItem";
+import { BlogListItem } from "./BlogListItem";
 
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function BlogList({ className, ...props }: BlogListProps) {
+  const [layout] = useQueryState("layout", {
+    defaultValue: "grid",
+    parse: (value): "grid" | "list" => (value === "list" ? "list" : "grid"),
+  });
   const {
     data: blogsData,
     isLoading,
@@ -37,6 +43,10 @@ export function BlogList({ className, ...props }: BlogListProps) {
 
   // 根据屏幕宽度确定列数
   useEffect(() => {
+    if (layout === "list") {
+      setColumnCount(1);
+      return;
+    }
     if (responsive?.sm && !responsive?.md) {
       setColumnCount(1);
     } else if (responsive?.md && !responsive?.lg) {
@@ -49,7 +59,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
       // 默认情况（小屏幕）
       setColumnCount(1);
     }
-  }, [responsive?.sm, responsive?.md, responsive?.lg, responsive?.xl]);
+  }, [responsive?.sm, responsive?.md, responsive?.lg, responsive?.xl, layout]);
 
   // 将所有页面的博客合并为一个数组
   const allBlogs = blogsData?.pages.flatMap((page) => page.docs) || [];
@@ -114,6 +124,8 @@ export function BlogList({ className, ...props }: BlogListProps) {
     rows.push(allBlogs.slice(i, i + columnCount) as Blog[]);
   }
 
+  const ItemComponent = layout === "grid" ? BlogGridItem : BlogListItem;
+
   return (
     <div
       ref={containerRef}
@@ -140,7 +152,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
             }}
           >
             {row.map((post) => (
-              <BlogItem
+              <ItemComponent
                 key={post.id}
                 post={post}
                 isHovered={hoverId === post.id}

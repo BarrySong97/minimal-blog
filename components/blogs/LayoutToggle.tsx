@@ -10,7 +10,7 @@ interface LayoutToggleProps {
 
 export function LayoutToggle({ className }: LayoutToggleProps) {
   const [layout, setLayout] = useQueryState("layout", {
-    defaultValue: "list",
+    defaultValue: "grid",
     parse: (value): "grid" | "list" => (value === "list" ? "list" : "grid"),
   });
 
@@ -46,7 +46,7 @@ export function LayoutToggle({ className }: LayoutToggleProps) {
         )}
         aria-label="Grid layout"
       >
-        {layout === "grid" && (
+        {layout === "list" && (
           <motion.div
             layoutId="active-layout"
             className="absolute inset-0 bg-primary rounded-md -z-10"

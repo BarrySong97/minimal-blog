@@ -8,6 +8,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
 import Loading from "./loading";
+import { LayoutToggle } from "@/components/blogs/LayoutToggle";
 
 export const metadata: Metadata = {
   title: "Blogs",
@@ -38,6 +39,7 @@ export default async function Blogs({
               "motion-scale-in-[0.37] motion-opacity-in-[0%]"
             )}
           />
+          <LayoutToggle />
         </div>
         <BlogList />
       </div>
