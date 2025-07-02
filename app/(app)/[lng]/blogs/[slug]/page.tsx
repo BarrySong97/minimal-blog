@@ -13,6 +13,7 @@ import { homeService } from "@/service/home";
 import { HydrationBoundary } from "@tanstack/react-query";
 import React, { cache, FC } from "react";
 import { Media } from "@/payload-types";
+import Cd from "@/components/common/cd";
 const getBlog = async (slug: string) => {
   const blog = await blogService.getBlogBySlug(slug);
   return blog;
@@ -73,6 +74,8 @@ const BlogDetail: FC<Props> = async ({ params }) => {
                 ) as any
               }
             />
+            <hr className="my-12" />
+            <Cd />
           </div>
 
           <div className="hidden lg:block">
