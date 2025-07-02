@@ -37,7 +37,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
           url: `${siteUrl}/${lng}/blogs/${blog.slug}`,
           lastModified: new Date(blog.updatedAt),
           changeFrequency: "weekly",
-          priority: -1.5,
+          priority: 0.5,
         }))
       );
     return [...staticUrls, ...blogUrls];
