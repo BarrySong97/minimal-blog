@@ -45,6 +45,7 @@
     "react-i18next": "^15.4.1",
     "sharp": "^0.33.5",
     "tailwind-merge": "^3.0.1",
+    "vaul": "^1.1.2",
     "virtua": "^0.40.3"
   },
   "devDependencies": {

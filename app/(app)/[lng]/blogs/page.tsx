@@ -7,7 +7,6 @@ import { useTranslation } from "@/app/(app)/i18n";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
-import Loading from "./loading";
 import { LayoutToggle } from "@/components/blogs/LayoutToggle";
 import { TagList } from "@/components/blogs/TagList";
 

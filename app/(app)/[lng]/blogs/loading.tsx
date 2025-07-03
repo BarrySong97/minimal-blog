@@ -41,7 +41,7 @@ const Loading = ({ className, ...props }: LoadingProps) => {
         {skeletonRows.map((rowIndex) => (
           <div
             key={rowIndex}
-            className="grid w-full pb-4 px-6 2xl:px-0 container mx-auto"
+            className="grid w-full pb-4 px-0 container mx-auto"
             style={{
               gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
               gap: "1rem",
