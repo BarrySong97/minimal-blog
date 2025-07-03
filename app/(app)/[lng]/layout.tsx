@@ -9,7 +9,7 @@ import Script from "next/script";
 export const metadata: Metadata = {
   title: {
     default: "Barry Song's blog",
-    template: "%s | 4Real",
+    template: "%s | 4Real · explore the world",
   },
   description: "Barry Song's blog, share his thoughts and experiences.",
   keywords: [
