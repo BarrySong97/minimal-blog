@@ -29,6 +29,7 @@
         "engineer": "エンジニア"
     },
     "blog": {
-        "readingTime": "分読み"
+        "readingTime": "分読み",
+        "count": "記事"
     }
 }

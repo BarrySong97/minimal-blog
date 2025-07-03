@@ -21,6 +21,7 @@ export type BlogFilters = {
   page?: number;
   limit?: number;
   status?: "draft" | "published";
+  tags?: string[];
 };
 
 export const blogService = {
@@ -31,6 +32,12 @@ export const blogService = {
         equals: "published",
       },
     };
+
+    if (filters?.tags && filters.tags.length > 0) {
+      query["tags.tag"] = {
+        in: filters.tags.join(","),
+      };
+    }
 
     // 构建查询参数
     const queryParams: Record<string, any> = {
@@ -58,6 +65,12 @@ export const blogService = {
     });
   },
 
+  getBlogCount: () => {
+    return __request(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}/count`,
+    });
+  },
   // 获取单个博客详情
   getBlog: (id: number) => {
     return __request(OpenAPI, {
@@ -72,5 +85,35 @@ export const blogService = {
       method: "GET",
       url: `${endpoints.blogs}?where[slug][equals]=${slug}`,
     });
+  },
+
+  getBlogTags: async (): Promise<string[]> => {
+    const query: Where = {
+      status: {
+        equals: "published",
+      },
+    };
+
+    const queryParams: Record<string, any> = {
+      where: query,
+      limit: 0, // Assume there are fewer than 1000 blog posts
+      depth: 0, // We don't need to populate any relationships
+      select: {
+        tags: true,
+      }, // We only need the tags field
+    };
+
+    const stringifiedQuery = stringify(queryParams);
+
+    const response = await __request<BlogsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}?${stringifiedQuery}`,
+    });
+
+    const allTags =
+      response.docs?.flatMap((doc) => doc.tags?.map((t) => t.tag) || []) || [];
+    const uniqueTags = [...new Set(allTags.filter(Boolean))] as string[];
+
+    return uniqueTags;
   },
 };

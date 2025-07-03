@@ -11,6 +11,7 @@ import { Blog } from "@/payload-types";
 import { useQueryState } from "nuqs";
 import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
+import Loading from "@/app/(app)/[lng]/blogs/loading";
 
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -18,6 +19,10 @@ export function BlogList({ className, ...props }: BlogListProps) {
   const [layout] = useQueryState("layout", {
     defaultValue: "grid",
     parse: (value): "grid" | "list" => (value === "list" ? "list" : "grid"),
+  });
+  const [tags] = useQueryState("tags", {
+    parse: (value) => (value ? value.split(",") : []),
+    defaultValue: [],
   });
   const {
     data: blogsData,
@@ -27,8 +32,9 @@ export function BlogList({ className, ...props }: BlogListProps) {
     isFetchingNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: queryKeys.blogs.infinite,
-    queryFn: ({ pageParam = 1 }) => blogService.getBlogs({ page: pageParam }),
+    queryKey: [...queryKeys.blogs.infinite, { tags }],
+    queryFn: ({ pageParam = 1 }) =>
+      blogService.getBlogs({ page: pageParam, tags }),
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
     initialPageParam: 1,
@@ -94,15 +100,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
 
   // 加载状态
   if (isLoading) {
-    return (
-      <div className="flex flex-col items-center justify-center py-20">
-        <Icon
-          icon="line-md:loading-twotone-loop"
-          className="w-12 h-12 text-primary animate-spin"
-        />
-        <p className="mt-4 text-gray-500">加载博客中...</p>
-      </div>
-    );
+    return <Loading />;
   }
 
   // 空状态
@@ -130,7 +128,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
     <div
       ref={containerRef}
       className={cn(
-        "w-full h-[calc(100dvh-9.5rem)] relative",
+        "w-full h-[calc(100dvh-14.5rem)] relative",
         "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
         className
       )}

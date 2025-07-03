@@ -29,6 +29,7 @@
         "engineer": "工程师"
     },
     "blog": {
-        "readingTime": "分钟阅读"
+        "readingTime": "分钟阅读",
+        "count": "篇"
     }
 }

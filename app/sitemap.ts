@@ -27,7 +27,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // 动态页面 (博客)
   try {
     const { docs: blogs } = await blogService.getBlogs({
-      limit: 99,
+      limit: 0,
       status: "published",
     });
     const blogUrls: MetadataRoute.Sitemap = (blogs as Blog[])

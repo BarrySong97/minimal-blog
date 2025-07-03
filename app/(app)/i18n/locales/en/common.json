@@ -29,6 +29,7 @@
     "engineer": "Engineer"
   },
   "blog": {
-    "readingTime": "min read"
+    "readingTime": "min read",
+    "count": "posts"
   }
 }

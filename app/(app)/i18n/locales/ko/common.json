@@ -23,6 +23,7 @@
         "notFound": "페이지를 찾을 수 없습니다"
     },
     "blog": {
-        "readingTime": "분 읽기"
+        "readingTime": "분 읽기",
+        "count": "게시물"
     }
 }
