@@ -61,6 +61,7 @@ export const Jumplist: React.FC<Props> = ({ className, injectProps, list }) => {
 };
 
 const elements = {
+  h1: "h1",
   h2: "h2",
   h3: "h3",
   h4: "h4",
@@ -100,6 +101,7 @@ export const JumplistNode: React.FC<NodeProps> = ({ id, type, children }) => {
     return () => null;
   }, [dispatch, id, setLastActive]);
 
+  console.log(id, type);
   const Element: any = elements[type];
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
