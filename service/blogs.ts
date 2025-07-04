@@ -81,9 +81,20 @@ export const blogService = {
 
   // 根据slug获取博客
   getBlogBySlug: (slug: string) => {
+    const queryParams: Record<string, any> = {
+      where: {
+        slug: {
+          equals: slug,
+        },
+      },
+      depth: 2, // 需要深度查询来获取 prerequisites 关联数据
+    };
+
+    const stringifiedQuery = stringify(queryParams);
+
     return __request<{ docs: Blog[] }>(OpenAPI, {
       method: "GET",
-      url: `${endpoints.blogs}?where[slug][equals]=${slug}`,
+      url: `${endpoints.blogs}?${stringifiedQuery}`,
     });
   },
 

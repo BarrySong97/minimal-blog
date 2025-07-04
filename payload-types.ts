@@ -169,6 +169,10 @@ export interface Blog {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Related blog posts that should be read before this one
+   */
+  prerequisites?: (number | Blog)[] | null;
   status: "draft" | "published";
   content: {
     root: {
@@ -506,6 +510,7 @@ export interface BlogsSelect<T extends boolean = true> {
         tag?: T;
         id?: T;
       };
+  prerequisites?: T;
   status?: T;
   content?: T;
   updatedAt?: T;

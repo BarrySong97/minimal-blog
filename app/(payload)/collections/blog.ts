@@ -107,6 +107,15 @@ const Blog: CollectionConfig = {
       },
     },
     {
+      name: "prerequisites",
+      type: "relationship",
+      relationTo: "blogs",
+      hasMany: true,
+      admin: {
+        description: "Related blog posts that should be read before this one",
+      },
+    },
+    {
       name: "status",
       type: "select",
       required: true,

@@ -129,6 +129,10 @@ body {
 }
 
 @layer utilities {
+  .prose a.no-underline {
+    text-decoration: none !important;
+  }
+
   .animate-gradient-slow {
     animation: gradient 20s ease infinite;
   }

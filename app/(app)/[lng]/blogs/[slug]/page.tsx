@@ -2,6 +2,7 @@ import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
 import Toc from "@/components/blogs/detail/Toc";
 import MobileToc from "@/components/blogs/detail/MobileToc";
+import { PrerequisiteBlogs } from "@/components/blogs/BlogRelationship";
 import {
   getHeadings,
   HeadingNode,
@@ -67,6 +68,7 @@ const BlogDetail: FC<Props> = async ({ params }) => {
         <div className="flex gap-12 justify-center relative">
           <div>
             <Header blog={blogDoc} lng={lng} />
+            <PrerequisiteBlogs prerequisites={blogDoc?.prerequisites || []} />
             <BlogContent
               blog={blogDoc}
               toc={

@@ -3,6 +3,8 @@ import { Heading as HeadingComponent } from "@/components/common/richtext/Headin
 import { JSXConvertersFunction } from "@payloadcms/richtext-lexical/react";
 import { CustomUploadComponent } from "@/components/blogs/detail/Content";
 import { YoutubeJSXConverter } from "./YoutubeJSXConverter";
+import { BlogRelationship } from "@/components/blogs/BlogRelationship";
+import { isObject } from "@/lib/utils";
 
 const jsxConverters: (args: {
   toc?: boolean;
@@ -15,6 +17,16 @@ const jsxConverters: (args: {
     return {
       ...defaultConverters,
       ...YoutubeJSXConverter,
+      relationship: ({ node }) => {
+        if (
+          node.relationTo === "blogs" &&
+          isObject(node.value) &&
+          "id" in node.value
+        ) {
+          return <BlogRelationship blog={node.value} />;
+        }
+        return null;
+      },
       upload: ({ node }) => {
         return <CustomUploadComponent node={node} />;
       },
