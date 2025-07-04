@@ -91,10 +91,6 @@ const Modal = ({ id }: { id: string }) => {
         height: containerHeight,
       });
       if (!isMobile) {
-        console.log(
-          document.documentElement.clientHeight,
-          photo.images.length * 70
-        );
         setIsJustifyStart(
           document.documentElement.clientHeight <= photo.images.length * 70
         );

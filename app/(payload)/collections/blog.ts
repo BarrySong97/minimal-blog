@@ -3,13 +3,9 @@ import {
   FixedToolbarFeature,
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
-import {
-  BgColorFeature,
-  HighlightColorFeature,
-  TextColorFeature,
-  YoutubeFeature,
-} from "payloadcms-lexical-ext";
+import { YoutubeFeature } from "payloadcms-lexical-ext";
 import type { CollectionConfig } from "payload";
+import { Code } from "@/blocks/Code/config";
 
 const Blog: CollectionConfig = {
   slug: "blogs",
@@ -139,7 +135,7 @@ const Blog: CollectionConfig = {
         features: ({ defaultFeatures }) => [
           ...defaultFeatures,
           BlocksFeature({
-            blocks: [],
+            blocks: [Code],
           }),
           FixedToolbarFeature(),
           YoutubeFeature(),

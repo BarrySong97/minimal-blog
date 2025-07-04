@@ -99,7 +99,7 @@ export function Projects({ lng }: { lng: string }) {
             <ProjectItem
               project={project as unknown as Project}
               href={project.href}
-              className="rounded-lg"
+              className=""
               onMouseEnter={() => handleMouseEnter(project.id)}
               onMouseLeave={handleMouseLeave}
               onGithubHover={handleGithubHover}

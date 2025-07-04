@@ -20,10 +20,10 @@ export default function ProjectsLoading() {
 
 function ProjectItemSkeleton() {
   return (
-    <div className="group relative block overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg animate-pulse">
+    <div className="group relative block overflow-hidden  transition-all duration-300 hover:shadow-lg animate-pulse">
       <div className="relative ">
         {/* 项目图片/视频区域 - 使用更接近实际内容的比例 */}
-        <div className=" w-full aspect-[4/3] bg-gray-200 dark:bg-gray-800 rounded-lg" />
+        <div className=" w-full aspect-[4/3] bg-gray-200 dark:bg-gray-800 " />
 
         {/* 项目元数据区域骨架 - 使用渐变背景更接近实际效果 */}
         <div className="absolute bottom-0 flex justify-between left-0 right-0 p-4 bg-gradient-to-t from-black/70 via-black/40 to-transparent">

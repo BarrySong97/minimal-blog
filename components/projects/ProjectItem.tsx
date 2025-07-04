@@ -39,7 +39,7 @@ const ProjectItem: FC<ProjectItemProps> = ({
     <Link
       href={project.href}
       className={cn(
-        "group relative block overflow-hidden rounded-lg transition-all duration-300 hover:shadow-lg",
+        "group relative block overflow-hidden  transition-all duration-300 hover:shadow-lg",
         className
       )}
       target="_blank"

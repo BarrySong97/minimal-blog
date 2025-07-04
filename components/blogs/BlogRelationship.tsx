@@ -77,7 +77,7 @@ export function PrerequisiteBlogs({ prerequisites }: PrerequisiteBlogsProps) {
   }
 
   return (
-    <div className="my-8 p-6 bg-muted/50 rounded-lg border">
+    <div className="my-8 p-6 bg-muted/50 border">
       <div className="mb-4">
         <h3 className="text-lg font-semibold text-foreground mb-2">前情提要</h3>
         <p className="text-sm text-muted-foreground">

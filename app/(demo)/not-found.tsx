@@ -56,7 +56,7 @@ export default function NotFound() {
         <Link
           href="/"
           className={cn(
-            "inline-flex items-center gap-2 px-6 py-3 rounded-lg",
+            "inline-flex items-center gap-2 px-6 py-3 ",
             "bg-gray-900 text-white hover:bg-gray-800",
             "dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-200",
             "transition-colors duration-200 font-medium"

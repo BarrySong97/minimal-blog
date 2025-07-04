@@ -28,7 +28,7 @@ export default function PhotoLoading() {
               <div key={item} className="aspect-[4/3] w-full">
                 <div
                   className={cn(
-                    "relative overflow-hidden rounded-lg bg-card shadow-sm h-full",
+                    "relative overflow-hidden  bg-card shadow-sm h-full",
                     "animate-pulse"
                   )}
                 >

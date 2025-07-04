@@ -1,6 +1,7 @@
 import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
 import Toc from "@/components/blogs/detail/Toc";
+import "@/styles/shiki.css";
 import MobileToc from "@/components/blogs/detail/MobileToc";
 import { PrerequisiteBlogs } from "@/components/blogs/BlogRelationship";
 import {
@@ -24,7 +25,6 @@ export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const blog = await getBlogCache(slug);
   const cover = blog?.docs?.[0]?.ogImage as Media;
-  console.log(cover);
   return {
     title: blog?.docs?.[0]?.title,
     description: blog?.docs?.[0]?.excerpt,

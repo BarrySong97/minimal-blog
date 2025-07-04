@@ -36,7 +36,7 @@ interface ImageCardProps {
 function ImageCard({ src, alt, sizeClass }: ImageCardProps) {
   return (
     <div
-      className={`relative mx-2 flex-shrink-0 overflow-hidden rounded-lg border border-white/10 bg-gray-900 shadow-xl ${sizeClass}`}
+      className={`relative mx-2 flex-shrink-0 overflow-hidden  border border-white/10 bg-gray-900 shadow-xl ${sizeClass}`}
     >
       <Image
         src={src}

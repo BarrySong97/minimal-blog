@@ -15,7 +15,7 @@ const ImageComponent = ({
 }) => (
   <motion.div
     className={cn(
-      "w-[800px] h-[450px] rounded-lg shadow-lg relative",
+      "w-[800px] h-[450px]  shadow-lg relative",
       isDefault ? "shadow-none" : ""
     )}
     style={{

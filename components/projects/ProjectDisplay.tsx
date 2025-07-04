@@ -117,10 +117,7 @@ export const ProjectDisplay: React.FC<ProjectDisplayProps> = ({
 
   return (
     <div
-      className={cn(
-        "aspect-[4/3] overflow-hidden bg-muted rounded-lg",
-        className
-      )}
+      className={cn("aspect-[4/3] overflow-hidden bg-muted ", className)}
       {...props}
     >
       {!isIOS &&

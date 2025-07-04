@@ -5,6 +5,7 @@ import { CustomUploadComponent } from "@/components/blogs/detail/Content";
 import { YoutubeJSXConverter } from "./YoutubeJSXConverter";
 import { BlogRelationship } from "@/components/blogs/BlogRelationship";
 import { isObject } from "@/lib/utils";
+import { CodeBlock } from "@/blocks/Code/Component";
 
 const jsxConverters: (args: {
   toc?: boolean;
@@ -29,6 +30,11 @@ const jsxConverters: (args: {
       },
       upload: ({ node }) => {
         return <CustomUploadComponent node={node} />;
+      },
+      blocks: {
+        code: ({ node }) => (
+          <CodeBlock className={`col-start-2`} {...node.fields} />
+        ),
       },
     };
   };

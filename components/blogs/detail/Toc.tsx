@@ -137,7 +137,7 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
           height={96}
           priority
           className={cn(
-            "object-cover w-12 h-12 rounded-lg",
+            "object-cover w-12 h-12 ",
             "motion-scale-in-[0.5] motion-opacity-in-[0%] motion-ease-spring-smooth"
           )}
         />
