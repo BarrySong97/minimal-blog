@@ -32,6 +32,7 @@ const jsxConverters: (args: {
         return <CustomUploadComponent node={node} />;
       },
       blocks: {
+        // @ts-ignore
         code: ({ node }) => (
           <CodeBlock className={`col-start-2`} {...node.fields} />
         ),
