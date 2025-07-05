@@ -73,7 +73,7 @@ export function PageLoading({
               opacity: 0,
               transition: { duration: 0.3, ease: "easeOut" },
             }}
-            className="h-full bg-gradient-to-r from-primary to-primary/80 shadow-[0_0_8px_rgba(var(--primary)/0.4)] rounded-r-sm"
+            className="h-full bg-black shadow-[0_0_8px_rgba(var(--primary)/0.4)] rounded-r-sm"
             transition={{
               width: {
                 duration: 0.3,

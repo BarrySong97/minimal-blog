@@ -5,6 +5,8 @@ import { PageLoading } from "@/components/layout/PageLoading";
 import { Metadata } from "next";
 import { GlobalProviders } from "@/components/common/providers";
 import { Inter } from "next/font/google";
+import { StagewiseToolbar } from "@stagewise/toolbar-next";
+
 import Script from "next/script";
 export const metadata: Metadata = {
   title: {
@@ -76,6 +78,7 @@ export default async function RootLayout({
       <body
         className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative ${font.className}`}
       >
+        <StagewiseToolbar />
         <PageLoading />
         <GlobalProviders>
           <Navbar lng={lng} />

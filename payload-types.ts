@@ -148,6 +148,7 @@ export interface UserAuthOperations {
 export interface Blog {
   id: number;
   title: string;
+  isBanner?: boolean;
   excerpt: string;
   date: string;
   /**

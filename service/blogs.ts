@@ -98,6 +98,28 @@ export const blogService = {
     });
   },
 
+  getBannerBlog: async () => {
+    const query: Where = {
+      isBanner: {
+        equals: true,
+      },
+      status: {
+        equals: "published",
+      },
+    };
+    const queryParams: Record<string, any> = {
+      where: query,
+      limit: 1,
+      sort: "-updatedAt",
+      depth: 0,
+    };
+    const stringifiedQuery = stringify(queryParams);
+    return __request<BlogsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}?${stringifiedQuery}`,
+    });
+  },
+
   getBlogTags: async (): Promise<string[]> => {
     const query: Where = {
       status: {

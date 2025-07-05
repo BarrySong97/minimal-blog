@@ -15,12 +15,14 @@ import computeBlurhash from "payload-blurhash-plugin";
 import Photo from "./app/(payload)/collections/photo";
 import Books from "./app/(payload)/collections/books";
 import { YoutubeFeature } from "payloadcms-lexical-ext";
+import BlogPage from "./app/(payload)/collections/blogPage";
+import path from "path";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   editor: lexicalEditor({
     features: [YoutubeFeature()],
   }),
-  globals: [Home, About],
+  globals: [Home, About, BlogPage],
   // Define and configure your collections in this array
   collections: [
     Blog,
@@ -61,6 +63,9 @@ export default buildConfig({
   ],
   // Whichever Database Adapter you're using should go here
   // Mongoose is shown as an example, but you can also use Postgres
+  typescript: {
+    outputFile: path.resolve(__dirname, "payload-types.ts"),
+  },
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URI,

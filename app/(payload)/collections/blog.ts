@@ -23,6 +23,12 @@ const Blog: CollectionConfig = {
       required: true,
     },
     {
+      name: "isBanner(已废弃)",
+      type: "checkbox",
+      hidden: true,
+      required: false,
+    },
+    {
       name: "excerpt",
       type: "textarea",
       required: true,

@@ -36,7 +36,7 @@ export function BlogGridItem({
       >
         <ViewHover isHover={isHovered} trackMouse />
 
-        <div className=" aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
+        <div className="aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
           <ImageWithFallback
             image={post.coverImage as Media}
             isThumbnail
@@ -60,11 +60,11 @@ export function BlogGridItem({
 
         <div className="flex flex-1 flex-col justify-between p-4 md:px-6 md:py-4 relative">
           <div className="flex items-center gap-3 mb-4 text-sm md:absolute md:top-4 md:right-4">
-            <span className="">
+            <span className="text-gray-500">
               {format(new Date(post.date), "yyyy-MM-dd")}
             </span>
-            <span className="">•</span>
-            <span className="">
+            <span className="text-gray-400">•</span>
+            <span className="text-gray-500">
               {post.readingTime} {t("blog.readingTime")}
             </span>
           </div>

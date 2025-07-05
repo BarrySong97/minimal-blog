@@ -12,6 +12,8 @@ import { useQueryState } from "nuqs";
 import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
 import Loading from "@/app/(app)/[lng]/blogs/loading";
+import { motion, AnimatePresence } from "framer-motion";
+import { MaterialSymbolsArrowForwardRounded } from "./icon";
 
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
 
@@ -47,6 +49,15 @@ export function BlogList({ className, ...props }: BlogListProps) {
   const [columnCount, setColumnCount] = useState(2);
   const totalItemsRef = useRef<number>(0);
 
+  // 用于追踪每个 item 的位置
+  const itemRefs = useRef<Map<number, HTMLDivElement>>(new Map());
+  const [hoverPosition, setHoverPosition] = useState<{
+    x: number;
+    y: number;
+    width: number;
+    height: number;
+  } | null>(null);
+
   // 根据屏幕宽度确定列数
   useEffect(() => {
     if (layout === "list") {
@@ -74,6 +85,48 @@ export function BlogList({ className, ...props }: BlogListProps) {
   useEffect(() => {
     totalItemsRef.current = allBlogs.length;
   }, [allBlogs.length]);
+
+  // 处理 hover 位置更新
+  const handleMouseEnter = useCallback(
+    (id: number) => {
+      setHoverId(id);
+      if (layout === "list") {
+        const element = itemRefs.current.get(id);
+        if (element && containerRef.current) {
+          const containerRect = containerRef.current.getBoundingClientRect();
+          const elementRect = element.getBoundingClientRect();
+          const newPosition = {
+            x: elementRect.left - containerRect.left,
+            y: elementRect.top - containerRect.top,
+            width: elementRect.width,
+            height: elementRect.height,
+          };
+          console.log("Hover position:", newPosition, "for ID:", id);
+          setHoverPosition(newPosition);
+        }
+      }
+    },
+    [layout]
+  );
+
+  const handleMouseLeave = useCallback(() => {
+    setHoverId(null);
+    if (layout === "list") {
+      setHoverPosition(null);
+    }
+  }, [layout]);
+
+  // 设置 item ref
+  const setItemRef = useCallback(
+    (id: number, element: HTMLDivElement | null) => {
+      if (element) {
+        itemRefs.current.set(id, element);
+      } else {
+        itemRefs.current.delete(id);
+      }
+    },
+    []
+  );
 
   // 处理滚动加载更多
   const handleScroll = useCallback(async () => {
@@ -122,8 +175,6 @@ export function BlogList({ className, ...props }: BlogListProps) {
     rows.push(allBlogs.slice(i, i + columnCount) as Blog[]);
   }
 
-  const ItemComponent = layout === "grid" ? BlogGridItem : BlogListItem;
-
   return (
     <div
       ref={containerRef}
@@ -134,6 +185,31 @@ export function BlogList({ className, ...props }: BlogListProps) {
       )}
       {...props}
     >
+      {/* 全局 hover 元素 - 只在 list 布局时显示 */}
+      <AnimatePresence>
+        {hoverPosition && hoverId && layout === "list" && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: 1,
+              x: hoverPosition.x - 8,
+              y: hoverPosition.y,
+              width: hoverPosition.width + 8,
+              height: hoverPosition.height,
+            }}
+            exit={{ opacity: 0 }}
+            transition={{
+              opacity: { duration: 0.2 },
+              x: { duration: 0.3, ease: "easeOut" },
+              y: { duration: 0.3, ease: "easeOut" },
+              width: { duration: 0.3, ease: "easeOut" },
+              height: { duration: 0.3, ease: "easeOut" },
+            }}
+            className="absolute pointer-events-none z-0 bg-accent "
+          />
+        )}
+      </AnimatePresence>
+
       <VList
         ref={vListRef}
         className="w-full h-full pb-12 scrollbar-hide"
@@ -149,15 +225,26 @@ export function BlogList({ className, ...props }: BlogListProps) {
               gap: "1rem",
             }}
           >
-            {row.map((post) => (
-              <ItemComponent
-                key={post.id}
-                post={post}
-                isHovered={hoverId === post.id}
-                onMouseEnter={() => setHoverId(post.id)}
-                onMouseLeave={() => setHoverId(null)}
-              />
-            ))}
+            {row.map((post) =>
+              layout === "list" ? (
+                <BlogListItem
+                  key={post.id}
+                  post={post}
+                  isHovered={hoverId === post.id}
+                  onMouseEnter={() => handleMouseEnter(post.id)}
+                  onMouseLeave={handleMouseLeave}
+                  ref={(el: HTMLDivElement | null) => setItemRef(post.id, el)}
+                />
+              ) : (
+                <BlogGridItem
+                  key={post.id}
+                  post={post}
+                  isHovered={hoverId === post.id}
+                  onMouseEnter={() => handleMouseEnter(post.id)}
+                  onMouseLeave={handleMouseLeave}
+                />
+              )
+            )}
           </div>
         ))}
         {(isFetchingNextPage || isFetching) && (
