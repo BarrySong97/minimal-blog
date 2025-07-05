@@ -4,7 +4,6 @@ import {
   FixedToolbarFeature,
   BlocksFeature,
 } from "@payloadcms/richtext-lexical";
-import { YoutubeFeature } from "payloadcms-lexical-ext";
 
 const About: GlobalConfig = {
   slug: "about",
@@ -23,7 +22,6 @@ const About: GlobalConfig = {
             blocks: [],
           }),
           FixedToolbarFeature(),
-          YoutubeFeature(),
         ],
       }),
     },

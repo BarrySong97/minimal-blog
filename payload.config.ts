@@ -2,26 +2,23 @@ import sharp from "sharp";
 import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { buildConfig } from "payload";
-import Project from "./app/(payload)/collections/project";
-import Blog from "./app/(payload)/collections/blog";
-import { Media } from "./app/(payload)/collections/media";
+import Project from "@/app/(payload)/collections/project";
+import Blog from "@/app/(payload)/collections/blog";
+import { Media } from "@/app/(payload)/collections/media";
 import { s3Storage } from "@payloadcms/storage-s3";
-import Experience from "./app/(payload)/collections/experience";
-import Home from "./app/(payload)/collections/home";
-import Skills from "./app/(payload)/collections/skills";
-import SkillCategories from "./app/(payload)/collections/skill-categories";
-import About from "./app/(payload)/collections/about";
+import Experience from "@/app/(payload)/collections/experience";
+import Home from "@/app/(payload)/collections/home";
+import Skills from "@/app/(payload)/collections/skills";
+import SkillCategories from "@/app/(payload)/collections/skill-categories";
+import About from "@/app/(payload)/collections/about";
 import computeBlurhash from "payload-blurhash-plugin";
-import Photo from "./app/(payload)/collections/photo";
-import Books from "./app/(payload)/collections/books";
-import { YoutubeFeature } from "payloadcms-lexical-ext";
-import BlogPage from "./app/(payload)/collections/blogPage";
+import Photo from "@/app/(payload)/collections/photo";
+import Books from "@/app/(payload)/collections/books";
+import BlogPage from "@/app/(payload)/collections/blogPage";
 import path from "path";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
-  editor: lexicalEditor({
-    features: [YoutubeFeature()],
-  }),
+
   globals: [Home, About, BlogPage],
   // Define and configure your collections in this array
   collections: [
