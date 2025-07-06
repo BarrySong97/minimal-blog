@@ -1,4 +1,4 @@
-import { Blog } from "@/payload-types";
+import { Blog, BlogPage } from "@/payload-types";
 import { stringify } from "qs-esm";
 import { endpoints } from "./config";
 import { request as __request } from "@/lib/request/core/request";
@@ -99,24 +99,13 @@ export const blogService = {
   },
 
   getBannerBlog: async () => {
-    const query: Where = {
-      isBanner: {
-        equals: true,
-      },
-      status: {
-        equals: "published",
-      },
-    };
     const queryParams: Record<string, any> = {
-      where: query,
-      limit: 1,
-      sort: "-updatedAt",
-      depth: 0,
+      depth: 2, // 需要深度查询来获取 prerequisites 关联数据
     };
     const stringifiedQuery = stringify(queryParams);
-    return __request<BlogsResponse>(OpenAPI, {
+    return __request<{ banners: Blog[] }>(OpenAPI, {
       method: "GET",
-      url: `${endpoints.blogs}?${stringifiedQuery}`,
+      url: `${endpoints.blogPage}?${stringifiedQuery}`,
     });
   },
 

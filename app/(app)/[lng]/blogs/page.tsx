@@ -39,6 +39,8 @@ export default async function Blogs({
   const count: { totalDocs: number } = (await blogService.getBlogCount()) as {
     totalDocs: number;
   };
+  const bannerBlog = await blogService.getBannerBlog();
+  const bannerBlogList = bannerBlog.banners;
   return (
     <HydrationBoundary state={state}>
       <div className="container mx-auto space-y-6 px-6 2xl:px-0">
@@ -61,7 +63,7 @@ export default async function Blogs({
           <LayoutToggle />
         </div>
         <TagList tags={allTags} />
-        <BlogList />
+        <BlogList bannerBlogs={bannerBlogList} />
       </div>
     </HydrationBoundary>
   );

@@ -13,14 +13,20 @@ import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
 import Loading from "@/app/(app)/[lng]/blogs/loading";
 import { motion, AnimatePresence } from "framer-motion";
-import { MaterialSymbolsArrowForwardRounded } from "./icon";
+import { BannerBlogs } from "./BannerBlogs";
+import { useMediaQuery } from "@/hooks/use-media-query";
 
-interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {}
+interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {
+  bannerBlogs?: Blog[];
+}
 
-export function BlogList({ className, ...props }: BlogListProps) {
+export function BlogList({
+  className,
+  bannerBlogs = [],
+  ...props
+}: BlogListProps) {
   const [layout] = useQueryState("layout", {
     defaultValue: "grid",
-    parse: (value): "grid" | "list" => (value === "list" ? "list" : "grid"),
   });
   const [tags] = useQueryState("tags", {
     parse: (value) => (value ? value.split(",") : []),
@@ -101,7 +107,6 @@ export function BlogList({ className, ...props }: BlogListProps) {
             width: elementRect.width,
             height: elementRect.height,
           };
-          console.log("Hover position:", newPosition, "for ID:", id);
           setHoverPosition(newPosition);
         }
       }
@@ -157,7 +162,7 @@ export function BlogList({ className, ...props }: BlogListProps) {
   }
 
   // 空状态
-  if (!allBlogs.length) {
+  if (!allBlogs.length && !bannerBlogs.length) {
     return (
       <div className="flex flex-col items-center justify-center py-20">
         <Icon
@@ -174,12 +179,13 @@ export function BlogList({ className, ...props }: BlogListProps) {
   for (let i = 0; i < allBlogs.length; i += columnCount) {
     rows.push(allBlogs.slice(i, i + columnCount) as Blog[]);
   }
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <div
       ref={containerRef}
       className={cn(
-        "w-full h-[calc(100dvh-14.5rem)] relative",
+        "w-full relative",
         "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
         className
       )}
@@ -210,52 +216,65 @@ export function BlogList({ className, ...props }: BlogListProps) {
         )}
       </AnimatePresence>
 
-      <VList
-        ref={vListRef}
-        className="w-full h-full pb-12 scrollbar-hide"
-        overscan={10}
-        onScroll={handleScroll}
-      >
-        {rows.map((row, rowIndex) => (
-          <div
-            key={rowIndex}
-            className="grid w-full pb-4 px-0 container mx-auto"
-            style={{
-              gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
-              gap: "1rem",
-            }}
-          >
-            {row.map((post) =>
-              layout === "list" ? (
-                <BlogListItem
-                  key={post.id}
-                  post={post}
-                  isHovered={hoverId === post.id}
-                  onMouseEnter={() => handleMouseEnter(post.id)}
-                  onMouseLeave={handleMouseLeave}
-                  ref={(el: HTMLDivElement | null) => setItemRef(post.id, el)}
-                />
-              ) : (
-                <BlogGridItem
-                  key={post.id}
-                  post={post}
-                  isHovered={hoverId === post.id}
-                  onMouseEnter={() => handleMouseEnter(post.id)}
-                  onMouseLeave={handleMouseLeave}
-                />
-              )
-            )}
-          </div>
-        ))}
-        {(isFetchingNextPage || isFetching) && (
-          <div className="flex justify-center items-center py-6">
-            <Icon
-              icon="line-md:loading-twotone-loop"
-              className="w-8 h-8 text-primary animate-spin"
+      <div className="h-[calc(100dvh-14.5rem)]">
+        <VList
+          ref={vListRef}
+          className="w-full h-full pb-12 scrollbar-hide"
+          overscan={10}
+          onScroll={handleScroll}
+        >
+          {!isMobile ? (
+            <BannerBlogs
+              bannerBlogs={bannerBlogs}
+              layout={layout as "grid" | "list"}
+              hoverId={hoverId}
+              handleMouseEnter={handleMouseEnter}
+              handleMouseLeave={handleMouseLeave}
+              setItemRef={setItemRef}
             />
-          </div>
-        )}
-      </VList>
+          ) : null}
+
+          {rows.map((row, rowIndex) => (
+            <div
+              key={rowIndex}
+              className="grid w-full pb-4 px-0 container mx-auto"
+              style={{
+                gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+                gap: "1rem",
+              }}
+            >
+              {row.map((post) =>
+                layout === "list" ? (
+                  <BlogListItem
+                    key={post.id}
+                    post={post}
+                    isHovered={hoverId === post.id}
+                    onMouseEnter={() => handleMouseEnter(post.id)}
+                    onMouseLeave={handleMouseLeave}
+                    ref={(el: HTMLDivElement | null) => setItemRef(post.id, el)}
+                  />
+                ) : (
+                  <BlogGridItem
+                    key={post.id}
+                    post={post}
+                    isHovered={hoverId === post.id}
+                    onMouseEnter={() => handleMouseEnter(post.id)}
+                    onMouseLeave={handleMouseLeave}
+                  />
+                )
+              )}
+            </div>
+          ))}
+          {(isFetchingNextPage || isFetching) && (
+            <div className="flex justify-center items-center py-6">
+              <Icon
+                icon="line-md:loading-twotone-loop"
+                className="w-8 h-8 text-primary animate-spin"
+              />
+            </div>
+          )}
+        </VList>
+      </div>
     </div>
   );
 }

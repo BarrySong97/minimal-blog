@@ -1,3 +1,5 @@
+import BlogPage from "@/app/(payload)/collections/blogPage";
+
 // API Configuration
 const isServer = typeof window === "undefined";
 export const API_URL = isServer
@@ -17,6 +19,7 @@ export const CACHE_TIME = Number(process.env.NEXT_PUBLIC_CACHE_TIME || 300); // 
 // API Endpoints
 export const endpoints = {
   blogs: `/blogs`,
+  blogPage: `/globals/blogPage`,
   books: `/books`,
   experiences: `/experiences`,
   home: `/globals/home`,

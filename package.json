@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
-    "generate:types": "cross-env NODE_OPTIONS='--no-deprecation --import=tsx' payload generate:types",
+    "generate:types": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx\" payload generate:types",
     "generate:importmap": "cross-env PAYLOAD_CONFIG_PATH=./payload.config.ts payload generate:importmap",
     "start": "next start",
     "lint": "next lint"

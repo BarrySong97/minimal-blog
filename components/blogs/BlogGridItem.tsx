@@ -58,7 +58,7 @@ export function BlogGridItem({
           </div>
         </div>
 
-        <div className="flex flex-1 flex-col justify-between p-4 md:px-6 md:py-4 relative">
+        <div className="flex flex-1 bg-white flex-col justify-between p-4 md:px-6 md:py-4 relative">
           <div className="flex items-center gap-3 mb-4 text-sm md:absolute md:top-4 md:right-4">
             <span className="text-gray-500">
               {format(new Date(post.date), "yyyy-MM-dd")}
