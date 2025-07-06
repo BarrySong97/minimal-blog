@@ -223,7 +223,7 @@ export function BlogList({
           overscan={10}
           onScroll={handleScroll}
         >
-          {!isMobile ? (
+          {!isMobile && !tags.length ? (
             <BannerBlogs
               bannerBlogs={bannerBlogs}
               layout={layout as "grid" | "list"}
