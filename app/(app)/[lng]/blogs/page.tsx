@@ -27,7 +27,7 @@ export default async function Blogs({
   const { lng } = await params;
   const { t } = await useTranslation(lng);
   const { tags } = (await searchParams) || {};
-  const tagsArray = tags ? tags.split(",") : [];
+  const tagsArray = tags ? [tags] : [];
   // 预获取无限滚动的第一页数据
   const state = await prefetchInfiniteQuery({
     queryKey: [...queryKeys.blogs.infinite, { tags: tagsArray }],

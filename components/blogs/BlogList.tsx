@@ -15,6 +15,7 @@ import Loading from "@/app/(app)/[lng]/blogs/loading";
 import { motion, AnimatePresence } from "framer-motion";
 import { BannerBlogs } from "./BannerBlogs";
 import { useMediaQuery } from "@/hooks/use-media-query";
+import { parseAsString } from "nuqs/server";
 
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {
   bannerBlogs?: Blog[];
@@ -28,10 +29,7 @@ export function BlogList({
   const [layout] = useQueryState("layout", {
     defaultValue: "grid",
   });
-  const [tags] = useQueryState("tags", {
-    parse: (value) => (value ? value.split(",") : []),
-    defaultValue: [],
-  });
+  const [tags] = useQueryState("tags", parseAsString.withDefault(""));
   const {
     data: blogsData,
     isLoading,
@@ -40,9 +38,9 @@ export function BlogList({
     isFetchingNextPage,
     isFetching,
   } = useInfiniteQuery({
-    queryKey: [...queryKeys.blogs.infinite, { tags }],
+    queryKey: [...queryKeys.blogs.infinite, { tags: tags ? [tags] : [] }],
     queryFn: ({ pageParam = 1 }) =>
-      blogService.getBlogs({ page: pageParam, tags }),
+      blogService.getBlogs({ page: pageParam, tags: tags ? [tags] : [] }),
     getNextPageParam: (lastPage) =>
       lastPage.hasNextPage ? lastPage.nextPage : undefined,
     initialPageParam: 1,
@@ -223,7 +221,7 @@ export function BlogList({
           overscan={10}
           onScroll={handleScroll}
         >
-          {!isMobile && !tags.length ? (
+          {!isMobile && !tags ? (
             <BannerBlogs
               bannerBlogs={bannerBlogs}
               layout={layout as "grid" | "list"}

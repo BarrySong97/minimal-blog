@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { useQueryState } from "nuqs";
-import { createSerializer, parseAsArrayOf, parseAsString } from "nuqs/server";
+import { parseAsString } from "nuqs/server";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import {
   Drawer,
@@ -34,9 +34,11 @@ const colors = [
 interface TagListProps extends React.HTMLAttributes<HTMLDivElement> {
   tags: string[];
 }
-const tagsParser = parseAsArrayOf(parseAsString, ",").withDefault([]);
 export function TagList({ tags: allTags, className, ...props }: TagListProps) {
-  const [tags, setTags] = useQueryState("tags", tagsParser);
+  const [selectedTag, setSelectedTag] = useQueryState(
+    "tags",
+    parseAsString.withDefault("")
+  );
   const isDesktop = useMediaQuery("(min-width: 768px)");
   const [isExpanded, setIsExpanded] = useState(false);
   const [isOverflowing, setIsOverflowing] = useState(false);
@@ -62,16 +64,14 @@ export function TagList({ tags: allTags, className, ...props }: TagListProps) {
 
   const handleTagClick = (tag: string | null) => {
     if (tag === null) {
-      setTags([]);
+      setSelectedTag("");
       return;
     }
-    const newTags = tags.includes(tag)
-      ? tags.filter((t) => t !== tag)
-      : [...tags, tag];
-    setTags(newTags.length > 0 ? newTags : []);
+    // if click current tag again, deselect it
+    setSelectedTag(selectedTag === tag ? "" : tag);
   };
 
-  const isAllSelected = tags.length === 0;
+  const isAllSelected = !selectedTag;
 
   const renderTags = (tagList: string[]) => (
     <>
@@ -91,8 +91,8 @@ export function TagList({ tags: allTags, className, ...props }: TagListProps) {
           onClick={() => handleTagClick(tag)}
           className={cn("border px-3 py-1 text-sm transition-colors", {
             "border-primary bg-primary text-primary-foreground":
-              tags.includes(tag),
-            "border-border bg-transparent hover:bg-muted": !tags.includes(tag),
+              selectedTag === tag,
+            "border-border bg-transparent hover:bg-muted": selectedTag !== tag,
           })}
         >
           {tag}
