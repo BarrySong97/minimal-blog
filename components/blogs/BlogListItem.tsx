@@ -2,12 +2,9 @@
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { forwardRef } from "react";
-import { MaterialSymbolsArrowForwardRounded } from "./icon";
-import { ViewHover } from "../common/ViewHover";
 import { Blog } from "@/payload-types";
 import { format } from "date-fns";
 import { useTranslation } from "react-i18next";
-import { Icon } from "@iconify/react";
 
 interface BlogListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Blog;

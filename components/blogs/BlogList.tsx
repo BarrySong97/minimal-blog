@@ -155,6 +155,7 @@ export function BlogList({
     allBlogs.length,
     columnCount,
   ]);
+  const isMobile = useMediaQuery("(max-width: 768px)");
 
   // 加载状态
   if (isLoading) {
@@ -179,7 +180,6 @@ export function BlogList({
   for (let i = 0; i < allBlogs.length; i += columnCount) {
     rows.push(allBlogs.slice(i, i + columnCount) as Blog[]);
   }
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   return (
     <div
