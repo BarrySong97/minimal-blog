@@ -24,6 +24,7 @@ import { buttonVariants } from "@/components/ui/button";
 import type { ScrollAreaViewportProps } from "@radix-ui/react-scroll-area";
 import { cn } from "@/lib/utils";
 import { useCopyButton } from "@/lib/use-copy-button";
+import { motion } from "framer-motion";
 
 export type CodeBlockProps = HTMLAttributes<HTMLElement> & {
   /**
@@ -82,7 +83,7 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
     const areaRef = useRef<HTMLDivElement>(null);
     const contentRef = useRef<HTMLPreElement>(null);
     const [isExpanded, setIsExpanded] = useState(false);
-    const [shouldCollapse, setShouldCollapse] = useState(false);
+    const [shouldCollapse, setShouldCollapse] = useState(true);
 
     const onCopy = useCallback(() => {
       const pre = areaRef.current?.getElementsByTagName("pre").item(0);
@@ -104,7 +105,6 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
     useLayoutEffect(() => {
       if (contentRef.current) {
         const height = contentRef.current.scrollHeight;
-        console.log(height);
         setShouldCollapse(height > 300);
       }
     }, [children]);
@@ -131,27 +131,19 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
         )}
       >
         {title ? (
-          <div className="flex flex-row items-center gap-2 border-b bg-fd-muted px-4 py-1.5">
-            {icon ? (
-              <div
-                className="text-fd-muted-foreground [&_svg]:size-3.5"
-                dangerouslySetInnerHTML={
-                  typeof icon === "string"
-                    ? {
-                        __html: icon,
-                      }
-                    : undefined
-                }
-              >
-                {typeof icon !== "string" ? icon : null}
-              </div>
-            ) : null}
+          <div className="flex flex-row items-center gap-2 border-b bg-fd-muted px-2 py-1.5">
             <figcaption className="flex-1 truncate text-fd-muted-foreground">
               {title}
             </figcaption>
-            {allowCopy ? (
+            <div className="flex flex-row items-center gap-2">
               <CopyButton className="-me-2" onCopy={onCopy} />
-            ) : null}
+              {shouldCollapse && (
+                <ExpandButton
+                  isExpanded={isExpanded}
+                  toggleExpanded={toggleExpanded}
+                />
+              )}
+            </div>
           </div>
         ) : (
           allowCopy && (
@@ -161,21 +153,32 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
             />
           )
         )}
-        <ScrollArea
-          ref={areaRef}
-          dir="ltr"
-          style={{
-            height: shouldCollapse && !isExpanded ? "300px" : "auto",
+        <motion.div
+          className="overflow-hidden bg-[#EDEDED] border border-[#9e9e9e33]"
+          initial={false}
+          animate={{
+            height:
+              shouldCollapse && !isExpanded
+                ? 300
+                : contentRef.current?.scrollHeight,
           }}
-          className={cn(
-            "transition-all duration-300 bg-[#EDEDED] border border-[#9e9e9e33]"
-          )}
+          transition={{
+            duration: 0.3,
+            ease: "easeInOut",
+          }}
         >
-          <ScrollViewport {...viewportProps}>{childWithRef}</ScrollViewport>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+          <ScrollArea ref={areaRef} dir="ltr">
+            <ScrollViewport {...viewportProps}>{childWithRef}</ScrollViewport>
+            <ScrollBar orientation="horizontal" />
+          </ScrollArea>
+        </motion.div>
         {shouldCollapse && (
-          <div className="absolute bottom-0 left-0 right-0 flex justify-center bg-gradient-to-t from-fd-muted from-50% to-transparent p-1 pt-4">
+          <div
+            className={cn(
+              "absolute bottom-2  left-0 right-0 flex justify-center   p-1 pt-4"
+              // !isExpanded ? "bg-accent/40" : ""
+            )}
+          >
             <button
               onClick={toggleExpanded}
               className={cn(
@@ -214,7 +217,7 @@ function CopyButton({
           color: "ghost",
         }),
         "transition-opacity group-hover:opacity-100 [&_svg]:size-3.5",
-        !checked && "[@media(hover:hover)]:opacity-0",
+        // !checked && "[@media(hover:hover)]:opacity-0",
         className
       )}
       aria-label={checked ? "Copied Text" : "Copy Text"}
@@ -224,6 +227,23 @@ function CopyButton({
       <Check className={cn("transition-transform", !checked && "scale-0")} />
       <Copy
         className={cn("absolute transition-transform", checked && "scale-0")}
+      />
+    </button>
+  );
+}
+
+function ExpandButton({
+  isExpanded,
+  toggleExpanded,
+}: {
+  isExpanded: boolean;
+  toggleExpanded: () => void;
+}) {
+  return (
+    <button onClick={toggleExpanded}>
+      <Icon
+        icon={isExpanded ? "tabler:chevron-up" : "tabler:chevron-down"}
+        className="mr-1 h-4 w-4"
       />
     </button>
   );
