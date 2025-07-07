@@ -5,6 +5,7 @@ import {
 } from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
 import { Code } from "@/blocks/Code/config";
+import { HotizontalImage } from "@/blocks/hotizental-image/config";
 
 const Blog: CollectionConfig = {
   slug: "blogs",
@@ -140,7 +141,7 @@ const Blog: CollectionConfig = {
         features: ({ defaultFeatures }) => [
           ...defaultFeatures,
           BlocksFeature({
-            blocks: [Code],
+            blocks: [Code, HotizontalImage],
           }),
           FixedToolbarFeature(),
         ],

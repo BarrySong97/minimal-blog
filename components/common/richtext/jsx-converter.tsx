@@ -6,6 +6,7 @@ import { YoutubeJSXConverter } from "./YoutubeJSXConverter";
 import { BlogRelationship } from "@/components/blogs/BlogRelationship";
 import { isObject } from "@/lib/utils";
 import { CodeBlock } from "@/blocks/Code/Component";
+import HorizentalImages from "@/blocks/hotizental-image/horizental-image";
 
 const jsxConverters: (args: {
   toc?: boolean;
@@ -36,6 +37,8 @@ const jsxConverters: (args: {
         code: ({ node }) => (
           <CodeBlock className={`col-start-2`} {...node.fields} />
         ),
+        // @ts-ignore
+        "hotizontal-image": ({ node }) => <HorizentalImages {...node.fields} />,
       },
     };
   };
