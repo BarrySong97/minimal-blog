@@ -14,6 +14,7 @@ import {
   Fa6BrandsSquareXTwitter,
   SimpleIconsXiaohongshu,
   AntDesignBilibiliFilled,
+  MaterialSymbolsAttachEmail,
 } from "./icon";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 
@@ -29,6 +30,7 @@ export function Profile() {
     "simple-icons:xiaohongshu": <SimpleIconsXiaohongshu />,
     "ant-design:bilibili-filled": <AntDesignBilibiliFilled />,
     "fa6-brands:square-github": <Fa6BrandsSquareGithub />,
+    "material-symbols:attach-email": <MaterialSymbolsAttachEmail />,
   };
   return (
     <section className="flex flex-col sm:flex-row items-start gap-0 sm:gap-12">
@@ -58,7 +60,7 @@ export function Profile() {
               <motion.a
                 key={social.name}
                 href={social.url}
-                target="_blank"
+                target={social.name === "Email" ? "_self" : "_blank"}
                 rel="noopener noreferrer"
                 className="text-2xl text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 transition-colors duration-200 cursor-pointer"
                 whileHover={{ scale: 1.1 }}

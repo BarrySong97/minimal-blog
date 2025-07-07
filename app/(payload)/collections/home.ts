@@ -46,6 +46,7 @@ const Home: GlobalConfig = {
             { label: "Bilibili", value: "Bilibili" },
             { label: "Xiaohongshu", value: "Xiaohongshu" },
             { label: "Github", value: "Github" },
+            { label: "Email", value: "Email" },
           ],
         },
         {

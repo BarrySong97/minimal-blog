@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | 'Pacific/Midway'
-  | 'Pacific/Niue'
-  | 'Pacific/Honolulu'
-  | 'Pacific/Rarotonga'
-  | 'America/Anchorage'
-  | 'Pacific/Gambier'
-  | 'America/Los_Angeles'
-  | 'America/Tijuana'
-  | 'America/Denver'
-  | 'America/Phoenix'
-  | 'America/Chicago'
-  | 'America/Guatemala'
-  | 'America/New_York'
-  | 'America/Bogota'
-  | 'America/Caracas'
-  | 'America/Santiago'
-  | 'America/Buenos_Aires'
-  | 'America/Sao_Paulo'
-  | 'Atlantic/South_Georgia'
-  | 'Atlantic/Azores'
-  | 'Atlantic/Cape_Verde'
-  | 'Europe/London'
-  | 'Europe/Berlin'
-  | 'Africa/Lagos'
-  | 'Europe/Athens'
-  | 'Africa/Cairo'
-  | 'Europe/Moscow'
-  | 'Asia/Riyadh'
-  | 'Asia/Dubai'
-  | 'Asia/Baku'
-  | 'Asia/Karachi'
-  | 'Asia/Tashkent'
-  | 'Asia/Calcutta'
-  | 'Asia/Dhaka'
-  | 'Asia/Almaty'
-  | 'Asia/Jakarta'
-  | 'Asia/Bangkok'
-  | 'Asia/Shanghai'
-  | 'Asia/Singapore'
-  | 'Asia/Tokyo'
-  | 'Asia/Seoul'
-  | 'Australia/Brisbane'
-  | 'Australia/Sydney'
-  | 'Pacific/Guam'
-  | 'Pacific/Noumea'
-  | 'Pacific/Auckland'
-  | 'Pacific/Fiji';
+  | "Pacific/Midway"
+  | "Pacific/Niue"
+  | "Pacific/Honolulu"
+  | "Pacific/Rarotonga"
+  | "America/Anchorage"
+  | "Pacific/Gambier"
+  | "America/Los_Angeles"
+  | "America/Tijuana"
+  | "America/Denver"
+  | "America/Phoenix"
+  | "America/Chicago"
+  | "America/Guatemala"
+  | "America/New_York"
+  | "America/Bogota"
+  | "America/Caracas"
+  | "America/Santiago"
+  | "America/Buenos_Aires"
+  | "America/Sao_Paulo"
+  | "Atlantic/South_Georgia"
+  | "Atlantic/Azores"
+  | "Atlantic/Cape_Verde"
+  | "Europe/London"
+  | "Europe/Berlin"
+  | "Africa/Lagos"
+  | "Europe/Athens"
+  | "Africa/Cairo"
+  | "Europe/Moscow"
+  | "Asia/Riyadh"
+  | "Asia/Dubai"
+  | "Asia/Baku"
+  | "Asia/Karachi"
+  | "Asia/Tashkent"
+  | "Asia/Calcutta"
+  | "Asia/Dhaka"
+  | "Asia/Almaty"
+  | "Asia/Jakarta"
+  | "Asia/Bangkok"
+  | "Asia/Shanghai"
+  | "Asia/Singapore"
+  | "Asia/Tokyo"
+  | "Asia/Seoul"
+  | "Australia/Brisbane"
+  | "Australia/Sydney"
+  | "Pacific/Guam"
+  | "Pacific/Noumea"
+  | "Pacific/Auckland"
+  | "Pacific/Fiji";
 
 export interface Config {
   auth: {
@@ -72,13 +72,13 @@ export interface Config {
     experiences: Experience;
     media: Media;
     skills: Skill;
-    'skill-categories': SkillCategory;
+    "skill-categories": SkillCategory;
     photos: Photo;
     books: Book;
     users: User;
-    'payload-locked-documents': PayloadLockedDocument;
-    'payload-preferences': PayloadPreference;
-    'payload-migrations': PayloadMigration;
+    "payload-locked-documents": PayloadLockedDocument;
+    "payload-preferences": PayloadPreference;
+    "payload-migrations": PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
@@ -87,13 +87,21 @@ export interface Config {
     experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
-    'skill-categories': SkillCategoriesSelect<false> | SkillCategoriesSelect<true>;
+    "skill-categories":
+      | SkillCategoriesSelect<false>
+      | SkillCategoriesSelect<true>;
     photos: PhotosSelect<false> | PhotosSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
-    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
-    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    "payload-locked-documents":
+      | PayloadLockedDocumentsSelect<false>
+      | PayloadLockedDocumentsSelect<true>;
+    "payload-preferences":
+      | PayloadPreferencesSelect<false>
+      | PayloadPreferencesSelect<true>;
+    "payload-migrations":
+      | PayloadMigrationsSelect<false>
+      | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -108,9 +116,9 @@ export interface Config {
     about: AboutSelect<false> | AboutSelect<true>;
     blogPage: BlogPageSelect<false> | BlogPageSelect<true>;
   };
-  locale: 'en' | 'zh' | 'ja' | 'ko';
+  locale: "en" | "zh" | "ja" | "ko";
   user: User & {
-    collection: 'users';
+    collection: "users";
   };
   jobs: {
     tasks: unknown;
@@ -142,7 +150,7 @@ export interface UserAuthOperations {
 export interface Blog {
   id: number;
   title: string;
-  'isBanner(已废弃)'?: boolean | null;
+  "isBanner(已废弃)"?: boolean | null;
   excerpt: string;
   ogImage?: (number | null) | Media;
   date: string;
@@ -168,7 +176,7 @@ export interface Blog {
    * Related blog posts that should be read before this one
    */
   prerequisites?: (number | Blog)[] | null;
-  status: 'draft' | 'published';
+  status: "draft" | "published";
   content: {
     root: {
       type: string;
@@ -177,8 +185,8 @@ export interface Blog {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -253,7 +261,7 @@ export interface Project {
    * Order in which the project should appear
    */
   order?: number | null;
-  status?: ('working' | 'running' | 'archived') | null;
+  status?: ("working" | "running" | "archived") | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -329,8 +337,8 @@ export interface Photo {
           version: number;
           [k: string]: unknown;
         }[];
-        direction: ('ltr' | 'rtl') | null;
-        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        direction: ("ltr" | "rtl") | null;
+        format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
         indent: number;
         version: number;
       };
@@ -349,8 +357,8 @@ export interface Photo {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -376,8 +384,8 @@ export interface Book {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -418,44 +426,44 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'blogs';
+        relationTo: "blogs";
         value: number | Blog;
       } | null)
     | ({
-        relationTo: 'projects';
+        relationTo: "projects";
         value: number | Project;
       } | null)
     | ({
-        relationTo: 'experiences';
+        relationTo: "experiences";
         value: number | Experience;
       } | null)
     | ({
-        relationTo: 'media';
+        relationTo: "media";
         value: number | Media;
       } | null)
     | ({
-        relationTo: 'skills';
+        relationTo: "skills";
         value: number | Skill;
       } | null)
     | ({
-        relationTo: 'skill-categories';
+        relationTo: "skill-categories";
         value: number | SkillCategory;
       } | null)
     | ({
-        relationTo: 'photos';
+        relationTo: "photos";
         value: number | Photo;
       } | null)
     | ({
-        relationTo: 'books';
+        relationTo: "books";
         value: number | Book;
       } | null)
     | ({
-        relationTo: 'users';
+        relationTo: "users";
         value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   updatedAt: string;
@@ -468,7 +476,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: 'users';
+    relationTo: "users";
     value: number | User;
   };
   key?: string | null;
@@ -501,7 +509,7 @@ export interface PayloadMigration {
  */
 export interface BlogsSelect<T extends boolean = true> {
   title?: T;
-  'isBanner(已废弃)'?: T;
+  "isBanner(已废弃)"?: T;
   excerpt?: T;
   ogImage?: T;
   date?: T;
@@ -727,7 +735,7 @@ export interface Home {
   description: string;
   avatar: number | Media;
   socialLinks: {
-    name: 'Twitter' | 'Bilibili' | 'Xiaohongshu' | 'Github';
+    name: "Twitter" | "Bilibili" | "Xiaohongshu" | "Github" | "Email";
     icon: string;
     url: string;
     id?: string | null;
@@ -749,8 +757,8 @@ export interface About {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      direction: ("ltr" | "rtl") | null;
+      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
       indent: number;
       version: number;
     };
@@ -821,11 +829,22 @@ export interface BlogPageSelect<T extends boolean = true> {
  */
 export interface CodeBlock {
   filename?: string | null;
-  language?: ('typescript' | 'tsx' | 'javascript' | 'jsx' | 'html' | 'css' | 'json' | 'python') | null;
+  language?:
+    | (
+        | "typescript"
+        | "tsx"
+        | "javascript"
+        | "jsx"
+        | "html"
+        | "css"
+        | "json"
+        | "python"
+      )
+    | null;
   code: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'code';
+  blockType: "code";
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -835,7 +854,6 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-
-declare module 'payload' {
+declare module "payload" {
   export interface GeneratedTypes extends Config {}
 }
