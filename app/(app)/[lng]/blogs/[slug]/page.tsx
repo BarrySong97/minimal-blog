@@ -2,6 +2,7 @@ import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
 import Toc from "@/components/blogs/detail/Toc";
 import "@/styles/shiki.css";
+import "react-photo-view/dist/react-photo-view.css";
 import MobileToc from "@/components/blogs/detail/MobileToc";
 import { PrerequisiteBlogs } from "@/components/blogs/BlogRelationship";
 import {
