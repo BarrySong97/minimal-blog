@@ -175,20 +175,29 @@ export const CodeBlock = forwardRef<HTMLElement, CodeBlockProps>(
         {shouldCollapse && (
           <div
             className={cn(
-              "absolute bottom-2  left-0 right-0 flex justify-center   p-1 pt-4"
-              // !isExpanded ? "bg-accent/40" : ""
+              "absolute bottom-0 z-10  left-0 right-0 flex justify-center p-1 pt-8",
+              !isExpanded && "pointer-events-none"
             )}
           >
+            {/* 渐变遮罩层 */}
+            <div
+              className={cn(
+                "absolute inset-0 bg-gradient-to-t h-[100px] from-[#EDEDED] via-[#EDEDED]/80 to-transparent",
+                "transition-opacity duration-300",
+                isExpanded ? "opacity-0" : "opacity-100"
+              )}
+            />
             <button
               onClick={toggleExpanded}
               className={cn(
                 buttonVariants({ color: "ghost", size: "sm" }),
-                "w-fit"
+                "w-fit relative mb-3  z-10 pointer-events-auto backdrop-blur-sm px-2 py-1",
+                !isExpanded && "bg-white/60 hover:bg-white/80"
               )}
             >
               <Icon
                 icon={isExpanded ? "tabler:chevron-up" : "tabler:chevron-down"}
-                className="mr-1 h-4 w-4"
+                className=" "
               />
               {isExpanded ? "折叠" : "展开"}
             </button>
