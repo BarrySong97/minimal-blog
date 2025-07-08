@@ -7,6 +7,7 @@ import { BlogRelationship } from "@/components/blogs/BlogRelationship";
 import { isObject } from "@/lib/utils";
 import { CodeBlock } from "@/blocks/Code/Component";
 import HorizentalImages from "@/blocks/hotizental-image/horizental-image";
+import { GithubLinkCard } from "@/blocks/github-link/github-link";
 
 const jsxConverters: (args: {
   toc?: boolean;
@@ -39,6 +40,8 @@ const jsxConverters: (args: {
         ),
         // @ts-ignore
         "hotizontal-image": ({ node }) => <HorizentalImages {...node.fields} />,
+        // @ts-ignore
+        "github-link": ({ node }) => <GithubLinkCard {...node.fields} />,
       },
     };
   };

@@ -4,11 +4,25 @@ import {
   lexicalEditor,
 } from "@payloadcms/richtext-lexical";
 import type { CollectionConfig } from "payload";
+import { format } from "date-fns";
+import { zhCN } from "date-fns/locale";
 import { Code } from "@/blocks/Code/config";
 import { HotizontalImage } from "@/blocks/hotizental-image/config";
+import { GithubLink } from "@/blocks/github-link/config";
 
-const Blog: CollectionConfig = {
+export const Blog: CollectionConfig = {
   slug: "blogs",
+  hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        if (data.status === "published" && !originalDoc?.publishedDate) {
+          data.publishedDate = format(new Date(), "yyyy-MM-dd HH:mm:ss", {
+            locale: zhCN,
+          });
+        }
+      },
+    ],
+  },
   admin: {
     useAsTitle: "title",
     defaultColumns: ["title", "date", "status"],
@@ -137,11 +151,80 @@ const Blog: CollectionConfig = {
       name: "content",
       type: "richText",
       required: true,
+      hooks: {
+        beforeChange: [
+          async ({ data, req }) => {
+            if (data?.content) {
+              await Promise.all(
+                data.content.root.children.map(async (block: any) => {
+                  if (block?.fields?.blockType === "github-link") {
+                    const { url, processedUrl } = block.fields;
+
+                    // If the url is the same as the one we already processed, do nothing.
+                    if (url && url === processedUrl) {
+                      return block;
+                    }
+
+                    // If URL is empty or cleared, clear related fields
+                    if (!url) {
+                      return {
+                        ...block,
+                        title: null,
+                        description: null,
+                        avatar: null,
+                        stars: null,
+                        processedUrl: null,
+                      };
+                    }
+
+                    try {
+                      const urlObject = new URL(url as string);
+                      if (urlObject.hostname === "github.com") {
+                        const pathParts = urlObject.pathname
+                          .split("/")
+                          .filter(Boolean);
+                        if (pathParts.length >= 2) {
+                          const owner = pathParts[0];
+                          const repo = pathParts[1];
+                          const apiResponse = await fetch(
+                            `https://api.github.com/repos/${owner}/${repo}`
+                          );
+                          if (apiResponse.ok) {
+                            const repoData = await apiResponse.json();
+                            block.fields.title = repoData.full_name;
+                            block.fields.description = repoData.description;
+                            block.fields.avatar = repoData.owner.avatar_url;
+                            block.fields.stars = repoData.stargazers_count;
+                            block.fields.processedUrl = url;
+                          } else {
+                            block.fields.title = "Invalid URL";
+                            block.fields.description = null;
+                            block.fields.avatar = null;
+                            block.fields.stars = null;
+                            block.fields.processedUrl = null;
+                          }
+                        }
+                      }
+                    } catch (error: any) {
+                      req.payload.logger.error(
+                        `Error fetching GitHub data for URL ${url}: ${error.message}`
+                      );
+                    }
+                  }
+                  return block;
+                })
+              );
+              return data.content;
+            }
+            return data;
+          },
+        ],
+      },
       editor: lexicalEditor({
         features: ({ defaultFeatures }) => [
           ...defaultFeatures,
           BlocksFeature({
-            blocks: [Code, HotizontalImage],
+            blocks: [GithubLink, Code, HotizontalImage],
           }),
           FixedToolbarFeature(),
         ],

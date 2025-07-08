@@ -59,7 +59,7 @@ const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
     toc: Array.from(toc).reverse(),
   };
   return (
-    <div className="max-w-4xl prose prose-md !text-primary">
+    <div className="max-w-xs md:max-w-md lg:max-w-2xl 2xl:max-w-4xl prose prose-md !text-primary">
       <RichTextContext.Provider value={context}>
         <RichText
           converters={jsxConverters({ toc: !!initialToc })}
