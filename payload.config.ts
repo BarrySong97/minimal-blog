@@ -16,6 +16,7 @@ import Photo from "@/app/(payload)/collections/photo";
 import Books from "@/app/(payload)/collections/books";
 import BlogPage from "@/app/(payload)/collections/blogPage";
 import path from "path";
+import Journal from "@/app/(payload)/collections/journal";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
 
@@ -30,6 +31,7 @@ export default buildConfig({
     SkillCategories,
     Photo,
     Books,
+    Journal,
   ],
   localization: {
     locales: ["en", "zh", "ja", "ko"], // required

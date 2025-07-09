@@ -6,7 +6,8 @@
         "blog": "博客",
         "contact": "联系",
         "projects": "作品",
-        "photos": "照片"
+        "photos": "照片",
+        "journal": "周记"
     },
     "experience": "工作经历",
     "viewAll": "查看所有",

@@ -6,7 +6,8 @@
         "blog": "블로그",
         "contact": "연락처",
         "projects": "프로젝트",
-        "photos": "사진"
+        "photos": "사진",
+        "journal": "일기"
     },
     "experience": "경력",
     "viewAll": "모두 보기",

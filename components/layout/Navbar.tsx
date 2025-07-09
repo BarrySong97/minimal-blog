@@ -31,6 +31,11 @@ const navItems: NavItem[] = [
     href: (lng) => `/${lng}/blogs`,
   },
   {
+    key: "journal",
+    translationKey: "common.nav.journal",
+    href: (lng) => `/${lng}/journal`,
+  },
+  {
     key: "photos",
     translationKey: "common.nav.photos",
     href: (lng) => `/${lng}/photo`,
