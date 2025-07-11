@@ -5,18 +5,20 @@ import { Journal } from "@/payload-types";
 import { useQuery } from "@tanstack/react-query";
 import { journalService } from "@/service/journal";
 import { queryKeys } from "@/service/config";
-import { useState, useEffect } from "react";
-import { format } from "date-fns";
+import { useState } from "react";
+import Link from "next/link";
 
 interface JournalListProps extends React.HTMLAttributes<HTMLDivElement> {
-  onJournalSelect: (journal: Journal) => void;
-  selectedJournalId?: number;
+  lng: string;
+  slug: string;
 }
 
 export function JournalList({
-  onJournalSelect,
-  selectedJournalId,
+  // onJournalSelect,
+  // selectedJournalId,
   className,
+  slug,
+  lng,
   ...props
 }: JournalListProps) {
   const [currentPage, setCurrentPage] = useState(1);
@@ -27,33 +29,6 @@ export function JournalList({
   });
 
   const journals = data?.docs || [];
-
-  // Adjust page when a journal is selected to keep it visible in the window
-  useEffect(() => {
-    if (selectedJournalId && data) {
-      const selectedGlobalIndex = journals.findIndex(
-        (j) => j.id === selectedJournalId
-      );
-
-      if (selectedGlobalIndex === -1 && data.hasNextPage) {
-        setCurrentPage((prev) => prev + 1);
-      } else if (selectedGlobalIndex === -1 && data.hasPrevPage) {
-        setCurrentPage((prev) => Math.max(1, prev - 1));
-      }
-    }
-  }, [selectedJournalId, data, journals]);
-
-  const handlePrevious = () => {
-    if (data?.hasPrevPage) {
-      setCurrentPage((prev) => Math.max(1, prev - 1));
-    }
-  };
-
-  const handleNext = () => {
-    if (data?.hasNextPage) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  };
 
   if (isLoading) {
     return (
@@ -68,24 +43,25 @@ export function JournalList({
   }
 
   return (
-    <div className={cn("w-80 space-y-4", className)} {...props}>
-      <div className="space-y-4">
+    <div
+      className={cn(" space-y-4 w-full sticky top-[5rem]", className)}
+      {...props}
+    >
+      <div className="space-y-1">
         {journals.map((journal) => (
-          <div key={journal.id} className="space-y-2">
-            <button
-              onClick={() => onJournalSelect(journal)}
-              className={cn(
-                "w-full text-left transition-colors duration-200",
-                "hover:text-blue-600 dark:hover:text-blue-400",
-                selectedJournalId === journal.id
-                  ? "text-blue-600 dark:text-blue-400"
-                  : "text-gray-900 dark:text-gray-100"
-              )}
+          <div
+            key={journal.id}
+            className={cn(
+              "space-y-2 hover:bg-accent px-2 py-1",
+              slug === journal.slug && "bg-accent"
+            )}
+          >
+            <Link
+              href={`/${lng}/journal/${journal.slug}`}
+              className={cn("w-full text-left transition-colors duration-200")}
             >
-              <h3 className="font-medium text-base leading-relaxed">
-                {journal.title}
-              </h3>
-            </button>
+              <h3 className=" leading-relaxed">{journal.title}</h3>
+            </Link>
           </div>
         ))}
       </div>

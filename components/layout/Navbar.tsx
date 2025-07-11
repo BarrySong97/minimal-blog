@@ -291,6 +291,7 @@ export function Navbar({ lng }: { lng: string }) {
     setIsMobile(window.innerWidth < 768);
   }, []);
   const { stage } = useTransitionState();
+  const isJournal = pathname.includes("journal");
 
   return (
     <header
@@ -298,7 +299,7 @@ export function Navbar({ lng }: { lng: string }) {
         "sticky top-0 z-[99] w-full ",
         "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy",
         scrolled && "border-b border-border/40 shadow-sm",
-        stage === "none"
+        stage === "none" || isJournal
           ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
           : ""
       )}

@@ -5,6 +5,8 @@ import TanstackProvider from "../tanstack/TanstackProvider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TransitionRouter } from "next-transition-router";
 import { motion, useAnimationControls, cubicBezier } from "framer-motion";
+import { usePathname } from "next/navigation";
+
 const layerVariants = {
   initial: { y: "100%" },
   visible: { y: 0 },
@@ -28,6 +30,7 @@ const transitionConfig = (delay = 0) => ({
   ease: cubicBezier(0.19, 1, 0.22, 1), // Using cubicBezier instead of array
   delay,
 });
+
 export const GlobalProviders = ({
   children,
 }: {
@@ -35,6 +38,7 @@ export const GlobalProviders = ({
 }) => {
   const firstLayerControls = useAnimationControls();
   const maskControls = useAnimationControls();
+
   return (
     <Provider>
       <TanstackProvider>
@@ -42,6 +46,12 @@ export const GlobalProviders = ({
           <TransitionRouter
             auto={true}
             leave={(next, from, to) => {
+              // 如果from或to路径包含journal，跳过动画
+              if (from?.includes("journal") && to?.includes("journal")) {
+                next();
+                return;
+              }
+
               // Animate with Framer Motion
               const animateLeave = async () => {
                 await Promise.all([
@@ -60,7 +70,7 @@ export const GlobalProviders = ({
               };
             }}
             enter={(next) => {
-              // Animate with Framer Motion
+              // 如果当前路径包含journal，跳过动画
               const animateEnter = async () => {
                 await Promise.all([
                   maskControls.start("exit", transitionConfig()),
@@ -73,6 +83,14 @@ export const GlobalProviders = ({
 
                 next();
               };
+              if (window.location.pathname.includes("journal")) {
+                Promise.all([
+                  maskControls.start("exit", transitionConfig()),
+                  firstLayerControls.start("exit", transitionConfig(0.25)),
+                ]);
+                return;
+              }
+              // Animate with Framer Motion
 
               animateEnter();
 
