@@ -51,6 +51,7 @@ export function JournalList({
         {journals.map((journal) => (
           <div
             key={journal.id}
+            title={journal.title}
             className={cn(
               "space-y-2 hover:bg-accent px-2 py-1",
               slug === journal.slug && "bg-accent"
@@ -60,7 +61,9 @@ export function JournalList({
               href={`/${lng}/journal/${journal.slug}`}
               className={cn("w-full text-left transition-colors duration-200")}
             >
-              <h3 className=" leading-relaxed">{journal.title}</h3>
+              <h3 className="text-sm leading-relaxed truncate">
+                {journal.title}
+              </h3>
             </Link>
           </div>
         ))}

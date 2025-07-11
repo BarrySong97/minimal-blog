@@ -32,7 +32,7 @@ export default async function JournalPage({
   // });
 
   return (
-    <div className="container mx-auto px-6 2xl:px-0 pt-8 pb-8 ">
+    <div className="container mx-auto px-6 2xl:px-20 pt-8 pb-8 ">
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-2">
           <JournalList slug={slug} lng={lng} className="mb-8" />
