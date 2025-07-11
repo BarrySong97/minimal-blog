@@ -34,7 +34,7 @@ export const journalService = {
     // 构建查询参数
     const queryParams: Record<string, any> = {
       where: query,
-      sort: "-date",
+      sort: "+date",
     };
 
     // 添加分页参数
@@ -48,6 +48,29 @@ export const journalService = {
       // 设置默认每页数量
       queryParams.limit = 10;
     }
+
+    const stringifiedQuery = stringify(queryParams);
+
+    return __request<JournalsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.journals}?${stringifiedQuery}`,
+    });
+  },
+
+  // 获取最新日志
+  getLatestJournal: () => {
+    const query: Where = {
+      status: {
+        equals: "published",
+      },
+    };
+
+    // 构建查询参数
+    const queryParams: Record<string, any> = {
+      where: query,
+      sort: "+date",
+      limit: 1,
+    };
 
     const stringifiedQuery = stringify(queryParams);
 

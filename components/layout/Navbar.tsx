@@ -10,6 +10,8 @@ import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
 import { MobileLanguageSelector } from "./MobileLanguageSelector";
 import { Link, useTransitionState } from "next-transition-router";
+import { journalService } from "@/service/journal";
+import { useQuery } from "@tanstack/react-query";
 
 // Define a type for navigation items
 interface NavItem {
@@ -121,11 +123,16 @@ export function Navbar({ lng }: { lng: string }) {
   // 使用 useResponsive 替代手动检测
   const responsive = useResponsive();
 
+  const { data: latestJournal } = useQuery({
+    queryKey: ["latest-journal"],
+    queryFn: () => journalService.getLatestJournal(),
+  });
+  const journalHref = `/${lng}/journal/${latestJournal?.docs?.[0]?.slug}`;
+  navItems[2].href = () => journalHref;
   const updateActiveRect = (itemKey?: string) => {
     // If itemKey is provided, use it; otherwise extract from pathname
     const currentPath =
       itemKey !== undefined ? itemKey : pathname.split("/")[2] || "";
-
     // Set the active item
     setActiveItem(currentPath);
 
@@ -136,6 +143,9 @@ export function Navbar({ lng }: { lng: string }) {
         currentPath === ""
           ? `a[href="/${lng}"]`
           : `a[href="/${lng}/${currentPath}"]`;
+      if (currentPath === "journal") {
+        selector = `a[href="${journalHref}"]`;
+      }
 
       const activeLink = navRef.current?.querySelector(selector);
 

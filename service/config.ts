@@ -39,6 +39,12 @@ export const queryKeys = {
     bySlug: (slug: string) => [...queryKeys.blogs.all, "slug", slug] as const,
     infinite: ["blogs", "infinite"] as const,
   },
+  journals: {
+    all: ["journals"] as const,
+    list: ["journals", "list"] as const,
+    detail: (id: number) => ["journals", id] as const,
+    bySlug: (slug: string) => ["journals", "slug", slug] as const,
+  },
   books: {
     all: ["books"] as const,
     detail: (id: number) => [...queryKeys.books.all, id] as const,
