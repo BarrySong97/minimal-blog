@@ -25,7 +25,7 @@ const getBlogCache = cache(getBlog);
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const blog = await getBlogCache(slug);
-  const cover = blog?.docs?.[0]?.ogImage as Media;
+  const cover = (blog?.docs?.[0]?.ogImage as Media).sizes?.card;
   return {
     title: blog?.docs?.[0]?.title,
     description: blog?.docs?.[0]?.excerpt,
