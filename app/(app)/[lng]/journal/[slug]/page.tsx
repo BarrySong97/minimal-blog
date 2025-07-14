@@ -1,4 +1,3 @@
-import { Journal } from "@/payload-types";
 import { JournalList } from "@/components/journal/JournalList";
 import { JournalContent } from "@/components/journal/JournalContent";
 import {
@@ -6,7 +5,6 @@ import {
   HeadingNode,
 } from "@/components/common/richtext/get-headings";
 import Toc from "@/components/blogs/detail/Toc";
-import MobileToc from "@/components/blogs/detail/MobileToc";
 import { journalService } from "@/service/journal";
 
 export default async function JournalPage({
@@ -24,15 +22,8 @@ export default async function JournalPage({
       )
     : [];
 
-  // Fetch the selected journal details
-  // const { data: journalDetail, isLoading: isLoadingDetail } = ({
-  //   queryKey: queryKeys.journals.bySlug(selectedJournal?.slug || ""),
-  //   queryFn: () => journalService.getJournalBySlug(selectedJournal!.slug),
-  //   enabled: !!selectedJournal?.slug,
-  // });
-
   return (
-    <div className="container mx-auto px-6 2xl:px-20 pt-8 pb-8 ">
+    <div className="container mx-auto px-6 2xl:px-16 pt-8 pb-8 ">
       <div className="grid grid-cols-12 gap-8">
         <div className="col-span-2">
           <JournalList slug={slug} lng={lng} className="mb-8" />
