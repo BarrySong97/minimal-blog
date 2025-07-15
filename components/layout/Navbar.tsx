@@ -10,6 +10,8 @@ import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
 import { MobileLanguageSelector } from "./MobileLanguageSelector";
 import { Link, useTransitionState } from "next-transition-router";
+import { journalService } from "@/service/journal";
+import { useQuery } from "@tanstack/react-query";
 
 // Define a type for navigation items
 interface NavItem {
@@ -121,11 +123,16 @@ export function Navbar({ lng }: { lng: string }) {
   // 使用 useResponsive 替代手动检测
   const responsive = useResponsive();
 
+  const { data: latestJournal } = useQuery({
+    queryKey: ["latest-journal"],
+    queryFn: () => journalService.getLatestJournal(),
+  });
+  const journalHref = `/${lng}/journal/${latestJournal?.docs?.[0]?.slug}`;
+  navItems[2].href = () => journalHref;
   const updateActiveRect = (itemKey?: string) => {
     // If itemKey is provided, use it; otherwise extract from pathname
     const currentPath =
       itemKey !== undefined ? itemKey : pathname.split("/")[2] || "";
-
     // Set the active item
     setActiveItem(currentPath);
 
@@ -136,6 +143,9 @@ export function Navbar({ lng }: { lng: string }) {
         currentPath === ""
           ? `a[href="/${lng}"]`
           : `a[href="/${lng}/${currentPath}"]`;
+      if (currentPath === "journal") {
+        selector = `a[href="${journalHref}"]`;
+      }
 
       const activeLink = navRef.current?.querySelector(selector);
 
@@ -281,6 +291,7 @@ export function Navbar({ lng }: { lng: string }) {
     setIsMobile(window.innerWidth < 768);
   }, []);
   const { stage } = useTransitionState();
+  const isJournal = pathname.includes("journal");
 
   return (
     <header
@@ -288,7 +299,7 @@ export function Navbar({ lng }: { lng: string }) {
         "sticky top-0 z-[99] w-full ",
         "motion-translate-x-in-[0%] motion-translate-y-in-[-36%] motion-opacity-in-[0%] motion-ease-spring-snappy",
         scrolled && "border-b border-border/40 shadow-sm",
-        stage === "none"
+        stage === "none" || isJournal
           ? "bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/90"
           : ""
       )}

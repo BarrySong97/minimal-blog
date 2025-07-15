@@ -26,11 +26,12 @@ export const Journal: CollectionConfig = {
       required: true,
     },
     {
-      name: "isBanner(已废弃)",
-      type: "checkbox",
-      hidden: true,
-      required: false,
+      name: "coverImage",
+      type: "upload",
+      relationTo: "media",
+      required: true,
     },
+
     {
       name: "excerpt",
       type: "textarea",
