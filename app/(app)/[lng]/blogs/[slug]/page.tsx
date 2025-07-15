@@ -17,6 +17,7 @@ import { HydrationBoundary } from "@tanstack/react-query";
 import React, { cache, FC } from "react";
 import { Media } from "@/payload-types";
 import Cd from "@/components/common/cd";
+import { notFound } from "next/navigation";
 const getBlog = async (slug: string) => {
   const blog = await blogService.getBlogBySlug(slug);
   return blog;
@@ -25,6 +26,9 @@ const getBlogCache = cache(getBlog);
 export async function generateMetadata({ params }: Props) {
   const { slug } = await params;
   const blog = await getBlogCache(slug);
+  if (!blog) {
+    notFound();
+  }
   const cover = (blog?.docs?.[0]?.ogImage as Media)?.sizes?.card;
   return {
     title: blog?.docs?.[0]?.title,
@@ -54,6 +58,9 @@ const BlogDetail: FC<Props> = async ({ params }) => {
   const { slug, lng } = await params;
   const blog = await getBlogCache(slug);
   const blogDoc = blog?.docs?.[0];
+  if (!blogDoc) {
+    notFound();
+  }
   const headings = getHeadings(
     blogDoc?.content?.root?.children as unknown as HeadingNode[]
   );

@@ -1,13 +1,14 @@
 "use client";
 
-import Link from "next/link";
 import { motion } from "framer-motion";
 import { Icon } from "@iconify/react";
 import { cn } from "@/lib/utils";
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+  const router = useRouter();
   return (
-    <div className="flex flex-col items-center justify-center min-h-[70vh] px-4 py-16 text-center">
+    <div className="flex flex-col items-center h-sccren justify-center min-h-[70vh] px-4 py-16 text-center">
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -53,8 +54,8 @@ export default function NotFound() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5, delay: 0.5 }}
       >
-        <Link
-          href="/"
+        <div
+          onClick={() => router.back()}
           className={cn(
             "inline-flex items-center gap-2 px-6 py-3 ",
             "bg-gray-900 text-white hover:bg-gray-800",
@@ -64,7 +65,7 @@ export default function NotFound() {
         >
           <Icon icon="solar:home-2-linear" className="w-5 h-5" />
           Back to home
-        </Link>
+        </div>
       </motion.div>
     </div>
   );

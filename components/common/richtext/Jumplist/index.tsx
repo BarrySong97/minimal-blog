@@ -101,7 +101,6 @@ export const JumplistNode: React.FC<NodeProps> = ({ id, type, children }) => {
     return () => null;
   }, [dispatch, id, setLastActive]);
 
-  console.log(id, type);
   const Element: any = elements[type];
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();

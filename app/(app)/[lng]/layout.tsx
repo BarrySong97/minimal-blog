@@ -1,5 +1,5 @@
 import { dir } from "i18next";
-import "./globals.css";
+import "@/styles/globals.css";
 import { Navbar } from "@/components/layout/Navbar";
 import { PageLoading } from "@/components/layout/PageLoading";
 import { Metadata } from "next";
