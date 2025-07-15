@@ -10,11 +10,13 @@ import BlogContent from "../blogs/detail/Content";
 import { getHeadings, HeadingNode } from "../common/richtext/get-headings";
 import { useEffect } from "react";
 import { ImageWithFallback } from "../common/ImageWithFallback";
+import { useTranslation } from "@/app/(app)/i18n/client";
 
 interface JournalContentProps extends React.HTMLAttributes<HTMLDivElement> {
   journal: Journal | null;
   isLoading?: boolean;
   toc?: Map<string, Heading>;
+  lng: string;
 }
 
 export function JournalContent({
@@ -22,11 +24,13 @@ export function JournalContent({
   isLoading,
   toc: initialToc,
   className,
+  lng,
   ...props
 }: JournalContentProps) {
   const headings = getHeadings(
     journal?.content?.root?.children as unknown as HeadingNode[]
   );
+  const { t } = useTranslation(lng);
   useEffect(() => {
     // Remove overflow-hidden from body element
     document.body.classList.remove("overflow-hidden");
@@ -71,7 +75,9 @@ export function JournalContent({
               {journal?.readingTime && (
                 <>
                   <span className="text-white/60">·</span>
-                  <span className="text-sm">阅读需 {journal?.readingTime}</span>
+                  <span className="text-sm">
+                    {journal?.readingTime} {t("common.blog.readingTime")}
+                  </span>
                 </>
               )}
             </div>

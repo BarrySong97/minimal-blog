@@ -29,7 +29,7 @@ export default async function JournalPage({
           <JournalList slug={slug} lng={lng} className="mb-8" />
         </div>
         <main className="col-span-8">
-          <JournalContent journal={currentJournal} />
+          <JournalContent lng={lng} journal={currentJournal} />
         </main>
         <div className="hidden lg:block col-span-2 ">
           <Toc headings={headings} />
