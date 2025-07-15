@@ -1,4 +1,5 @@
 "use client";
+import { PhotoProvider, PhotoView } from "react-photo-view";
 import "payloadcms-lexical-ext/client/client.css";
 import type { SerializedUploadNode } from "@payloadcms/richtext-lexical";
 
@@ -27,12 +28,17 @@ export const CustomUploadComponent: React.FC<{
     }
     const { alt, height, url, width } = uploadDoc as any;
     return (
-      <ImageWithFallback
-        alt={alt ?? "img"}
-        height={height}
-        image={uploadDoc as Media}
-        width={width}
-      />
+      <PhotoProvider>
+        <PhotoView src={url}>
+          <ImageWithFallback
+            className="cursor-pointer"
+            alt={alt ?? "img"}
+            height={height}
+            image={uploadDoc as Media}
+            width={width}
+          />
+        </PhotoView>
+      </PhotoProvider>
     );
   }
 
