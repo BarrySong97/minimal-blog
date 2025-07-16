@@ -1,5 +1,6 @@
 import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
+import Image from "next/image";
 import Toc from "@/components/blogs/detail/Toc";
 import "@/styles/shiki.css";
 import "react-photo-view/dist/react-photo-view.css";
@@ -18,6 +19,7 @@ import React, { cache, FC } from "react";
 import { Media } from "@/payload-types";
 import Cd from "@/components/common/cd";
 import { notFound } from "next/navigation";
+import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 const getBlog = async (slug: string) => {
   const blog = await blogService.getBlogBySlug(slug);
   return blog;
@@ -85,6 +87,17 @@ const BlogDetail: FC<Props> = async ({ params }) => {
                 ) as any
               }
             />
+            <hr className="my-12" />
+            <div className="flex flex-col justify-center items-center">
+              <Image
+                src={"/weixin.jpg"}
+                alt={"微信公众号"}
+                width={200}
+                height={200}
+              />
+              <div>关注我的微信公众号Barry的代码日志</div>
+            </div>
+
             <hr className="my-12" />
             <Cd />
           </div>
