@@ -45,7 +45,7 @@ export function JournalContent({
     <div
       className={cn(
         className,
-        "min-h-screen shadow-md border border-zinc-200/70"
+        "min-h-screen lg:shadow-md lg:border lg:border-zinc-200/70"
       )}
       {...props}
     >
@@ -84,7 +84,7 @@ export function JournalContent({
           </div>
         </div>
       </div>
-      <div className="px-8">
+      <div className="lg:px-8">
         <BlogContent
           blog={journal as unknown as Blog}
           toc={
