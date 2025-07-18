@@ -29,6 +29,7 @@ export const endpoints = {
   skillCategories: `/skill-categories`,
   about: `/globals/about`,
   photos: `/photos`,
+  rewatch: `/rewatch`,
 } as const;
 
 // Query Keys Configuration
@@ -74,6 +75,11 @@ export const queryKeys = {
     all: ["photos"] as const,
     infinite: ["photos", "infinite"] as const,
     detail: (id: string) => [...queryKeys.photos.all, id] as const,
+  },
+  rewatch: {
+    all: ["rewatch"] as const,
+    filtered: (type?: string) => [...queryKeys.rewatch.all, "type", type] as const,
+    infinite: ["rewatch", "infinite"] as const,
   },
 } as const;
 

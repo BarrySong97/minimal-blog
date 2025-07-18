@@ -17,6 +17,7 @@ import Books from "@/app/(payload)/collections/books";
 import BlogPage from "@/app/(payload)/collections/blogPage";
 import path from "path";
 import Journal from "@/app/(payload)/collections/journal";
+import Rewatch from "@/app/(payload)/collections/rewatch";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
 
@@ -32,6 +33,7 @@ export default buildConfig({
     Photo,
     Books,
     Journal,
+    Rewatch,
   ],
   localization: {
     locales: ["en", "zh", "ja", "ko"], // required

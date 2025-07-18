@@ -76,6 +76,7 @@ export interface Config {
     photos: Photo;
     books: Book;
     journals: Journal;
+    rewatch: Rewatch;
     users: User;
     "payload-locked-documents": PayloadLockedDocument;
     "payload-preferences": PayloadPreference;
@@ -94,6 +95,7 @@ export interface Config {
     photos: PhotosSelect<false> | PhotosSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     journals: JournalsSelect<false> | JournalsSelect<true>;
+    rewatch: RewatchSelect<false> | RewatchSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     "payload-locked-documents":
       | PayloadLockedDocumentsSelect<false>
@@ -398,6 +400,20 @@ export interface Book {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rewatch".
+ */
+export interface Rewatch {
+  id: number;
+  title: string;
+  cover?: (number | null) | Media;
+  description?: string | null;
+  link: string;
+  type: "book" | "movie" | "tv";
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "journals".
  */
 export interface Journal {
@@ -510,6 +526,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: "journals";
         value: number | Journal;
+      } | null)
+    | ({
+        relationTo: "rewatch";
+        value: number | Rewatch;
       } | null)
     | ({
         relationTo: "users";
@@ -721,6 +741,19 @@ export interface BooksSelect<T extends boolean = true> {
   author?: T;
   image?: T;
   note?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rewatch_select".
+ */
+export interface RewatchSelect<T extends boolean = true> {
+  title?: T;
+  cover?: T;
+  description?: T;
+  link?: T;
+  type?: T;
   updatedAt?: T;
   createdAt?: T;
 }
