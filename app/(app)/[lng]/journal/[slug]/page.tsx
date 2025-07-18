@@ -7,6 +7,44 @@ import {
 import Toc from "@/components/blogs/detail/Toc";
 import { journalService } from "@/service/journal";
 import { JournalMobileDrawer } from "@/components/journal/JournalMobileDrawer";
+import { cache } from "react";
+import { notFound } from "next/navigation";
+import { Media } from "@/payload-types";
+
+const getJournal = async (slug: string) => {
+  const journal = await journalService.getJournalBySlug(slug);
+  return journal;
+};
+const getJournalCache = cache(getJournal);
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string; lng: string }> }) {
+  const { slug } = await params;
+  const journal = await getJournalCache(slug);
+  const journalDoc = journal?.docs?.[0];
+  
+  if (!journalDoc) {
+    notFound();
+  }
+  
+  const cover = (journalDoc?.ogImage as Media)?.sizes?.card;
+  return {
+    title: journalDoc?.title,
+    description: journalDoc?.excerpt,
+    openGraph: {
+      images: [
+        {
+          url: `${process.env.DOMAIN_URL}${cover?.url}`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${journalDoc?.title} | Barry Song's Journal`,
+      description: journalDoc?.excerpt,
+      images: [`${process.env.DOMAIN_URL}${cover?.url}`],
+    },
+  };
+}
 
 export default async function JournalPage({
   params,
@@ -14,8 +52,12 @@ export default async function JournalPage({
   params: Promise<{ slug: string; lng: string }>;
 }) {
   const { slug, lng } = await params;
-  const journal = await journalService.getJournalBySlug(slug);
+  const journal = await getJournalCache(slug);
   const currentJournal = journal?.docs?.[0];
+  
+  if (!currentJournal) {
+    notFound();
+  }
   const headings = currentJournal
     ? getHeadings(
         (currentJournal?.content?.root?.children as unknown as HeadingNode[]) ||
