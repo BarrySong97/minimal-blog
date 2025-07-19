@@ -54,7 +54,9 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
               {t("common.rewatch.description")}
             </p>
           </div>
-          <RewatchGrid items={rewatchItems} lng={lng} />
+          <div className="h-[calc(100vh-16rem)] overflow-y-auto">
+            <RewatchGrid items={rewatchItems} lng={lng} />
+          </div>
         </div>
       </div>
     );
