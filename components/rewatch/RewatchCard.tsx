@@ -51,10 +51,10 @@ export function RewatchCard({
       {/* Cover Image */}
       <div className="aspect-[3/4] overflow-hidden">
         <ImageWithFallback
-          src={coverUrl}
+          image={cover as Media}
           alt={title}
-          width={300}
-          height={400}
+          fill={true}
+          enableTransition={true}
           className="h-full w-full object-cover transition-transform group-hover:scale-105"
         />
       </div>
@@ -63,10 +63,12 @@ export function RewatchCard({
       <div className="p-4">
         {/* Type Badge */}
         <div className="mb-2">
-          <span className={cn(
-            "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
-            typeColors[type]
-          )}>
+          <span
+            className={cn(
+              "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
+              typeColors[type]
+            )}
+          >
             {typeLabels[type]}
           </span>
         </div>
@@ -78,9 +80,7 @@ export function RewatchCard({
 
         {/* Description */}
         {description && (
-          <p className="text-sm text-gray-600 line-clamp-3">
-            {description}
-          </p>
+          <p className="text-sm text-gray-600 line-clamp-3">{description}</p>
         )}
 
         {/* External Link Icon */}
