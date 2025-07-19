@@ -7,7 +7,9 @@
         "contact": "联系",
         "projects": "作品",
         "photos": "照片",
-        "journal": "周记"
+        "journal": "周记",
+        "friends": "友链",
+        "rewatch": "正在看"
     },
     "experience": "工作经历",
     "viewAll": "查看所有",
@@ -32,5 +34,21 @@
     "blog": {
         "readingTime": "分钟阅读",
         "count": "篇"
+    },
+    "friends": {
+        "title": "友情链接",
+        "description": "这里是一些我想与你分享的优秀朋友和网站。",
+        "noLinks": "暂时没有友情链接。",
+        "errorLoading": "加载友情链接失败，请稍后重试。"
+    },
+    "rewatch": {
+        "title": "正在看",
+        "description": "我想要重新观看和阅读的书籍、电影、电视剧清单",
+        "errorLoading": "加载失败，请稍后重试",
+        "types": {
+            "book": "书籍",
+            "movie": "电影",
+            "tv": "电视剧"
+        }
     }
 }

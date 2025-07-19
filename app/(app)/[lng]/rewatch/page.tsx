@@ -3,6 +3,7 @@ import { RewatchScrollView, RewatchItem } from "@/components/rewatch/RewatchScro
 import { Metadata } from "next";
 import { rewatchService } from "@/service/rewatch";
 import { Media } from "@/payload-types";
+import { useTranslation } from "@/app/(app)/i18n";
 
 export const metadata: Metadata = {
   title: "正在看 | Barry Song",
@@ -24,6 +25,7 @@ interface RewatchPageProps {
 
 const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
   const { lng } = await params;
+  const { t } = await useTranslation(lng);
 
   try {
     const data = await rewatchService.getAllRewatch();
@@ -41,7 +43,7 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
     return (
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
         {/* Scroll View */}
-        <RewatchScrollView items={rewatchItems} />
+        <RewatchScrollView items={rewatchItems} lng={lng} />
       </div>
     );
   } catch (error) {
@@ -49,8 +51,8 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
     return (
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">正在看</h1>
-          <p className="text-gray-500">加载失败，请稍后重试</p>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">{t("common.rewatch.title")}</h1>
+          <p className="text-gray-500">{t("common.rewatch.errorLoading")}</p>
         </div>
       </div>
     );

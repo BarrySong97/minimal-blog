@@ -7,7 +7,9 @@
         "contact": "연락처",
         "projects": "프로젝트",
         "photos": "사진",
-        "journal": "일기"
+        "journal": "일기",
+        "friends": "친구",
+        "rewatch": "시청 중"
     },
     "experience": "경력",
     "viewAll": "모두 보기",
@@ -26,5 +28,21 @@
     "blog": {
         "readingTime": "분 읽기",
         "count": "게시물"
+    },
+    "friends": {
+        "title": "친구 링크",
+        "description": "여러분과 공유하고 싶은 놀라운 사람들과 웹사이트들입니다.",
+        "noLinks": "현재 친구 링크가 없습니다.",
+        "errorLoading": "친구 링크를 불러오는데 실패했습니다. 나중에 다시 시도해주세요."
+    },
+    "rewatch": {
+        "title": "시청 중",
+        "description": "다시 보고 읽고 싶은 책, 영화, TV 드라마 목록",
+        "errorLoading": "로딩에 실패했습니다. 나중에 다시 시도해주세요.",
+        "types": {
+            "book": "책",
+            "movie": "영화",
+            "tv": "TV 드라마"
+        }
     }
 }

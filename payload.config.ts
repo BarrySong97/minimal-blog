@@ -18,6 +18,7 @@ import BlogPage from "@/app/(payload)/collections/blogPage";
 import path from "path";
 import Journal from "@/app/(payload)/collections/journal";
 import Rewatch from "@/app/(payload)/collections/rewatch";
+import FriendLinks from "@/app/(payload)/collections/friend-links";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
 
@@ -34,6 +35,7 @@ export default buildConfig({
     Books,
     Journal,
     Rewatch,
+    FriendLinks,
   ],
   localization: {
     locales: ["en", "zh", "ja", "ko"], // required

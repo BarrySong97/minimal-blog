@@ -48,6 +48,16 @@ const navItems: NavItem[] = [
     href: (lng) => `/${lng}/projects`,
   },
   {
+    key: "friends",
+    translationKey: "common.nav.friends",
+    href: (lng) => `/${lng}/friends`,
+  },
+  {
+    key: "rewatch",
+    translationKey: "common.nav.rewatch",
+    href: (lng) => `/${lng}/rewatch`,
+  },
+  {
     key: "about",
     translationKey: "common.nav.about",
     href: (lng) => `/${lng}/about`,

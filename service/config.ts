@@ -30,6 +30,7 @@ export const endpoints = {
   about: `/globals/about`,
   photos: `/photos`,
   rewatch: `/rewatch`,
+  friendLinks: `/friend-links`,
 } as const;
 
 // Query Keys Configuration
@@ -80,6 +81,10 @@ export const queryKeys = {
     all: ["rewatch"] as const,
     filtered: (type?: string) => [...queryKeys.rewatch.all, "type", type] as const,
     infinite: ["rewatch", "infinite"] as const,
+  },
+  friendLinks: {
+    all: ["friendLinks"] as const,
+    detail: (id: number) => [...queryKeys.friendLinks.all, id] as const,
   },
 } as const;
 

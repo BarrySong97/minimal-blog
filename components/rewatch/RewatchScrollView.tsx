@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { cn } from "@/lib/utils";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { Media } from "@/payload-types";
+import { useTranslation } from "@/app/(app)/i18n/client";
 
 export interface RewatchItem {
   id: string;
@@ -17,14 +18,10 @@ export interface RewatchItem {
 
 interface RewatchScrollViewProps {
   items: RewatchItem[];
+  lng: string;
   className?: string;
 }
 
-const typeLabels = {
-  book: "书籍",
-  movie: "电影",
-  tv: "电视剧",
-};
 
 const typeColors = {
   book: "bg-blue-100 text-blue-800",
@@ -32,7 +29,8 @@ const typeColors = {
   tv: "bg-purple-100 text-purple-800",
 };
 
-export function RewatchScrollView({ items, className }: RewatchScrollViewProps) {
+export function RewatchScrollView({ items, lng, className }: RewatchScrollViewProps) {
+  const { t } = useTranslation(lng);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -175,7 +173,7 @@ export function RewatchScrollView({ items, className }: RewatchScrollViewProps) 
                     "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
                     typeColors[item.type]
                   )}>
-                    {typeLabels[item.type]}
+                    {t(`common.rewatch.types.${item.type}`)}
                   </span>
                 </motion.div> */}
 
@@ -211,7 +209,7 @@ export function RewatchScrollView({ items, className }: RewatchScrollViewProps) 
                     "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium",
                     typeColors[activeItem.type]
                   )}>
-                    {typeLabels[activeItem.type]}
+                    {t(`common.rewatch.types.${activeItem.type}`)}
                   </span>
                 </motion.div>
 

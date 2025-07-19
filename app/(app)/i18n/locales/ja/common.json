@@ -7,7 +7,9 @@
         "contact": "お問い合わせ",
         "projects": "プロジェクト",
         "photos": "写真",
-        "journal": "日記"
+        "journal": "日記",
+        "friends": "友達",
+        "rewatch": "視聴中"
     },
     "experience": "職務経歴",
     "viewAll": "すべて見る",
@@ -32,5 +34,21 @@
     "blog": {
         "readingTime": "分読み",
         "count": "記事"
+    },
+    "friends": {
+        "title": "友達リンク",
+        "description": "あなたと共有したい素晴らしい人々とウェブサイトがここにあります。",
+        "noLinks": "現在友達リンクはありません。",
+        "errorLoading": "友達リンクの読み込みに失敗しました。後でもう一度お試しください。"
+    },
+    "rewatch": {
+        "title": "視聴中",
+        "description": "再視聴・再読したい本、映画、テレビドラマのリスト",
+        "errorLoading": "読み込みに失敗しました。後でもう一度お試しください。",
+        "types": {
+            "book": "本",
+            "movie": "映画",
+            "tv": "テレビドラマ"
+        }
     }
 }
