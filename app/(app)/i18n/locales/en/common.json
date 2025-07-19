@@ -43,7 +43,7 @@
   },
   "rewatch": {
     "title": "Currently Watching",
-    "description": "Books, movies, and TV series I want to rewatch and reread",
+    "description": "Books, movies, and TV series I am currently watching or reading",
     "errorLoading": "Failed to load content. Please try again later.",
     "types": {
       "book": "Book",

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { RewatchScrollView, RewatchItem } from "@/components/rewatch/RewatchScrollView";
+import { RewatchGrid } from "@/components/rewatch/RewatchGrid";
 import { Metadata } from "next";
 import { rewatchService } from "@/service/rewatch";
 import { Media } from "@/payload-types";
@@ -42,8 +43,19 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
 
     return (
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
-        {/* Scroll View */}
-        <RewatchScrollView items={rewatchItems} lng={lng} />
+        {/* Desktop: Scroll View, Mobile: Grid View */}
+        <div className="hidden md:block">
+          <RewatchScrollView items={rewatchItems} lng={lng} />
+        </div>
+        <div className="block md:hidden">
+          <div className="mb-8">
+            <h1 className="text-3xl font-bold mb-4">{t("common.rewatch.title")}</h1>
+            <p className="text-gray-600 dark:text-gray-300">
+              {t("common.rewatch.description")}
+            </p>
+          </div>
+          <RewatchGrid items={rewatchItems} lng={lng} />
+        </div>
       </div>
     );
   } catch (error) {

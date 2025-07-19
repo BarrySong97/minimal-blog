@@ -43,7 +43,7 @@
     },
     "rewatch": {
         "title": "正在看",
-        "description": "我想要重新观看和阅读的书籍、电影、电视剧清单",
+        "description": "我正在观看和阅读的书籍、电影、电视剧清单",
         "errorLoading": "加载失败，请稍后重试",
         "types": {
             "book": "书籍",
