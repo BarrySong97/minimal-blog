@@ -1,5 +1,5 @@
 "use client";
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import { Media, Photo } from "@/payload-types";
 import { cn } from "@/lib/utils";
@@ -16,10 +16,29 @@ const PhotoScroll: FC<PhotoScrollProps> = ({
   onSelect,
   className,
 }) => {
+  const [shouldCenter, setShouldCenter] = useState(true);
+
+  useEffect(() => {
+    const calculateTotalHeight = () => {
+      const photoHeight = 160; // sm size
+      const gap = 8; // gap-2 = 8px
+      const totalHeight = photos.length * photoHeight + (photos.length - 1) * gap;
+      const screenHeight = window.innerHeight;
+      
+      setShouldCenter(totalHeight <= screenHeight);
+    };
+
+    calculateTotalHeight();
+    window.addEventListener('resize', calculateTotalHeight);
+    
+    return () => window.removeEventListener('resize', calculateTotalHeight);
+  }, [photos.length]);
+
   return (
     <div
       className={cn(
-        "sm:w-[100px]  sm:h-screen  sm:flex-col   gap-2 px-2",
+        "sm:w-[100px] sm:flex-col gap-2 px-2",
+        shouldCenter ? "justify-center items-center" : "",
         className
       )}
     >
