@@ -22,24 +22,26 @@ const PhotoScroll: FC<PhotoScrollProps> = ({
     const calculateTotalHeight = () => {
       const photoHeight = 160; // sm size
       const gap = 8; // gap-2 = 8px
-      const totalHeight = photos.length * photoHeight + (photos.length - 1) * gap;
+      const totalHeight =
+        photos.length * photoHeight + (photos.length - 1) * gap;
       const screenHeight = window.innerHeight;
-      
+
       setShouldCenter(totalHeight <= screenHeight);
+      console.log(totalHeight, screenHeight);
     };
 
     calculateTotalHeight();
-    window.addEventListener('resize', calculateTotalHeight);
-    
-    return () => window.removeEventListener('resize', calculateTotalHeight);
+    window.addEventListener("resize", calculateTotalHeight);
+
+    return () => window.removeEventListener("resize", calculateTotalHeight);
   }, [photos.length]);
 
   return (
     <div
       className={cn(
         "sm:w-[100px] sm:flex-col gap-2 px-2",
-        shouldCenter ? "justify-center items-center" : "",
-        className
+        className,
+        shouldCenter ? "justify-center items-center" : "!justify-start"
       )}
     >
       {photos.map((photo, index) => (
