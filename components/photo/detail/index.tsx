@@ -145,7 +145,13 @@ const PhotoDetail = ({ id }: { id: string }) => {
           <Icon icon="mdi:arrow-left" className="w-6 h-6" />
         </button>
         <motion.div className="w-full flex h-screen bg-white">
-          {!isMobile ? <PhotoMeta photo={photo} className="flex-1" /> : null}
+          {!isMobile ? (
+            <PhotoMeta
+              photoIndex={photoIndex}
+              photo={photo}
+              className="flex-1"
+            />
+          ) : null}
           <PhotoItem
             key={`photo-item-${photo.id}`}
             photoIndex={photoIndex}

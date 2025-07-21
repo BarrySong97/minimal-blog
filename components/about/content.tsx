@@ -37,7 +37,7 @@ const AboutContent: FC<AboutContentProps> = () => {
     toc: Array.from(toc).reverse(),
   };
   return (
-    <div className="max-w-4xl mx-auto prose prose-md !text-primary ">
+    <div className="max-w-4xl sm:px-0 px-6 mx-auto prose prose-md !text-primary ">
       <RichTextContext.Provider value={context}>
         <RichText
           converters={jsxConverters({ toc: false })}

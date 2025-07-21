@@ -16,6 +16,7 @@ import { cn } from "@/lib/utils";
 export interface PhotoMetaProps {
   className?: string;
   photo: Photo;
+  photoIndex: number;
 }
 export const CustomUploadComponent: React.FC<{
   node: SerializedUploadNode;
@@ -51,7 +52,11 @@ const jsxConverters: (args: {
       },
     };
   };
-const PhotoMeta: FC<PhotoMetaProps> = ({ photo, className }) => {
+const PhotoMeta: FC<PhotoMetaProps> = ({
+  photo,
+  className,
+  photoIndex = 0,
+}) => {
   return (
     <div
       className={cn(
@@ -91,7 +96,10 @@ const PhotoMeta: FC<PhotoMetaProps> = ({ photo, className }) => {
             ease: "easeInOut",
           }}
         >
-          {photo.title}
+          {photo.title}{" "}
+          {photo.images.length > 1
+            ? `* ${photo.images[photoIndex ?? 0]?.title}`
+            : ""}
         </motion.div>
       </div>
       <div className="prose prose-md !text-primary ">

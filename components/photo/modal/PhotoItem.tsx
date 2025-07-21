@@ -99,19 +99,18 @@ const PhotoItem = ({
             height: dimensions.height,
           }}
         >
-          <ImageWithFallback
-            image={photo.images[photoIndex].image as Media}
-            alt={photo.title}
-            className="object-contain"
-            fill
-            priority
-            style={{ width: "100%", height: "100%" }}
-          />
+          <div>
+            <ImageWithFallback
+              image={photo.images[photoIndex].image as Media}
+              alt={photo.title}
+              className="object-contain"
+              fill
+              priority
+              style={{ width: "100%", height: "100%" }}
+            />
+          </div>
         </motion.div>
       )}
-      <div className="absolute bottom-8 text-sm text-gray-600">
-        {photo.images[photoIndex].title}
-      </div>
     </motion.div>
   );
 };

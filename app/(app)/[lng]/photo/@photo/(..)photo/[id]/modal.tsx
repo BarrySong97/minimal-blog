@@ -158,7 +158,9 @@ const Modal = ({ id }: { id: string }) => {
           {/* Content container */}
           <div className="relative z-10 w-full min-h-screen">
             <motion.div className="w-full h-screen bg-white sm:flex">
-              {!isMobile ? <PhotoMeta photo={photo} /> : null}
+              {!isMobile ? (
+                <PhotoMeta photo={photo} photoIndex={photoIndex} />
+              ) : null}
               <PhotoItem
                 key={`photo-item-${photo.id}`}
                 photo={photo}
