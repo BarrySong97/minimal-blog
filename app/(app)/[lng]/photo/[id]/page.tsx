@@ -1,5 +1,5 @@
+export const revalidate = 0;
 import PhotoDetail from "@/components/photo/detail";
-import PhotoItem from "@/components/photo/modal/PhotoItem";
 import { prefetchQuery } from "@/components/tanstack/tanstack-server";
 import { queryKeys } from "@/service";
 import { photoService } from "@/service/photo";
