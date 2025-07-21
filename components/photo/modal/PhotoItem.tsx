@@ -44,7 +44,7 @@ const PhotoItem = ({
   return (
     <motion.div
       layoutId={`photo-${photo.id}`}
-      className="flex items-center justify-center will-change-transform"
+      className="flex flex-col items-center justify-center will-change-transform"
       style={{
         width: containerDimensions.width,
         height: containerDimensions.height,
@@ -109,6 +109,9 @@ const PhotoItem = ({
           />
         </motion.div>
       )}
+      <div className="absolute bottom-8 text-sm text-gray-600">
+        {photo.images[photoIndex].title}
+      </div>
     </motion.div>
   );
 };
