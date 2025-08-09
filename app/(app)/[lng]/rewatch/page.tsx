@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { RewatchScrollView, RewatchItem } from "@/components/rewatch/RewatchScrollView";
+import { RewatchItem } from "@/components/rewatch/RewatchScrollView";
 import { RewatchGrid } from "@/components/rewatch/RewatchGrid";
 import { Metadata } from "next";
 import { rewatchService } from "@/service/rewatch";
@@ -41,23 +41,27 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
       type: item.type,
     })) || [];
 
+    // Group items by type
+    const groupedItems = rewatchItems.reduce((acc, item) => {
+      if (!acc[item.type]) {
+        acc[item.type] = [];
+      }
+      acc[item.type].push(item);
+      return acc;
+    }, {} as Record<string, RewatchItem[]>);
+
     return (
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
-        {/* Desktop: Scroll View, Mobile: Grid View */}
-        <div className="hidden md:block">
-          <RewatchScrollView items={rewatchItems} lng={lng} />
+        {/* Page Header */}
+        <div className="mb-12">
+          <h1 className="text-4xl font-bold mb-4">{t("common.rewatch.title")}</h1>
+          <p className="text-gray-600 dark:text-gray-300 text-lg">
+            {t("common.rewatch.description")}
+          </p>
         </div>
-        <div className="block md:hidden">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold mb-4">{t("common.rewatch.title")}</h1>
-            <p className="text-gray-600 dark:text-gray-300">
-              {t("common.rewatch.description")}
-            </p>
-          </div>
-          <div className="h-[calc(100vh-16rem)] overflow-y-auto">
-            <RewatchGrid items={rewatchItems} lng={lng} />
-          </div>
-        </div>
+        
+        {/* Grouped Grid Layout */}
+        <RewatchGrid groupedItems={groupedItems} lng={lng} />
       </div>
     );
   } catch (error) {

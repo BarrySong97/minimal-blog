@@ -9,86 +9,129 @@ import { useTranslation } from "@/app/(app)/i18n/client";
 import { RewatchItem } from "./RewatchScrollView";
 
 interface RewatchGridProps {
-  items: RewatchItem[];
+  groupedItems: Record<string, RewatchItem[]>;
   lng: string;
   className?: string;
 }
 
 const typeColors = {
-  book: "bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-  movie: "bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200",
-  tv: "bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
+  book: "bg-amber-50 text-amber-900 dark:bg-amber-900/20 dark:text-amber-100",
+  movie: "bg-rose-50 text-rose-900 dark:bg-rose-900/20 dark:text-rose-100",
+  tv: "bg-slate-50 text-slate-900 dark:bg-slate-900/20 dark:text-slate-100",
 };
 
-export const RewatchGrid: FC<RewatchGridProps> = ({ items, lng, className }) => {
+const typeOrder = ["book", "movie", "tv"] as const;
+
+export const RewatchGrid: FC<RewatchGridProps> = ({
+  groupedItems,
+  lng,
+  className,
+}) => {
   const { t } = useTranslation(lng);
 
   return (
-    <div className={cn("grid grid-cols-1 gap-6", className)}>
-      {items.map((item) => {
-        const coverUrl = item.cover && typeof item.cover === 'object' 
-          ? (item.cover as Media).url 
-          : null;
+    <div className={cn("space-y-16", className)}>
+      {typeOrder.map((type) => {
+        const items = groupedItems[type];
+        if (!items || items.length === 0) return null;
 
         return (
-          <Link
-            key={item.id}
-            href={item.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group block"
-          >
-            <div className="relative aspect-[3/4]  overflow-hidden bg-gray-100 dark:bg-gray-800">
-              {/* Cover Image */}
-              {coverUrl ? (
-                <ImageWithFallback
-                  image={item.cover as Media}
-                  alt={item.title}
-                  width={300}
-                  height={400}
-                  enableTransition={true}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-200 to-gray-300 dark:from-gray-700 dark:to-gray-800">
-                  <span className="text-gray-500 dark:text-gray-400 text-lg font-medium">
-                    {item.title.charAt(0).toUpperCase()}
-                  </span>
-                </div>
-              )}
-
-              {/* Overlay with gradient */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-
-              {/* Content overlay - positioned at bottom left */}
-              <div className="absolute bottom-0 left-0 right-0 p-4">
-                {/* Type badge */}
-                <div className="mb-2">
-                  <span className={cn(
-                    "inline-flex items-center rounded-full px-2 py-1 text-xs font-medium",
-                    typeColors[item.type]
-                  )}>
-                    {t(`common.rewatch.types.${item.type}`)}
-                  </span>
-                </div>
-
-                {/* Title */}
-                <h3 className="text-white font-semibold text-lg line-clamp-2 mb-1">
-                  {item.title}
-                </h3>
-
-                {/* Description */}
-                {item.description && (
-                  <p className="text-white/80 text-sm line-clamp-2">
-                    {item.description}
-                  </p>
-                )}
-              </div>
-
-              {/* Hover effect overlay */}
-              <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <section key={type} className="space-y-8">
+            {/* Section Header */}
+            <div className="flex items-center gap-4">
+              <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+                {t(`common.rewatch.types.${type}`)}
+              </h2>
             </div>
-          </Link>
+
+            {/* Grid of Items - Only show first item */}
+            <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
+              {items.slice(0, 1).map((item) => {
+                const coverUrl =
+                  item.cover && typeof item.cover === "object"
+                    ? (item.cover as Media).url
+                    : null;
+
+                const cover = item.cover as Media;
+                const imageWidth = cover?.width || 0;
+                const imageHeight = cover?.height || 0;
+                const isPortrait = imageHeight > imageWidth;
+
+                return (
+                  <Link
+                    key={item.id}
+                    href={item.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group block w-full"
+                  >
+                    <div className="overflow-hidden bg-white dark:bg-gray-900">
+                      {/* Cover Image */}
+                      <div className="relative overflow-hidden">
+                        {coverUrl ? (
+                          <ImageWithFallback
+                            image={item.cover as Media}
+                            alt={item.title}
+                            width={400}
+                            height={0}
+                            enableTransition={true}
+                            className={cn(
+                              "w-full object-cover group-hover:scale-105 transition-transform duration-300",
+                              isPortrait ? "max-h-[400px]" : "h-auto"
+                            )}
+                            style={
+                              isPortrait ? { objectPosition: "center top" } : {}
+                            }
+                          />
+                        ) : (
+                          <div
+                            className={cn(
+                              "w-full aspect-[3/4] flex items-center justify-center text-4xl font-bold",
+                              typeColors[item.type]
+                            )}
+                          >
+                            {item.title.charAt(0).toUpperCase()}
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Content below image */}
+                      <div
+                        className={cn(
+                          "bg-gray-100 dark:bg-gray-800",
+                          isPortrait ? "p-8" : "p-6"
+                        )}
+                      >
+                        {/* Title */}
+                        <h3
+                          className={cn(
+                            "text-gray-900 dark:text-gray-100 font-bold mb-2 line-clamp-2",
+                            isPortrait ? "text-2xl" : "text-xl"
+                          )}
+                        >
+                          {item.title}
+                        </h3>
+
+                        {/* Description */}
+                        {item.description && (
+                          <p
+                            className={cn(
+                              "text-gray-600 dark:text-gray-400",
+                              isPortrait
+                                ? "text-base line-clamp-4"
+                                : "text-sm line-clamp-3"
+                            )}
+                          >
+                            {item.description}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  </Link>
+                );
+              })}
+            </div>
+          </section>
         );
       })}
     </div>
