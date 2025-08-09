@@ -32,14 +32,15 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
     const data = await rewatchService.getAllRewatch();
 
     // Transform the data to match RewatchItem interface
-    const rewatchItems: RewatchItem[] = data?.docs?.map((item: any) => ({
-      id: item.id,
-      title: item.title,
-      description: item.description,
-      cover: item.cover as Media,
-      link: item.link,
-      type: item.type,
-    })) || [];
+    const rewatchItems: RewatchItem[] =
+      data?.docs?.map((item: any) => ({
+        id: item.id,
+        title: item.title,
+        description: item.description,
+        cover: item.cover as Media,
+        link: item.link,
+        type: item.type,
+      })) || [];
 
     // Group items by type
     const groupedItems = rewatchItems.reduce((acc, item) => {
@@ -54,12 +55,14 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
         {/* Page Header */}
         <div className="mb-12">
-          <h1 className="text-4xl font-bold mb-4">{t("common.rewatch.title")}</h1>
+          <h1 className="text-4xl font-bold mb-4">
+            {t("common.rewatch.title")}
+          </h1>
           <p className="text-gray-600 dark:text-gray-300 text-lg">
             {t("common.rewatch.description")}
           </p>
         </div>
-        
+
         {/* Grouped Grid Layout */}
         <RewatchGrid groupedItems={groupedItems} lng={lng} />
       </div>
@@ -69,7 +72,9 @@ const RewatchPage: FC<RewatchPageProps> = async ({ params }) => {
     return (
       <div className="container mx-auto px-4 py-8 md:px-8 lg:px-12">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900 mb-4">{t("common.rewatch.title")}</h1>
+          <h1 className="text-3xl font-bold text-gray-900 mb-4">
+            {t("common.rewatch.title")}
+          </h1>
           <p className="text-gray-500">{t("common.rewatch.errorLoading")}</p>
         </div>
       </div>

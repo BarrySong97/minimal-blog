@@ -46,7 +46,7 @@ export const RewatchGrid: FC<RewatchGridProps> = ({
 
             {/* Grid of Items - Only show first item */}
             <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-6">
-              {items.slice(0, 1).map((item) => {
+              {items.map((item) => {
                 const coverUrl =
                   item.cover && typeof item.cover === "object"
                     ? (item.cover as Media).url
