@@ -321,7 +321,7 @@ export function Navbar({ lng }: { lng: string }) {
           {/* Desktop Navigation */}
           <motion.nav
             ref={navRef}
-            style={{ x: isLargeScreen ? x : "0" }}
+            style={{ x:  x  }}
             className={cn(
               "items-center space-x-6 text-sm font-medium relative hidden sm:flex"
             )}
