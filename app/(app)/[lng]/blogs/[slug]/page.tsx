@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: Props) {
   if (!blog) {
     notFound();
   }
-  const cover = (blog?.docs?.[0]?.ogImage as Media)?.sizes?.card;
+  const cover = (blog?.docs?.[0]?.ogImage as Media).url;
   return {
     title: blog?.docs?.[0]?.title,
     description: blog?.docs?.[0]?.excerpt,
