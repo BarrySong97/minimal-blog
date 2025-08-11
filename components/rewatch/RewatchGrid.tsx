@@ -1,12 +1,13 @@
 "use client";
 
-import React, { FC } from "react";
+import React, { FC, useEffect } from "react";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { Media } from "@/payload-types";
 import { useTranslation } from "@/app/(app)/i18n/client";
 import { RewatchItem } from "./RewatchScrollView";
+import { useRouter } from "next/navigation";
 
 interface RewatchGridProps {
   groupedItems: Record<string, RewatchItem[]>;
@@ -29,6 +30,15 @@ export const RewatchGrid: FC<RewatchGridProps> = ({
 }) => {
   const { t } = useTranslation(lng);
 
+  useEffect(() => {
+    const body = window.document.body;
+    body.style.overflow = "auto";
+    body.classList.remove("overflow-hidden");
+    return () => {
+      body.style.overflow = "hidden";
+      body.classList.add("overflow-hidden");
+    };
+  }, []);
   return (
     <div className={cn("space-y-16", className)}>
       {typeOrder.map((type) => {
