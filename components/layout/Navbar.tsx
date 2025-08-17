@@ -292,7 +292,7 @@ export function Navbar({ lng }: { lng: string }) {
     hoveredItem !== undefined && hoveredItem !== clickedItem;
 
   const { scrollY } = useScroll();
-  const x = useTransform(scrollY, [0, 60], ["0", "100px"]);
+  const x = useTransform(scrollY, [0, 60], ["0", "120px"]);
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
