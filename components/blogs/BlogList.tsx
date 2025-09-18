@@ -12,7 +12,7 @@ import { useQueryState } from "nuqs";
 import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
 import Loading from "@/app/(app)/[lng]/blogs/loading";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { BannerBlogs } from "./BannerBlogs";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { parseAsString } from "nuqs/server";

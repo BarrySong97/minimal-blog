@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 import PhotoMeta from "@/components/photo/PhotoMeta";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 import { Media } from "@/payload-types";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useLayoutNavigation } from "@/hooks/use-layout-navigation";
 interface CardContentProps extends React.HTMLAttributes<HTMLDivElement> {
   image: Media;

@@ -9,7 +9,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { homeService } from "@/service/home";
 import { Media } from "@/payload-types";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 
 export interface MobileTocProps {

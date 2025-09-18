@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { MaterialSymbolsArrowForwardRounded } from "./icon";
 import { ViewHover } from "../common/ViewHover";
 import { Media, Blog } from "@/payload-types";

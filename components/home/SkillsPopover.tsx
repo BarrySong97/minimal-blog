@@ -1,6 +1,6 @@
 "use client";
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Popover } from "@/components/ui/Popover";
 import { useParams } from "next/navigation";
 import { useTranslation } from "@/app/(app)/i18n/client";
@@ -50,25 +50,22 @@ export function SkillsPopover() {
   // Group skills by category
   const skillsByCategory = React.useMemo(() => {
     if (!skills || !skillCategories) return {};
-    return skills.docs.reduce(
-      (acc, skill) => {
-        const category = skillCategories.docs.find(
-          (cat) =>
-            cat.id ===
-            (typeof skill.category === "number"
-              ? skill.category
-              : skill.category.id)
-        );
-        if (category) {
-          if (!acc[category.name]) {
-            acc[category.name] = [];
-          }
-          acc[category.name].push(skill);
+    return skills.docs.reduce((acc, skill) => {
+      const category = skillCategories.docs.find(
+        (cat) =>
+          cat.id ===
+          (typeof skill.category === "number"
+            ? skill.category
+            : skill.category.id)
+      );
+      if (category) {
+        if (!acc[category.name]) {
+          acc[category.name] = [];
         }
-        return acc;
-      },
-      {} as Record<string, typeof skills.docs>
-    );
+        acc[category.name].push(skill);
+      }
+      return acc;
+    }, {} as Record<string, typeof skills.docs>);
   }, [skills, skillCategories]);
 
   return (

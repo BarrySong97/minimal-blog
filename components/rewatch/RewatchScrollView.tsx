@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { Media } from "@/payload-types";
@@ -22,14 +22,17 @@ interface RewatchScrollViewProps {
   className?: string;
 }
 
-
 const typeColors = {
   book: "bg-blue-100 text-blue-800",
   movie: "bg-green-100 text-green-800",
   tv: "bg-purple-100 text-purple-800",
 };
 
-export function RewatchScrollView({ items, lng, className }: RewatchScrollViewProps) {
+export function RewatchScrollView({
+  items,
+  lng,
+  className,
+}: RewatchScrollViewProps) {
   const { t } = useTranslation(lng);
   const [activeIndex, setActiveIndex] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -109,7 +112,10 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
         </AnimatePresence>
       </div>
 
-      <div className={cn("flex items-end", className)} style={{ height: "calc(100vh - 56px)" }}>
+      <div
+        className={cn("flex items-end", className)}
+        style={{ height: "calc(100vh - 56px)" }}
+      >
         {/* Left Side - Scrollable Covers */}
         <div className="w-1/2 h-full relative">
           <div
@@ -148,11 +154,14 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
                   }}
                   transition={{
                     duration: 0.6,
-                    ease: "easeInOut"
+                    ease: "easeInOut",
                   }}
                 >
                   {/* Cover Image */}
-                  <div className="overflow-hidden shadow-lg max-w-md" style={{ height: "calc(100vh - 56px)" }}>
+                  <div
+                    className="overflow-hidden shadow-lg max-w-md"
+                    style={{ height: "calc(100vh - 56px)" }}
+                  >
                     <ImageWithFallback
                       image={item.cover as Media}
                       alt={item.title}
@@ -176,7 +185,6 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
                     {t(`common.rewatch.types.${item.type}`)}
                   </span>
                 </motion.div> */}
-
                 </motion.div>
               );
             })}
@@ -205,10 +213,12 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
                   transition={{ delay: 0.2, duration: 0.6, ease: "easeInOut" }}
                   className="flex justify-end"
                 >
-                  <span className={cn(
-                    "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium",
-                    typeColors[activeItem.type]
-                  )}>
+                  <span
+                    className={cn(
+                      "inline-flex items-center rounded-full px-3 py-1 text-sm font-medium",
+                      typeColors[activeItem.type]
+                    )}
+                  >
                     {t(`common.rewatch.types.${activeItem.type}`)}
                   </span>
                 </motion.div>
@@ -228,7 +238,11 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8, ease: "easeInOut" }}
+                    transition={{
+                      delay: 0.4,
+                      duration: 0.8,
+                      ease: "easeInOut",
+                    }}
                     className="text-lg text-gray-600 leading-relaxed"
                   >
                     {activeItem.description}
@@ -241,10 +255,10 @@ export function RewatchScrollView({ items, lng, className }: RewatchScrollViewPr
 
         {/* Custom Scrollbar Styles */}
         <style jsx>{`
-        div::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
+          div::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
       </div>
     </>
   );

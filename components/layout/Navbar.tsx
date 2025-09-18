@@ -1,7 +1,7 @@
 "use client";
 import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "motion/react";
 import React, { useRef, useEffect, useState, Suspense } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { useTranslation } from "@/app/(app)/i18n/client";
@@ -321,7 +321,7 @@ export function Navbar({ lng }: { lng: string }) {
           {/* Desktop Navigation */}
           <motion.nav
             ref={navRef}
-            style={{ x:  x  }}
+            style={{ x: x }}
             className={cn(
               "items-center space-x-6 text-sm font-medium relative hidden sm:flex"
             )}

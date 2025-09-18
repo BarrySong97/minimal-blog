@@ -4,7 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { Media } from "@/payload-types";
 
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 import { useTranslation } from "@/app/(app)/i18n/client";
 

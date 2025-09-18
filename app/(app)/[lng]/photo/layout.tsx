@@ -4,7 +4,7 @@ import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
 import React from "react";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
-import { AnimatePresence } from "framer-motion";
+import { AnimatePresence } from "motion/react";
 
 const PhotoPage = ({
   children,

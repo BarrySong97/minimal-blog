@@ -1,5 +1,5 @@
 "use client";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useTranslation } from "@/app/(app)/i18n/client";
 import Link from "next/link";
 import { IcSharpArrowOutward } from "./icon";

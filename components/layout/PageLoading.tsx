@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useRef } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { cn } from "@/lib/utils";
 
 interface PageLoadingProps extends React.HTMLAttributes<HTMLDivElement> {

@@ -11,7 +11,7 @@ import {
   RichText,
 } from "@payloadcms/richtext-lexical/react";
 import React, { FC } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { cn } from "@/lib/utils";
 export interface PhotoMetaProps {
   className?: string;

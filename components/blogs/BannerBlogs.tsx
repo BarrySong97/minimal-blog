@@ -4,7 +4,7 @@ import { useState, useCallback } from "react";
 import { Blog } from "@/payload-types";
 import { cn } from "@/lib/utils";
 import { Icon } from "@iconify/react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
 

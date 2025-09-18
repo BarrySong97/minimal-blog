@@ -5,7 +5,7 @@ import { useTranslation } from "@/app/(app)/i18n/client";
 import React, { FC, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";

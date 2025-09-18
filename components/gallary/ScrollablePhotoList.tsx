@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useRef, useEffect, useState } from "react";
-import { motion, useSpring, AnimatePresence } from "framer-motion";
+import { motion, useSpring, AnimatePresence } from "motion/react";
 import { PhotoCard } from "./PhotoCard";
 import { Model } from "@/data/models";
 import { Icon } from "@iconify/react";

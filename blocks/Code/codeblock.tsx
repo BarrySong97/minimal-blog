@@ -24,7 +24,7 @@ import { buttonVariants } from "@/components/ui/button";
 import type { ScrollAreaViewportProps } from "@radix-ui/react-scroll-area";
 import { cn } from "@/lib/utils";
 import { useCopyButton } from "@/lib/use-copy-button";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export type CodeBlockProps = HTMLAttributes<HTMLElement> & {
   /**

@@ -4,7 +4,7 @@ import { Provider } from "jotai";
 import TanstackProvider from "../tanstack/TanstackProvider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 import { TransitionRouter } from "next-transition-router";
-import { motion, useAnimationControls, cubicBezier } from "framer-motion";
+import { motion, useAnimationControls, cubicBezier } from "motion/react";
 import { usePathname } from "next/navigation";
 
 const layerVariants = {

@@ -1,7 +1,7 @@
 "use client";
 
 import { Icon } from "@iconify/react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Popover } from "@/components/ui/Popover";
 import { cn } from "@/lib/utils";

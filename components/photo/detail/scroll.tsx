@@ -3,7 +3,7 @@ import React, { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import { Media, Photo } from "@/payload-types";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 export interface PhotoScrollProps {
   photos: Photo[];
   onSelect: (index: number) => void;

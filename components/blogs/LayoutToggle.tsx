@@ -2,7 +2,7 @@
 import { Icon } from "@iconify/react";
 import { useQueryState } from "nuqs";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 interface LayoutToggleProps {
   className?: string;

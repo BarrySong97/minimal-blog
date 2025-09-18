@@ -7,7 +7,7 @@ import { useLayoutNavigation } from "@/hooks/use-layout-navigation";
 import { queryKeys } from "@/service";
 import { PhotosResponse } from "@/service/photo";
 import { InfiniteData } from "@tanstack/react-query";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState, useLayoutEffect } from "react";
 import { Media, Photo } from "@/payload-types";
 import PhotoMeta from "@/components/photo/detail/PhotoMeta";

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import { Media, Photo } from "@/payload-types";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { blurHashToDataURL } from "@/lib/blurHashToDataURL";
 
 interface PhotoItemProps {

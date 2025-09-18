@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { unstable_ViewTransition as ViewTransition } from "react";
 export default async function Demo() {
   await new Promise((resolve) => setTimeout(resolve, 1000));

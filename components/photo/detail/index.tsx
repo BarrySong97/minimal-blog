@@ -3,7 +3,7 @@ import PhotoItem from "@/components/photo/modal/PhotoItem";
 import { queryKeys } from "@/service";
 import { photoService } from "@/service/photo";
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { useState, useLayoutEffect, useEffect } from "react";
 import { Media, Photo } from "@/payload-types";
 import PhotoMeta from "./PhotoMeta";

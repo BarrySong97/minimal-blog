@@ -1,7 +1,7 @@
 "use client";
 
 import { FC, useRef, useState, useEffect } from "react";
-import { motion, useScroll, AnimatePresence, useInView } from "framer-motion";
+import { motion, useScroll, AnimatePresence, useInView } from "motion/react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
 import { Book, Media } from "@/payload-types";

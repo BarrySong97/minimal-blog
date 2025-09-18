@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { motion, HTMLMotionProps } from "framer-motion";
+import { motion, HTMLMotionProps } from "motion/react";
 
 interface PhotoCardProps extends HTMLMotionProps<"div"> {
   name: string;

@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence } from "motion/react";
 import { Suspense, useRef, useEffect } from "react";
 import { LanguageSelector } from "./LanguageSelector";
 import { Icon } from "@iconify/react";

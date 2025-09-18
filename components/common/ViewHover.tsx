@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "motion/react";
 import { useRef } from "react";
 import { useMouse } from "ahooks";
 import { IcSharpArrowOutward } from "../home/icon";
@@ -44,10 +44,8 @@ export function ViewHover({
             style={{
               width: "120px",
               height: "120px",
-              left:
-                (isNaN(mouse.elementX ?? 0) ? 0 : (mouse.elementX ?? 0)) - 60,
-              top:
-                (isNaN(mouse.elementY ?? 0) ? 0 : (mouse.elementY ?? 0)) - 60,
+              left: (isNaN(mouse.elementX ?? 0) ? 0 : mouse.elementX ?? 0) - 60,
+              top: (isNaN(mouse.elementY ?? 0) ? 0 : mouse.elementY ?? 0) - 60,
             }}
           >
             <div className="flex h-full w-full items-center gap-2 justify-center text-white">
