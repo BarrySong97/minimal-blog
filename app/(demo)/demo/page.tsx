@@ -1,3 +1,4 @@
+export const revalidate = 0;
 import { blogService, homeService, projectService, queryKeys } from "@/service";
 import React, { FC } from "react";
 import ImageCube from "@/components/demo/ImageCube";
@@ -5,7 +6,6 @@ import ResumeCard from "@/components/demo/ResumeCard";
 import DescriptionCard from "@/components/demo/DescriptionCard";
 import PictureWallCard from "@/components/demo/PictureWallCard";
 import ArticleCard from "@/components/demo/ArticleCard";
-import AnimatedMenu from "@/components/demo/AnimatedMenu";
 import { prefetchQueries } from "@/components/tanstack/tanstack-server";
 import { HydrationBoundary } from "@tanstack/react-query";
 
