@@ -5,6 +5,7 @@ import ResumeCard from "@/components/demo/ResumeCard";
 import DescriptionCard from "@/components/demo/DescriptionCard";
 import PictureWallCard from "@/components/demo/PictureWallCard";
 import ArticleCard from "@/components/demo/ArticleCard";
+import AnimatedMenu from "@/components/demo/AnimatedMenu";
 import { prefetchQueries } from "@/components/tanstack/tanstack-server";
 import { HydrationBoundary } from "@tanstack/react-query";
 
@@ -47,6 +48,8 @@ const Page: FC<PageProps> = async () => {
 
             {/* Picture Wall Card */}
             <PictureWallCard />
+
+            {/* Animated Menu */}
           </div>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { GlobalProviders } from "@/components/common/providers";
 import { Inter } from "next/font/google";
 
 import Script from "next/script";
+import AnimatedMenu from "@/components/demo/AnimatedMenu";
 export const metadata: Metadata = {
   title: {
     default: "Barry Song's blog",
@@ -75,6 +76,9 @@ export default async function RootLayout({
         className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative ${font.className}`}
       >
         <GlobalProviders>{children}</GlobalProviders>
+        <div className="absolute bottom-8 left-0 right-0 flex justify-center">
+          <AnimatedMenu />
+        </div>
       </body>
     </html>
   );
