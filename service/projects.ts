@@ -59,6 +59,12 @@ export const projectService = {
       url: `${endpoints.projects}?${stringifiedQuery}`,
     });
   },
+  getLatestProject: () => {
+    return __request<ProjectsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.projects}?sort=order&limit=1`,
+    });
+  },
 
   // 获取单个项目详情
   getProject: (id: number) => {

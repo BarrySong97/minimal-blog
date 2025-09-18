@@ -25,8 +25,18 @@ const Projects: CollectionConfig = {
       type: "text",
       required: false,
     },
+
     {
       name: "cover",
+      type: "upload",
+      relationTo: "media",
+      required: false,
+      access: {
+        read: () => true,
+      },
+    },
+    {
+      name: "home_cover",
       type: "upload",
       relationTo: "media",
       required: false,
@@ -46,6 +56,11 @@ const Projects: CollectionConfig = {
     {
       name: "description",
       type: "textarea",
+      required: false,
+    },
+    {
+      name: "home_cursor",
+      type: "text",
       required: false,
     },
     {

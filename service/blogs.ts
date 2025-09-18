@@ -65,6 +65,13 @@ export const blogService = {
     });
   },
 
+  getLatestBlog: () => {
+    return __request<BlogsResponse>(OpenAPI, {
+      method: "GET",
+      url: `${endpoints.blogs}?sort=-date&limit=1`,
+    });
+  },
+
   getBlogCount: () => {
     return __request(OpenAPI, {
       method: "GET",

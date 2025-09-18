@@ -168,7 +168,7 @@ export interface Blog {
    * URL-friendly version of the title
    */
   slug: string;
-  coverImage: number | Media;
+  coverImage: Media;
   /**
    * Add relevant tags for the blog post
    */
@@ -258,6 +258,8 @@ export interface Project {
   github?: string | null;
   cover?: (number | null) | Media;
   video?: (number | null) | Media;
+  home_cover?: Media;
+  home_cursor?: string;
   description?: string | null;
   /**
    * Project link URL
@@ -878,7 +880,7 @@ export interface Home {
   name: string;
   short_description?: string | null;
   description: string;
-  avatar: number | Media;
+  avatar: Media;
   socialLinks: {
     name: "Twitter" | "Bilibili" | "Xiaohongshu" | "Github" | "Email";
     icon: string;

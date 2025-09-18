@@ -40,6 +40,7 @@ export const queryKeys = {
     detail: (id: number) => [...queryKeys.blogs.all, id] as const,
     bySlug: (slug: string) => [...queryKeys.blogs.all, "slug", slug] as const,
     infinite: ["blogs", "infinite"] as const,
+    latest: ["latest"] as const,
   },
   journals: {
     all: ["journals"] as const,
@@ -62,6 +63,7 @@ export const queryKeys = {
     detail: (id: number) => [...queryKeys.projects.all, id] as const,
     home: ["projects", "home"] as const,
     infinite: ["projects", "infinite"] as const,
+    latest: ["projects", "latest"] as const,
   },
   skills: {
     all: ["skills"] as const,
@@ -79,7 +81,8 @@ export const queryKeys = {
   },
   rewatch: {
     all: ["rewatch"] as const,
-    filtered: (type?: string) => [...queryKeys.rewatch.all, "type", type] as const,
+    filtered: (type?: string) =>
+      [...queryKeys.rewatch.all, "type", type] as const,
     infinite: ["rewatch", "infinite"] as const,
   },
   friendLinks: {
