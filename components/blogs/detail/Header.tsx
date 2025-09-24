@@ -1,22 +1,18 @@
 "use client";
 
 import { Blog, Media } from "@/payload-types";
-import { useTranslation } from "@/app/(app)/i18n/client";
 import React, { FC, useEffect, useState } from "react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { Icon } from "@iconify/react";
-import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 export interface HeaderProps {
   blog: Blog;
-  lng: string;
   className?: string;
 }
 
-const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
-  const { t } = useTranslation(lng);
+const Header: FC<HeaderProps> = ({ blog, className }) => {
   const [isLargeScreen, setIsLargeScreen] = useState(true);
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -48,7 +44,7 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
   return (
     <div
       className={cn(
-        "  w-full mb-12",
+        "w-full mb-12",
         className,
         isLargeScreen ? "sticky top-0 z-[100]" : ""
       )}
@@ -84,16 +80,16 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
                 }}
               >
                 {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
-                {t("common.blog.readingTime")}
+                reading time
               </motion.div>
             </div>
 
             <Link
-              href={`/${lng}/blogs`}
+              href={`/blogs`}
               className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
             >
               <Icon icon="lucide:arrow-left" className="w-4 h-4" />
-              <span>返回列表</span>
+              <span>back to list</span>
             </Link>
           </motion.div>
         ) : (
@@ -117,16 +113,16 @@ const Header: FC<HeaderProps> = ({ blog, lng, className }) => {
                 }}
               >
                 {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
-                {t("common.blog.readingTime")}
+                reading time
               </div>
             </div>
 
             <Link
-              href={`/${lng}/blogs`}
+              href={`/blogs`}
               className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
             >
               <Icon icon="lucide:arrow-left" className="w-4 h-4" />
-              <span>返回列表</span>
+              <span>back to list</span>
             </Link>
           </div>
         )}

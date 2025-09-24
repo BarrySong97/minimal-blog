@@ -3,12 +3,8 @@ import { cn } from "@/lib/utils";
 import { usePathname } from "next/navigation";
 import { motion, useScroll, useTransform } from "motion/react";
 import React, { useRef, useEffect, useState, Suspense } from "react";
-import { LanguageSelector } from "./LanguageSelector";
-import { useTranslation } from "@/app/(app)/i18n/client";
 import { TimeWeather } from "./TimeWeather";
-import { MobileNavbar } from "./MobileNavbar";
 import { useResponsive } from "ahooks";
-import { MobileLanguageSelector } from "./MobileLanguageSelector";
 import { Link, useTransitionState } from "next-transition-router";
 import { journalService } from "@/service/journal";
 import { useQuery } from "@tanstack/react-query";
@@ -16,51 +12,38 @@ import { useQuery } from "@tanstack/react-query";
 // Define a type for navigation items
 interface NavItem {
   key: string;
-  translationKey: string;
-  href: (lng: string) => string;
+  title: string;
+  href: () => string;
 }
 
 // Create a navigation items array
 const navItems: NavItem[] = [
   {
     key: "",
-    translationKey: "common.nav.home",
-    href: (lng) => `/${lng}`,
+    title: "Home",
+    href: () => `/`,
   },
   {
     key: "blogs",
-    translationKey: "common.nav.blog",
-    href: (lng) => `/${lng}/blogs`,
+    title: "Blogs",
+    href: () => `/blogs`,
   },
-  {
-    key: "journal",
-    translationKey: "common.nav.journal",
-    href: (lng) => `/${lng}/journal`,
-  },
-  {
-    key: "photos",
-    translationKey: "common.nav.photos",
-    href: (lng) => `/${lng}/photo`,
-  },
+
   {
     key: "projects",
-    translationKey: "common.nav.projects",
-    href: (lng) => `/${lng}/projects`,
+    title: "Projects",
+    href: () => `/projects`,
   },
   {
     key: "friends",
-    translationKey: "common.nav.friends",
-    href: (lng) => `/${lng}/friends`,
+    title: "Friends",
+    href: () => `/friends`,
   },
-  {
-    key: "rewatch",
-    translationKey: "common.nav.rewatch",
-    href: (lng) => `/${lng}/rewatch`,
-  },
+
   {
     key: "about",
-    translationKey: "common.nav.about",
-    href: (lng) => `/${lng}/about`,
+    title: "About",
+    href: () => `/about`,
   },
 ];
 
@@ -111,8 +94,7 @@ const NavItem = React.forwardRef<HTMLAnchorElement, NavItemProps>(
 
 NavItem.displayName = "NavItem";
 
-export function Navbar({ lng }: { lng: string }) {
-  const { t } = useTranslation(lng);
+export function Navbar() {
   const pathname = usePathname();
   const [activeItem, setActiveItem] = useState<string | null>(null);
   const [hoveredItem, setHoveredItem] = useState<string>("");
@@ -137,8 +119,6 @@ export function Navbar({ lng }: { lng: string }) {
     queryKey: ["latest-journal"],
     queryFn: () => journalService.getLatestJournal(),
   });
-  const journalHref = `/${lng}/journal/${latestJournal?.docs?.[0]?.slug}`;
-  navItems[2].href = () => journalHref;
   const updateActiveRect = (itemKey?: string) => {
     // If itemKey is provided, use it; otherwise extract from pathname
     const currentPath =
@@ -150,12 +130,7 @@ export function Navbar({ lng }: { lng: string }) {
     if (!isMobile && navRef.current) {
       // Find the active link element
       let selector =
-        currentPath === ""
-          ? `a[href="/${lng}"]`
-          : `a[href="/${lng}/${currentPath}"]`;
-      if (currentPath === "journal") {
-        selector = `a[href="${journalHref}"]`;
-      }
+        currentPath === "" ? `a[href="/"]` : `a[href="/$${currentPath}"]`;
 
       const activeLink = navRef.current?.querySelector(selector);
 
@@ -316,7 +291,7 @@ export function Navbar({ lng }: { lng: string }) {
     >
       <div className="mx-auto container px-6 2xl:px-0">
         <div className="flex h-14 items-center justify-between">
-          <TimeWeather lng={lng} isLargeScreen={isLargeScreen} />
+          <TimeWeather isLargeScreen={isLargeScreen} />
 
           {/* Desktop Navigation */}
           <motion.nav
@@ -329,7 +304,7 @@ export function Navbar({ lng }: { lng: string }) {
             {navItems.map((item) => (
               <NavItem
                 key={item.key}
-                href={item.href(lng)}
+                href={item.href()}
                 isActive={activeItem === item.key}
                 itemKey={item.key}
                 onItemClick={handleItemClick}
@@ -339,12 +314,9 @@ export function Navbar({ lng }: { lng: string }) {
                   if (el) navItemRefs.current.set(item.key, el);
                 }}
               >
-                {t(item.translationKey)}
+                {item.title}
               </NavItem>
             ))}
-            <Suspense>
-              <LanguageSelector />
-            </Suspense>
 
             {/* Active/Clicked Indicator */}
             {activeItemRect && (
@@ -393,22 +365,6 @@ export function Navbar({ lng }: { lng: string }) {
               />
             )}
           </motion.nav>
-
-          {/* Mobile Navigation */}
-          {isMobile && (
-            <div className="flex items-center gap-2  sm:hidden">
-              <MobileLanguageSelector />
-              <MobileNavbar
-                lng={lng}
-                isOpen={mobileMenuOpen}
-                onClose={toggleMobileMenu}
-                activeItem={activeItem}
-                onItemClick={handleItemClick}
-                t={t}
-                navItems={navItems}
-              />
-            </div>
-          )}
         </div>
       </div>
     </header>

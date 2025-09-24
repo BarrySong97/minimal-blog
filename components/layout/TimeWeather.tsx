@@ -5,12 +5,10 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 interface TimeWeatherProps extends React.HTMLAttributes<HTMLDivElement> {
-  lng: string;
   isLargeScreen: boolean;
 }
 
 export function TimeWeather({
-  lng,
   className,
   isLargeScreen,
   ...props
@@ -28,7 +26,7 @@ export function TimeWeather({
         transformOrigin: "left center",
       }}
     >
-      <Link href={`/${lng}`} className="flex items-center font-bold gap-4">
+      <Link href={`/`} className="flex items-center font-bold gap-4">
         <div className="relative  rounded-sm   flex items-center justify-center">
           <Image
             src="/logo.png"

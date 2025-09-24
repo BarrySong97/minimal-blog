@@ -14,7 +14,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ className = "" }) => {
   });
   return (
     <div
-      className={`bg-white border border-gray-200 rounded-md p-8 relative overflow-hidden md:col-span-2 lg:col-span-1 shadow-sm ${className}`}
+      className={`bg-white border border-gray-200  p-8 relative overflow-hidden md:col-span-2 lg:col-span-1 shadow-sm ${className}`}
     >
       <div className="relative z-10">
         {/* Header with accent line */}

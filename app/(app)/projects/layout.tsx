@@ -3,7 +3,6 @@ import { SectionHeader } from "@/components/ui/section-header";
 import React from "react";
 import { DefaultLayout } from "@/components/layouts/DefaultLayout";
 import { Metadata } from "next/types";
-import { useTranslation } from "../../i18n";
 export interface ProjectsProps {
   children: React.ReactNode;
 }
@@ -21,13 +20,12 @@ const Projects = async ({
   params: Promise<{ lng: string }>;
 }) => {
   const { lng } = await params;
-  const { t } = await useTranslation(lng);
   return (
     <DefaultLayout isScroll={false}>
       <div className="space-y-8">
         <div className="flex items-center justify-between container mx-auto px-6 2xl:px-0 ">
           <SectionHeader
-            title={t("common.nav.projects")}
+            title={"Projects"}
             className={cn(
               "pl-0",
               "motion-scale-in-[0.37] motion-opacity-in-[0%]"

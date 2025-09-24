@@ -3,7 +3,6 @@ import { Icon } from "@iconify/react";
 import { motion } from "motion/react";
 import { Popover } from "@/components/ui/Popover";
 import { useParams } from "next/navigation";
-import { useTranslation } from "@/app/(app)/i18n/client";
 import { homeService } from "@/service/home";
 import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
@@ -34,8 +33,6 @@ const skillsWithIcons = {
 };
 
 export function SkillsPopover() {
-  const { lng } = useParams();
-  const { t } = useTranslation(lng as string);
   const { data: skills } = useQuery({
     queryKey: queryKeys.skills.all,
     queryFn: () => skillService.getSkills(),
@@ -75,11 +72,11 @@ export function SkillsPopover() {
       offsetX={-100}
       trigger={
         <>
-          {t("common.home.full")}
+          Full Stack Developer
           <span className="mt-[0.5px] cursor-pointer hover:!text-gray-500 underline decoration-dashed underline-offset-4">
-            {t("common.home.stack")}
+            Stack
           </span>
-          {t("common.home.engineer")}
+          Engineer
         </>
       }
     >

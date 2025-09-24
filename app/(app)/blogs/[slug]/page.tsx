@@ -57,7 +57,7 @@ export interface Props {
   }>;
 }
 const BlogDetail: FC<Props> = async ({ params }) => {
-  const { slug, lng } = await params;
+  const { slug } = await params;
   const blog = await getBlogCache(slug);
   const blogDoc = blog?.docs?.[0];
   if (!blogDoc) {
@@ -77,7 +77,7 @@ const BlogDetail: FC<Props> = async ({ params }) => {
       <div className="mx-auto ">
         <div className="flex gap-12 justify-center relative">
           <div>
-            <Header blog={blogDoc} lng={lng} />
+            <Header blog={blogDoc} />
             <PrerequisiteBlogs prerequisites={blogDoc?.prerequisites || []} />
             <BlogContent
               blog={blogDoc}

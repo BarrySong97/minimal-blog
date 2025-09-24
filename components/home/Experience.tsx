@@ -6,7 +6,6 @@ import { Media } from "@/payload-types";
 
 import { motion } from "motion/react";
 import { ImageWithFallback } from "../common/ImageWithFallback";
-import { useTranslation } from "@/app/(app)/i18n/client";
 
 const container = {
   hidden: { opacity: 0 },
@@ -24,10 +23,9 @@ export function Experience({ lng }: { lng: string }) {
     queryFn: experienceService.getExperiences,
     staleTime: Infinity,
   });
-  const { t } = useTranslation(lng);
   return (
     <section className="space-y-8">
-      <h2 className="text-2xl font-medium">{t("common.experience")}</h2>
+      <h2 className="text-2xl font-medium">Experience</h2>
 
       <motion.div
         variants={container}

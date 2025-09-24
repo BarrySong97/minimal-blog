@@ -11,11 +11,11 @@ import { Blog } from "@/payload-types";
 import { useQueryState } from "nuqs";
 import { BlogGridItem } from "./BlogGridItem";
 import { BlogListItem } from "./BlogListItem";
-import Loading from "@/app/(app)/[lng]/blogs/loading";
 import { motion, AnimatePresence } from "motion/react";
 import { BannerBlogs } from "./BannerBlogs";
 import { useMediaQuery } from "@/hooks/use-media-query";
 import { parseAsString } from "nuqs/server";
+import Loading from "@/app/(app)/loading";
 
 interface BlogListProps extends React.HTMLAttributes<HTMLDivElement> {
   bannerBlogs?: Blog[];
@@ -153,7 +153,6 @@ export function BlogList({
     allBlogs.length,
     columnCount,
   ]);
-  const isMobile = useMediaQuery("(max-width: 768px)");
 
   // 加载状态
   if (isLoading) {
@@ -189,78 +188,31 @@ export function BlogList({
       )}
       {...props}
     >
-      {/* 全局 hover 元素 - 只在 list 布局时显示 */}
-      <AnimatePresence>
-        {hoverPosition && hoverId && layout === "list" && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{
-              opacity: 1,
-              x: hoverPosition.x - 8,
-              y: hoverPosition.y,
-              width: hoverPosition.width + 8,
-              height: hoverPosition.height,
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              opacity: { duration: 0.2 },
-              x: { duration: 0.3, ease: "easeOut" },
-              y: { duration: 0.3, ease: "easeOut" },
-              width: { duration: 0.3, ease: "easeOut" },
-              height: { duration: 0.3, ease: "easeOut" },
-            }}
-            className="absolute pointer-events-none z-0 bg-accent "
-          />
-        )}
-      </AnimatePresence>
-
-      <div className="h-[calc(100dvh-14.5rem)]">
+      <div className="h-[calc(100dvh-10.5rem)]">
         <VList
           ref={vListRef}
           className="w-full h-full pb-12 scrollbar-hide"
           overscan={10}
           onScroll={handleScroll}
         >
-          {!isMobile && !tags ? (
-            <BannerBlogs
-              bannerBlogs={bannerBlogs}
-              layout={layout as "grid" | "list"}
-              hoverId={hoverId}
-              handleMouseEnter={handleMouseEnter}
-              handleMouseLeave={handleMouseLeave}
-              setItemRef={setItemRef}
-            />
-          ) : null}
-
           {rows.map((row, rowIndex) => (
             <div
               key={rowIndex}
               className="grid w-full pb-4 px-0 container mx-auto"
               style={{
-                gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))`,
+                gridTemplateColumns: `repeat(1, minmax(0, 1fr))`,
                 gap: "1rem",
               }}
             >
-              {row.map((post) =>
-                layout === "list" ? (
-                  <BlogListItem
-                    key={post.id}
-                    post={post}
-                    isHovered={hoverId === post.id}
-                    onMouseEnter={() => handleMouseEnter(post.id)}
-                    onMouseLeave={handleMouseLeave}
-                    ref={(el: HTMLDivElement | null) => setItemRef(post.id, el)}
-                  />
-                ) : (
-                  <BlogGridItem
-                    key={post.id}
-                    post={post}
-                    isHovered={hoverId === post.id}
-                    onMouseEnter={() => handleMouseEnter(post.id)}
-                    onMouseLeave={handleMouseLeave}
-                  />
-                )
-              )}
+              {row.map((post) => (
+                <BlogGridItem
+                  key={post.id}
+                  post={post}
+                  isHovered={hoverId === post.id}
+                  onMouseEnter={() => handleMouseEnter(post.id)}
+                  onMouseLeave={handleMouseLeave}
+                />
+              ))}
             </div>
           ))}
           {(isFetchingNextPage || isFetching) && (

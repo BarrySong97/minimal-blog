@@ -3,7 +3,6 @@ import { FriendLink } from "@/payload-types";
 import React, { FC } from "react";
 import FriendLinkCard from "./FriendLinkCard";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/app/(app)/i18n/client";
 
 export interface FriendLinksListProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -17,12 +16,11 @@ const FriendLinksList: FC<FriendLinksListProps> = ({
   className,
   ...props
 }) => {
-  const { t } = useTranslation(lng);
   if (!friendLinks || friendLinks.length === 0) {
     return (
       <div className={cn("text-center py-12", className)} {...props}>
         <p className="text-gray-500 dark:text-gray-400">
-          {t("common.friends.noLinks")}
+          No friend links found
         </p>
       </div>
     );

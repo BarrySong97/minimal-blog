@@ -3,13 +3,12 @@ import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { motion, AnimatePresence } from "motion/react";
 import { Suspense, useRef, useEffect } from "react";
-import { LanguageSelector } from "./LanguageSelector";
 import { Icon } from "@iconify/react";
 
 // Import the NavItem interface
 interface NavItem {
   key: string;
-  translationKey: string;
+  title: string;
   href: (lng: string) => string;
 }
 
@@ -115,7 +114,7 @@ export function MobileNavbar({
                     itemKey={item.key}
                     onItemClick={onItemClick}
                   >
-                    {t(item.translationKey)}
+                    {item.title}
                   </MobileNavItem>
                 ))}
               </div>

@@ -3,7 +3,6 @@ import { prefetchInfiniteQuery } from "@/components/tanstack/tanstack-server";
 import { blogService } from "@/service/blogs";
 import { queryKeys } from "@/service/config";
 import { HydrationBoundary } from "@tanstack/react-query";
-import { useTranslation } from "@/app/(app)/i18n";
 import { SectionHeader } from "@/components/ui/section-header";
 import { cn } from "@/lib/utils";
 import { Metadata } from "next";
@@ -25,7 +24,6 @@ export default async function Blogs({
   }>;
 }) {
   const { lng } = await params;
-  const { t } = await useTranslation(lng);
   const { tags } = (await searchParams) || {};
   const tagsArray = tags ? [tags] : [];
   // 预获取无限滚动的第一页数据
@@ -48,11 +46,8 @@ export default async function Blogs({
           <SectionHeader
             title={
               <>
-                {t("common.nav.blog")}
-                <span>
-                  {" "}
-                  · {count.totalDocs} {t("common.blog.count")}
-                </span>
+                Blogs
+                <span> · {count.totalDocs} posts</span>
               </>
             }
             className={cn(
@@ -60,7 +55,6 @@ export default async function Blogs({
               "motion-scale-in-[0.37] motion-opacity-in-[0%]"
             )}
           />
-          <LayoutToggle />
         </div>
         <TagList tags={allTags} />
         <BlogList bannerBlogs={bannerBlogList} />

@@ -4,7 +4,6 @@ import Link from "next/link";
 import { forwardRef } from "react";
 import { Blog } from "@/payload-types";
 import { format } from "date-fns";
-import { useTranslation } from "react-i18next";
 
 interface BlogListItemProps extends React.HTMLAttributes<HTMLDivElement> {
   post: Blog;
@@ -18,8 +17,6 @@ export const BlogListItem = forwardRef<HTMLDivElement, BlogListItemProps>(
     { post, isHovered, onMouseEnter, onMouseLeave, className, ...props },
     ref
   ) {
-    const { t } = useTranslation("common");
-
     return (
       <div
         ref={ref}
@@ -39,7 +36,7 @@ export const BlogListItem = forwardRef<HTMLDivElement, BlogListItemProps>(
               </span>
               <span className="text-gray-400">•</span>
               <span className="text-gray-500">
-                {post.readingTime} {t("blog.readingTime")}
+                {post.readingTime} reading time
               </span>
             </div>
 

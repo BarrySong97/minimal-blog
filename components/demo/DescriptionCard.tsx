@@ -19,7 +19,7 @@ const DescriptionCard: React.FC<DescriptionCardProps> = ({
   });
   return (
     <div
-      className={`md:col-span-2 lg:col-span-2 flex items-center  rounded-md p-6    ${className}`}
+      className={`md:col-span-2 lg:col-span-2 flex items-center p-6    ${className}`}
     >
       <div className="space-y-4">
         {title && (

@@ -3,47 +3,48 @@
 import { Provider } from "jotai";
 import TanstackProvider from "../tanstack/TanstackProvider";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
-import { TransitionRouter } from "next-transition-router";
-import { motion, useAnimationControls, cubicBezier } from "motion/react";
-import { usePathname } from "next/navigation";
+// import { TransitionRouter } from "next-transition-router";
+// import { motion, useAnimationControls, cubicBezier } from "motion/react";
+// import { usePathname } from "next/navigation";
 
-const layerVariants = {
-  initial: { y: "100%" },
-  visible: { y: 0 },
-  exit: { y: "-100%" },
-};
+// const layerVariants = {
+//   initial: { y: "100%" },
+//   visible: { y: 0 },
+//   exit: { y: "-100%" },
+// };
 
 // Define mask variants
-const maskVariants = {
-  initial: {
-    opacity: 0,
-  },
-  visible: {
-    opacity: 1,
-  },
-  exit: {
-    opacity: 0,
-  },
-};
-const transitionConfig = (delay = 0) => ({
-  duration: 0.5,
-  ease: cubicBezier(0.19, 1, 0.22, 1), // Using cubicBezier instead of array
-  delay,
-});
+// const maskVariants = {
+//   initial: {
+//     opacity: 0,
+//   },
+//   visible: {
+//     opacity: 1,
+//   },
+//   exit: {
+//     opacity: 0,
+//   },
+// };
+// const transitionConfig = (delay = 0) => ({
+//   duration: 0.5,
+//   ease: cubicBezier(0.19, 1, 0.22, 1), // Using cubicBezier instead of array
+//   delay,
+// });
 
 export const GlobalProviders = ({
   children,
 }: {
   children: React.ReactNode;
 }) => {
-  const firstLayerControls = useAnimationControls();
-  const maskControls = useAnimationControls();
+  // const firstLayerControls = useAnimationControls();
+  // const maskControls = useAnimationControls();
 
   return (
     <Provider>
       <TanstackProvider>
         <NuqsAdapter>
-          <TransitionRouter
+          {children}
+          {/* <TransitionRouter
             auto={true}
             leave={(next, from, to) => {
               // 如果from或to路径包含journal，跳过动画
@@ -101,7 +102,6 @@ export const GlobalProviders = ({
             }}
           >
             <div>
-              {children}
 
               <motion.div
                 variants={maskVariants}
@@ -116,7 +116,7 @@ export const GlobalProviders = ({
                 className="fixed inset-0 z-50 bg-white pointer-events-none"
               />
             </div>
-          </TransitionRouter>
+          </TransitionRouter> */}
         </NuqsAdapter>
       </TanstackProvider>
     </Provider>

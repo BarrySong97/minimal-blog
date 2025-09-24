@@ -6,7 +6,6 @@ import { MaterialSymbolsArrowForwardRounded } from "./icon";
 import { ViewHover } from "../common/ViewHover";
 import { Media, Blog } from "@/payload-types";
 import { format } from "date-fns";
-import { useTranslation } from "react-i18next";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 
 interface BlogGridItemProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,8 +23,6 @@ export function BlogGridItem({
   className,
   ...props
 }: BlogGridItemProps) {
-  const { t } = useTranslation("common");
-
   return (
     <div className={cn("group relative", className)} {...props}>
       <Link
@@ -65,7 +62,7 @@ export function BlogGridItem({
             </span>
             <span className="text-gray-400">•</span>
             <span className="text-gray-500">
-              {post.readingTime} {t("blog.readingTime")}
+              {post.readingTime} min to read
             </span>
           </div>
 
@@ -78,7 +75,7 @@ export function BlogGridItem({
                 {post.title}
               </h3>
 
-              <p className="text-sm text-gray-600 line-clamp-2 mb-4 md:mb-0">
+              <p className="text-sm text-gray-600 line-clamp-5 mb-4 md:mb-0">
                 {post.excerpt}
               </p>
             </div>

@@ -19,7 +19,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ className = "" }) => {
   return (
     <div
       className={cn(
-        "bg-white rounded-md aspect-square lg:row-span-2 p-6 text-black flex flex-col justify-between border border-gray-200 ",
+        "bg-white  aspect-square lg:row-span-2 p-6 text-black flex flex-col justify-between border border-gray-200 ",
         className
       )}
     >

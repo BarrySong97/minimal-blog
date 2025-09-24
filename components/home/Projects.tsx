@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "motion/react";
-import { useTranslation } from "@/app/(app)/i18n/client";
 import Link from "next/link";
 import { IcSharpArrowOutward } from "./icon";
 import { useQuery } from "@tanstack/react-query";
@@ -50,7 +49,6 @@ export function Projects({ lng }: { lng: string }) {
     setHoverType("default");
   };
 
-  const { t } = useTranslation(lng);
   return (
     <section className="space-y-6">
       <motion.h2
@@ -59,13 +57,13 @@ export function Projects({ lng }: { lng: string }) {
         transition={{ duration: 0.5 }}
         className="text-2xl font-medium flex items-end justify-between"
       >
-        <div>{t("common.nav.projects")}</div>
+        <div>Projects</div>
         <div className="text-base ">
           <Link
             href="/projects"
             className="flex items-center gap-1 hover:underline"
           >
-            <div className="">{t("common.viewAll")}</div>
+            <div className="">View All</div>
             <IcSharpArrowOutward className="w-4 h-4" />
           </Link>
         </div>

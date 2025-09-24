@@ -28,7 +28,7 @@ const PictureWallCard: React.FC<PictureWallCardProps> = ({
   const project = data?.docs[0];
   return (
     <div
-      className={`bg-white rounded-md p-8 relative overflow-hidden  border border-gray-200 shadow-sm aspect-square ${className}`}
+      className={`bg-white  p-8 relative overflow-hidden  border border-gray-200 shadow-sm aspect-square ${className}`}
     >
       <div className="absolute top-4 left-4 right-4 flex justify-between items-start z-10">
         <div className="space-y-1">
