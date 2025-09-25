@@ -6,7 +6,8 @@
       "Bash(touch:*)",
       "Bash(git diff:*)",
       "Bash(git commit:*)",
-      "Bash(pnpm build:*)"
+      "Bash(pnpm build:*)",
+      "Bash(grep:*)"
     ],
     "deny": []
   }

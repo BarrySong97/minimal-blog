@@ -44,12 +44,7 @@ export default async function Blogs({
       <div className="container mx-auto space-y-6 px-6 2xl:px-0">
         <div className="flex items-center justify-between">
           <SectionHeader
-            title={
-              <>
-                Blogs
-                <span> · {count.totalDocs} posts</span>
-              </>
-            }
+            title={"Blogs"}
             className={cn(
               "pl-0",
               "motion-scale-in-[0.37] motion-opacity-in-[0%]"

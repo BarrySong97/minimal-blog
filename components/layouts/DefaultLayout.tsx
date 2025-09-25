@@ -26,7 +26,7 @@ export function DefaultLayout({
   return (
     <main
       className={cn(
-        "py-8 md:py-8 2xl:py-10",
+        "py-8 ",
         isBlogDetail
           ? "px-6 2xl:px-0"
           : isScroll

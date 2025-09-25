@@ -12,6 +12,7 @@ interface AnimatedMenuProps {
 const menuItems = [
   { id: "home", label: "Home", href: "/" },
   { id: "blogs", label: "Blogs", href: "/blogs" },
+  { id: "photos", label: "Photos", href: "/photos" },
   { id: "projects", label: "Projects", href: "/projects" },
   { id: "about", label: "About", href: "/about" },
 ];

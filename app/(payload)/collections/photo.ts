@@ -24,11 +24,11 @@ const Photo: CollectionConfig = {
       name: "location",
       type: "text",
     },
-
+    { name: "cover", type: "upload", relationTo: "media" },
     {
       name: "images",
       type: "array",
-      required: true,
+      required: false,
       fields: [
         {
           name: "title",
@@ -38,11 +38,7 @@ const Photo: CollectionConfig = {
           name: "location",
           type: "text",
         },
-        {
-          name: "image",
-          type: "upload",
-          relationTo: "media",
-        },
+        { name: "image", type: "upload", relationTo: "media" },
         {
           name: "content",
           type: "richText",

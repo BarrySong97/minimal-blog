@@ -1,5 +1,4 @@
 import sharp from "sharp";
-import { lexicalEditor } from "@payloadcms/richtext-lexical";
 import { postgresAdapter } from "@payloadcms/db-postgres";
 import { buildConfig } from "payload";
 import Project from "@/app/(payload)/collections/project";

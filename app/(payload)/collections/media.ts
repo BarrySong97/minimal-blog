@@ -30,6 +30,17 @@ export const Media: CollectionConfig = {
         height: undefined,
         position: "centre",
       },
+      {
+        name: "original",
+        width: undefined,
+        height: undefined,
+        formatOptions: {
+          format: "jpeg",
+          options: {
+            quality: 100,
+          },
+        },
+      },
     ],
     adminThumbnail: "thumbnail",
     mimeTypes: ["image/*", "video/*"],
