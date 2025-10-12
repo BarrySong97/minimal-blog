@@ -36,7 +36,7 @@ const BlogDetail = () => {
     <div className="mx-auto ">
       <div className="flex gap-12 justify-center relative">
         <div>
-          <Header blog={blog!} lng={lng} />
+          <Header blog={blog!} />
           <BlogContent
             blog={blog}
             toc={
