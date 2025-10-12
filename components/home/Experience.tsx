@@ -17,7 +17,7 @@ const container = {
   },
 };
 
-export function Experience({ lng }: { lng: string }) {
+export function Experience() {
   const { data: experiences } = useQuery({
     queryKey: queryKeys.experiences.all,
     queryFn: experienceService.getExperiences,
@@ -25,7 +25,7 @@ export function Experience({ lng }: { lng: string }) {
   });
   return (
     <section className="space-y-8">
-      <h2 className="text-2xl font-medium">Experience</h2>
+      <h2 className="text-2xl font-medium">工作经历</h2>
 
       <motion.div
         variants={container}
