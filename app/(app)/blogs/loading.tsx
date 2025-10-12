@@ -31,13 +31,13 @@ const Loading = ({ className, ...props }: LoadingProps) => {
   return (
     <div
       className={cn(
-        "w-full h-screen relative",
+        "w-full h-screen relative overflow-hidden",
         "motion-translate-x-in-[0%] motion-translate-y-in-[2%] motion-opacity-in-[0%] motion-ease-spring-smooth",
         className
       )}
       {...props}
     >
-      <div className="w-full h-full pb-12 overflow-auto">
+      <div className="w-full h-full pb-12 overflow-hidden max-w-7xl mx-auto ">
         {skeletonRows.map((rowIndex) => (
           <div
             key={rowIndex}

@@ -41,7 +41,7 @@ export default async function Blogs({
   const bannerBlogList = bannerBlog.banners;
   return (
     <HydrationBoundary state={state}>
-      <div className="container mx-auto space-y-6 px-6 2xl:px-0">
+      <div className="container mx-auto space-y-6 px-6 2xl:px-0 2xl:max-w-6xl">
         <div className="flex items-center justify-between">
           <SectionHeader
             title={"文章"}
