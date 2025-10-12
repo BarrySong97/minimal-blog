@@ -5,6 +5,8 @@ import { cn } from "@/lib/utils";
 import { blogService, queryKeys } from "@/service";
 import { useQuery } from "@tanstack/react-query";
 import { ImageWithFallback } from "../common/ImageWithFallback";
+import { IcSharpArrowOutward } from "../home/icon";
+import Link from "next/link";
 
 interface ArticleCardProps {
   className?: string;
@@ -46,10 +48,17 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ className = "" }) => {
       </div>
 
       {/* Bottom metadata */}
-      <div className="space-y-1">
+      <div className="space-y-1 flex justify-between items-center">
         <div className="text-sm text-gray-700">
           {format(new Date(blog?.date!), "MMM d, yyyy")}
         </div>
+        <Link
+          href={`/blogs/${blog?.slug}`}
+          className="flex items-center gap-1 hover:underline text-sm"
+        >
+          查看
+          <IcSharpArrowOutward className="w-4 h-4" />
+        </Link>
       </div>
     </div>
   );

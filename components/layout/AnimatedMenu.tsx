@@ -10,11 +10,8 @@ interface AnimatedMenuProps {
 }
 
 const menuItems = [
-  { id: "home", label: "Home", href: "/" },
-  { id: "blogs", label: "Blogs", href: "/blogs" },
-  { id: "photos", label: "Photos", href: "/photos" },
-  { id: "projects", label: "Projects", href: "/projects" },
-  { id: "about", label: "About", href: "/about" },
+  { id: "home", label: "主页", href: "/" },
+  { id: "blogs", label: "文章", href: "/blogs" },
 ];
 
 const AnimatedMenu: React.FC<AnimatedMenuProps> = () => {

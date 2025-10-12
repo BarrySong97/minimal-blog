@@ -44,7 +44,7 @@ const Header: FC<HeaderProps> = ({ blog, className }) => {
   return (
     <div
       className={cn(
-        "w-full mb-12",
+        "w-full mb-12 bg-white",
         className,
         isLargeScreen ? "sticky top-0 z-[100]" : ""
       )}
@@ -80,7 +80,7 @@ const Header: FC<HeaderProps> = ({ blog, className }) => {
                 }}
               >
                 {format(new Date(blog.date), "yyyy-MM-dd")} · {blog.readingTime}{" "}
-                reading time
+                分钟阅读
               </motion.div>
             </div>
 

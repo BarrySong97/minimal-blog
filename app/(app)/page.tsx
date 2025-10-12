@@ -35,10 +35,7 @@ const Page: FC<PageProps> = async () => {
             <ResumeCard />
 
             {/* Description Card */}
-            <DescriptionCard
-              title="ABOUT ME"
-              description="BITRECS GOES BEYOND THE LIMITATIONS OF TRADITIONAL RECOMMENDATION ENGINES, TRANSFORMING HOW ONLINE STORES CONNECT WITH THEIR CUSTOMERS, DRIVING SALES, AND CREATING UNIQUE, PERSONALIZED EXPERIENCES."
-            />
+            <DescriptionCard title="关于我" description="" />
 
             {/* Interactive Image Cube */}
             <ImageCube />

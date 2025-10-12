@@ -22,7 +22,7 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ className = "" }) => {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">
             {data?.name}
           </h1>
-          <p className="text-lg text-gray-600">Full Stack Engineer</p>
+          <p className="text-lg text-gray-600">什么都会一点工程师</p>
         </div>
 
         {/* Contact Info with resume-style layout */}
@@ -31,10 +31,10 @@ const ResumeCard: React.FC<ResumeCardProps> = ({ className = "" }) => {
             <span>524000659@qq.com</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>Wechat - BarrySong97</span>
+            <span>微信 - BarrySong97</span>
           </div>
           <div className="flex items-center gap-2">
-            <span>Gui Zhou, China</span>
+            <span>贵州, 贵阳</span>
           </div>
           <div className="flex items-center gap-2">
             <a

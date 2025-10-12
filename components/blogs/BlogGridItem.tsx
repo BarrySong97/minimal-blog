@@ -61,9 +61,7 @@ export function BlogGridItem({
               {format(new Date(post.date), "yyyy-MM-dd")}
             </span>
             <span className="text-gray-400">•</span>
-            <span className="text-gray-500">
-              {post.readingTime} min to read
-            </span>
+            <span className="text-gray-500">{post.readingTime} 分钟阅读</span>
           </div>
 
           <div className="absolute inset-0 bg-gradient-to-r from-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />

@@ -36,10 +36,11 @@ const PictureWallCard: React.FC<PictureWallCardProps> = ({
           <div className="text-xs text-gray-500">{project?.description}</div>
         </div>
         <Link
-          href="/projects"
+          href="https://apps.apple.com/cn/app/%E6%B5%81%E8%AE%B0flowm/id6748300092"
+          target="_blank"
           className="flex items-center gap-1 hover:underline text-sm"
         >
-          more
+          查看
           <IcSharpArrowOutward className="w-4 h-4" />
         </Link>
       </div>
