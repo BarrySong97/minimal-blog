@@ -1,7 +1,6 @@
 import "@/styles/globals.css";
 import { Metadata } from "next";
 import { GlobalProviders } from "@/components/common/providers";
-import { Inter } from "next/font/google";
 import AnimatedMenu from "@/components/layout/AnimatedMenu";
 
 export const metadata: Metadata = {
@@ -59,7 +58,6 @@ export const metadata: Metadata = {
     },
   },
 };
-const font = Inter({ subsets: ["latin"] });
 
 export default async function RootLayout({
   children,
@@ -71,8 +69,13 @@ export default async function RootLayout({
   return (
     <html className="bg-background">
       <body
-        className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative ${font.className}`}
+        className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative`}
       >
+        <link
+          rel="stylesheet"
+          crossOrigin="anonymous"
+          href="https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkaibright/dist/LXGWBright-Regular/result.css"
+        />
         <GlobalProviders>{children}</GlobalProviders>
         <div className="absolute bottom-8 left-0 right-0 flex justify-center">
           <AnimatedMenu />
