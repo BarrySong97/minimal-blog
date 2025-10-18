@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    text-autospace: normal;
     /* Pure White */
     --background: 0 0% 100%;
     /* Almost Black - Dark Gray */
