@@ -12,6 +12,7 @@ import { queryKeys } from "@/service";
 import { projectService } from "@/service/projects";
 import { IcSharpArrowOutward } from "../home/icon";
 import Link from "next/link";
+import { Media } from "@/payload-types";
 
 interface PictureWallCardProps {
   className?: string;
@@ -45,7 +46,7 @@ const PictureWallCard: React.FC<PictureWallCardProps> = ({
         </Link>
       </div>
       <Image
-        src={project?.home_cover?.url ?? ""}
+        src={(project?.home_cover! as Media)?.url ?? ""}
         fill
         alt={project?.title ?? ""}
         className="object-cover"

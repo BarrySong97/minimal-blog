@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { ImageWithFallback } from "../common/ImageWithFallback";
 import { IcSharpArrowOutward } from "../home/icon";
 import Link from "next/link";
+import { Media } from "@/payload-types";
 
 interface ArticleCardProps {
   className?: string;
@@ -30,7 +31,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ className = "" }) => {
         <div className="flex-1 ">
           <div className="relative w-full h-[100px]">
             <ImageWithFallback
-              image={blog?.coverImage!}
+              image={blog?.coverImage! as Media}
               alt={blog?.title!}
               fill
               className="object-cover rounded-md"

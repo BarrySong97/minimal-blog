@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { queryKeys } from "@/service/config";
 import { projectService } from "@/service/projects";
 import Image from "next/image";
+import { Media } from "@/payload-types";
 
 const container = {
   hidden: { opacity: 0 },
@@ -53,7 +54,7 @@ export function Projects() {
             </Link>
           </div>
           <Image
-            src={project?.home_cover?.url ?? ""}
+            src={(project?.home_cover! as Media)?.url ?? ""}
             fill
             alt={project?.title ?? ""}
             className="object-cover"

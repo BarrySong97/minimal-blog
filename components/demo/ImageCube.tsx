@@ -38,7 +38,7 @@ const ImageCube: React.FC<ImageCubeProps> = ({ className = "" }) => {
 
         <div className="absolute w-3/4 h-3/4 bg-teal-950 top-0 left-0 ">
           <Image
-            src={data?.avatar?.url!}
+            src={(data?.avatar! as Media)?.url!}
             className="w-full h-full object-cover"
             alt="Bitrecs"
             width={100}
