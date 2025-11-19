@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     blogs: Blog;
-    'blogs-en': BlogsEn;
+    blogsen: Blogsen;
     projects: Project;
     experiences: Experience;
     media: Media;
@@ -87,7 +87,7 @@ export interface Config {
   collectionsJoins: {};
   collectionsSelect: {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
-    'blogs-en': BlogsEnSelect<false> | BlogsEnSelect<true>;
+    blogsen: BlogsenSelect<false> | BlogsenSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
@@ -251,9 +251,9 @@ export interface Media {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs-en".
+ * via the `definition` "blogsen".
  */
-export interface BlogsEn {
+export interface Blogsen {
   id: number;
   title: string;
   excerpt: string;
@@ -280,7 +280,7 @@ export interface BlogsEn {
   /**
    * Related blog posts that should be read before this one
    */
-  prerequisites?: (number | BlogsEn)[] | null;
+  prerequisites?: (number | Blogsen)[] | null;
   status: 'draft' | 'published';
   content: {
     root: {
@@ -588,8 +588,8 @@ export interface PayloadLockedDocument {
         value: number | Blog;
       } | null)
     | ({
-        relationTo: 'blogs-en';
-        value: number | BlogsEn;
+        relationTo: 'blogsen';
+        value: number | Blogsen;
       } | null)
     | ({
         relationTo: 'projects';
@@ -704,9 +704,9 @@ export interface BlogsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "blogs-en_select".
+ * via the `definition` "blogsen_select".
  */
-export interface BlogsEnSelect<T extends boolean = true> {
+export interface BlogsenSelect<T extends boolean = true> {
   title?: T;
   excerpt?: T;
   ogImage?: T;

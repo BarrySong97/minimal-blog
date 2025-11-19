@@ -11,7 +11,7 @@ import { HotizontalImage } from "@/blocks/hotizental-image/config";
 import { GithubLink } from "@/blocks/github-link/config";
 
 export const BlogEn: CollectionConfig = {
-  slug: "blogs-en",
+  slug: "blogsen",
   hooks: {
     beforeChange: [
       ({ data, originalDoc }) => {
@@ -119,7 +119,7 @@ export const BlogEn: CollectionConfig = {
     {
       name: "prerequisites",
       type: "relationship",
-      relationTo: "blogs-en",
+      relationTo: "blogsen",
       hasMany: true,
       admin: {
         description: "Related blog posts that should be read before this one",
