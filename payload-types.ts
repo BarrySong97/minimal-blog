@@ -13,53 +13,53 @@
  * via the `definition` "supportedTimezones".
  */
 export type SupportedTimezones =
-  | "Pacific/Midway"
-  | "Pacific/Niue"
-  | "Pacific/Honolulu"
-  | "Pacific/Rarotonga"
-  | "America/Anchorage"
-  | "Pacific/Gambier"
-  | "America/Los_Angeles"
-  | "America/Tijuana"
-  | "America/Denver"
-  | "America/Phoenix"
-  | "America/Chicago"
-  | "America/Guatemala"
-  | "America/New_York"
-  | "America/Bogota"
-  | "America/Caracas"
-  | "America/Santiago"
-  | "America/Buenos_Aires"
-  | "America/Sao_Paulo"
-  | "Atlantic/South_Georgia"
-  | "Atlantic/Azores"
-  | "Atlantic/Cape_Verde"
-  | "Europe/London"
-  | "Europe/Berlin"
-  | "Africa/Lagos"
-  | "Europe/Athens"
-  | "Africa/Cairo"
-  | "Europe/Moscow"
-  | "Asia/Riyadh"
-  | "Asia/Dubai"
-  | "Asia/Baku"
-  | "Asia/Karachi"
-  | "Asia/Tashkent"
-  | "Asia/Calcutta"
-  | "Asia/Dhaka"
-  | "Asia/Almaty"
-  | "Asia/Jakarta"
-  | "Asia/Bangkok"
-  | "Asia/Shanghai"
-  | "Asia/Singapore"
-  | "Asia/Tokyo"
-  | "Asia/Seoul"
-  | "Australia/Brisbane"
-  | "Australia/Sydney"
-  | "Pacific/Guam"
-  | "Pacific/Noumea"
-  | "Pacific/Auckland"
-  | "Pacific/Fiji";
+  | 'Pacific/Midway'
+  | 'Pacific/Niue'
+  | 'Pacific/Honolulu'
+  | 'Pacific/Rarotonga'
+  | 'America/Anchorage'
+  | 'Pacific/Gambier'
+  | 'America/Los_Angeles'
+  | 'America/Tijuana'
+  | 'America/Denver'
+  | 'America/Phoenix'
+  | 'America/Chicago'
+  | 'America/Guatemala'
+  | 'America/New_York'
+  | 'America/Bogota'
+  | 'America/Caracas'
+  | 'America/Santiago'
+  | 'America/Buenos_Aires'
+  | 'America/Sao_Paulo'
+  | 'Atlantic/South_Georgia'
+  | 'Atlantic/Azores'
+  | 'Atlantic/Cape_Verde'
+  | 'Europe/London'
+  | 'Europe/Berlin'
+  | 'Africa/Lagos'
+  | 'Europe/Athens'
+  | 'Africa/Cairo'
+  | 'Europe/Moscow'
+  | 'Asia/Riyadh'
+  | 'Asia/Dubai'
+  | 'Asia/Baku'
+  | 'Asia/Karachi'
+  | 'Asia/Tashkent'
+  | 'Asia/Calcutta'
+  | 'Asia/Dhaka'
+  | 'Asia/Almaty'
+  | 'Asia/Jakarta'
+  | 'Asia/Bangkok'
+  | 'Asia/Shanghai'
+  | 'Asia/Singapore'
+  | 'Asia/Tokyo'
+  | 'Asia/Seoul'
+  | 'Australia/Brisbane'
+  | 'Australia/Sydney'
+  | 'Pacific/Guam'
+  | 'Pacific/Noumea'
+  | 'Pacific/Auckland'
+  | 'Pacific/Fiji';
 
 export interface Config {
   auth: {
@@ -68,46 +68,40 @@ export interface Config {
   blocks: {};
   collections: {
     blogs: Blog;
+    'blogs-en': BlogsEn;
     projects: Project;
     experiences: Experience;
     media: Media;
     skills: Skill;
-    "skill-categories": SkillCategory;
+    'skill-categories': SkillCategory;
     photos: Photo;
     books: Book;
     journals: Journal;
     rewatch: Rewatch;
-    "friend-links": FriendLink;
+    'friend-links': FriendLink;
     users: User;
-    "payload-locked-documents": PayloadLockedDocument;
-    "payload-preferences": PayloadPreference;
-    "payload-migrations": PayloadMigration;
+    'payload-locked-documents': PayloadLockedDocument;
+    'payload-preferences': PayloadPreference;
+    'payload-migrations': PayloadMigration;
   };
   collectionsJoins: {};
   collectionsSelect: {
     blogs: BlogsSelect<false> | BlogsSelect<true>;
+    'blogs-en': BlogsEnSelect<false> | BlogsEnSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     experiences: ExperiencesSelect<false> | ExperiencesSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     skills: SkillsSelect<false> | SkillsSelect<true>;
-    "skill-categories":
-      | SkillCategoriesSelect<false>
-      | SkillCategoriesSelect<true>;
+    'skill-categories': SkillCategoriesSelect<false> | SkillCategoriesSelect<true>;
     photos: PhotosSelect<false> | PhotosSelect<true>;
     books: BooksSelect<false> | BooksSelect<true>;
     journals: JournalsSelect<false> | JournalsSelect<true>;
     rewatch: RewatchSelect<false> | RewatchSelect<true>;
-    "friend-links": FriendLinksSelect<false> | FriendLinksSelect<true>;
+    'friend-links': FriendLinksSelect<false> | FriendLinksSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
-    "payload-locked-documents":
-      | PayloadLockedDocumentsSelect<false>
-      | PayloadLockedDocumentsSelect<true>;
-    "payload-preferences":
-      | PayloadPreferencesSelect<false>
-      | PayloadPreferencesSelect<true>;
-    "payload-migrations":
-      | PayloadMigrationsSelect<false>
-      | PayloadMigrationsSelect<true>;
+    'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
+    'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
+    'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -122,9 +116,9 @@ export interface Config {
     about: AboutSelect<false> | AboutSelect<true>;
     blogPage: BlogPageSelect<false> | BlogPageSelect<true>;
   };
-  locale: "en" | "zh" | "ja" | "ko";
+  locale: 'en' | 'zh' | 'ja' | 'ko';
   user: User & {
-    collection: "users";
+    collection: 'users';
   };
   jobs: {
     tasks: unknown;
@@ -156,7 +150,7 @@ export interface UserAuthOperations {
 export interface Blog {
   id: number;
   title: string;
-  "isBanner(已废弃)"?: boolean | null;
+  'isBanner(已废弃)'?: boolean | null;
   excerpt: string;
   ogImage?: (number | null) | Media;
   date: string;
@@ -168,7 +162,7 @@ export interface Blog {
    * URL-friendly version of the title
    */
   slug: string;
-  coverImage: Media;
+  coverImage: number | Media;
   /**
    * Add relevant tags for the blog post
    */
@@ -182,7 +176,7 @@ export interface Blog {
    * Related blog posts that should be read before this one
    */
   prerequisites?: (number | Blog)[] | null;
-  status: "draft" | "published";
+  status: 'draft' | 'published';
   content: {
     root: {
       type: string;
@@ -191,8 +185,8 @@ export interface Blog {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ("ltr" | "rtl") | null;
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
       version: number;
     };
@@ -245,7 +239,66 @@ export interface Media {
       filesize?: number | null;
       filename?: string | null;
     };
+    original?: {
+      url?: string | null;
+      width?: number | null;
+      height?: number | null;
+      mimeType?: string | null;
+      filesize?: number | null;
+      filename?: string | null;
+    };
   };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs-en".
+ */
+export interface BlogsEn {
+  id: number;
+  title: string;
+  excerpt: string;
+  ogImage?: (number | null) | Media;
+  date: string;
+  /**
+   * Estimated reading time (e.g. '5 min read')
+   */
+  readingTime?: string | null;
+  /**
+   * URL-friendly version of the title
+   */
+  slug: string;
+  coverImage: number | Media;
+  /**
+   * Add relevant tags for the blog post
+   */
+  tags?:
+    | {
+        tag?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Related blog posts that should be read before this one
+   */
+  prerequisites?: (number | BlogsEn)[] | null;
+  status: 'draft' | 'published';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -257,10 +310,10 @@ export interface Project {
   slug: string;
   github?: string | null;
   cover?: (number | null) | Media;
+  home_cover?: (number | null) | Media;
   video?: (number | null) | Media;
-  home_cover?: Media;
-  home_cursor?: string;
   description?: string | null;
+  home_cursor?: string | null;
   /**
    * Project link URL
    */
@@ -269,7 +322,7 @@ export interface Project {
    * Order in which the project should appear
    */
   order?: number | null;
-  status?: ("working" | "running" | "archived") | null;
+  status?: ('working' | 'running' | 'archived') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -333,28 +386,31 @@ export interface Photo {
   id: number;
   title: string;
   location?: string | null;
-  images: {
-    title?: string | null;
-    location?: string | null;
-    image?: (number | null) | Media;
-    content?: {
-      root: {
-        type: string;
-        children: {
-          type: string;
-          version: number;
+  cover?: (number | null) | Media;
+  images?:
+    | {
+        title?: string | null;
+        location?: string | null;
+        image?: (number | null) | Media;
+        content?: {
+          root: {
+            type: string;
+            children: {
+              type: string;
+              version: number;
+              [k: string]: unknown;
+            }[];
+            direction: ('ltr' | 'rtl') | null;
+            format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+            indent: number;
+            version: number;
+          };
           [k: string]: unknown;
-        }[];
-        direction: ("ltr" | "rtl") | null;
-        format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
-        indent: number;
-        version: number;
-      };
-      [k: string]: unknown;
-    } | null;
-    date?: string | null;
-    id?: string | null;
-  }[];
+        } | null;
+        date?: string | null;
+        id?: string | null;
+      }[]
+    | null;
   excerpt: string;
   date: string;
   content?: {
@@ -365,8 +421,8 @@ export interface Photo {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ("ltr" | "rtl") | null;
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
       version: number;
     };
@@ -392,8 +448,8 @@ export interface Book {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ("ltr" | "rtl") | null;
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
       version: number;
     };
@@ -404,42 +460,12 @@ export interface Book {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "rewatch".
- */
-export interface Rewatch {
-  id: number;
-  title: string;
-  cover?: (number | null) | Media;
-  description?: string | null;
-  link: string;
-  type: "book" | "movie" | "tv";
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "friend-links".
- */
-export interface FriendLink {
-  id: number;
-  name: string;
-  url: string;
-  description?: string | null;
-  avatar?: (number | null) | Media;
-  order?: number | null;
-  status?: ("active" | "inactive") | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "journals".
  */
 export interface Journal {
   id: number;
   title: string;
-  coverImage?: (number | null) | Media;
-  "isBanner(已废弃)"?: boolean | null;
+  coverImage: number | Media;
   excerpt: string;
   ogImage?: (number | null) | Media;
   date: string;
@@ -460,7 +486,7 @@ export interface Journal {
         id?: string | null;
       }[]
     | null;
-  status: "draft" | "published";
+  status: 'draft' | 'published';
   content: {
     root: {
       type: string;
@@ -469,13 +495,60 @@ export interface Journal {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ("ltr" | "rtl") | null;
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
       version: number;
     };
     [k: string]: unknown;
   };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "rewatch".
+ */
+export interface Rewatch {
+  id: number;
+  title: string;
+  cover?: (number | null) | Media;
+  description?: string | null;
+  link: string;
+  type: 'book' | 'movie' | 'tv';
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "friend-links".
+ */
+export interface FriendLink {
+  id: number;
+  /**
+   * Friend's name or website name
+   */
+  name: string;
+  /**
+   * Friend's website URL
+   */
+  url: string;
+  /**
+   * Brief description of the friend or website
+   */
+  description?: string | null;
+  /**
+   * Friend's avatar or website logo
+   */
+  avatar?: (number | null) | Media;
+  /**
+   * Order in which the friend link should appear
+   */
+  order?: number | null;
+  /**
+   * Whether to display this friend link
+   */
+  status?: ('active' | 'inactive') | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -511,56 +584,60 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: "blogs";
+        relationTo: 'blogs';
         value: number | Blog;
       } | null)
     | ({
-        relationTo: "projects";
+        relationTo: 'blogs-en';
+        value: number | BlogsEn;
+      } | null)
+    | ({
+        relationTo: 'projects';
         value: number | Project;
       } | null)
     | ({
-        relationTo: "experiences";
+        relationTo: 'experiences';
         value: number | Experience;
       } | null)
     | ({
-        relationTo: "media";
+        relationTo: 'media';
         value: number | Media;
       } | null)
     | ({
-        relationTo: "skills";
+        relationTo: 'skills';
         value: number | Skill;
       } | null)
     | ({
-        relationTo: "skill-categories";
+        relationTo: 'skill-categories';
         value: number | SkillCategory;
       } | null)
     | ({
-        relationTo: "photos";
+        relationTo: 'photos';
         value: number | Photo;
       } | null)
     | ({
-        relationTo: "books";
+        relationTo: 'books';
         value: number | Book;
       } | null)
     | ({
-        relationTo: "journals";
+        relationTo: 'journals';
         value: number | Journal;
       } | null)
     | ({
-        relationTo: "rewatch";
+        relationTo: 'rewatch';
         value: number | Rewatch;
       } | null)
     | ({
-        relationTo: "friend-links";
+        relationTo: 'friend-links';
         value: number | FriendLink;
       } | null)
     | ({
-        relationTo: "users";
+        relationTo: 'users';
         value: number | User;
       } | null);
   globalSlug?: string | null;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   updatedAt: string;
@@ -573,7 +650,7 @@ export interface PayloadLockedDocument {
 export interface PayloadPreference {
   id: number;
   user: {
-    relationTo: "users";
+    relationTo: 'users';
     value: number | User;
   };
   key?: string | null;
@@ -606,7 +683,31 @@ export interface PayloadMigration {
  */
 export interface BlogsSelect<T extends boolean = true> {
   title?: T;
-  "isBanner(已废弃)"?: T;
+  'isBanner(已废弃)'?: T;
+  excerpt?: T;
+  ogImage?: T;
+  date?: T;
+  readingTime?: T;
+  slug?: T;
+  coverImage?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  prerequisites?: T;
+  status?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blogs-en_select".
+ */
+export interface BlogsEnSelect<T extends boolean = true> {
+  title?: T;
   excerpt?: T;
   ogImage?: T;
   date?: T;
@@ -634,8 +735,10 @@ export interface ProjectsSelect<T extends boolean = true> {
   slug?: T;
   github?: T;
   cover?: T;
+  home_cover?: T;
   video?: T;
   description?: T;
+  home_cursor?: T;
   href?: T;
   order?: T;
   status?: T;
@@ -708,6 +811,16 @@ export interface MediaSelect<T extends boolean = true> {
               filesize?: T;
               filename?: T;
             };
+        original?:
+          | T
+          | {
+              url?: T;
+              width?: T;
+              height?: T;
+              mimeType?: T;
+              filesize?: T;
+              filename?: T;
+            };
       };
 }
 /**
@@ -739,6 +852,7 @@ export interface SkillCategoriesSelect<T extends boolean = true> {
 export interface PhotosSelect<T extends boolean = true> {
   title?: T;
   location?: T;
+  cover?: T;
   images?:
     | T
     | {
@@ -769,6 +883,29 @@ export interface BooksSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "journals_select".
+ */
+export interface JournalsSelect<T extends boolean = true> {
+  title?: T;
+  coverImage?: T;
+  excerpt?: T;
+  ogImage?: T;
+  date?: T;
+  readingTime?: T;
+  slug?: T;
+  tags?:
+    | T
+    | {
+        tag?: T;
+        id?: T;
+      };
+  status?: T;
+  content?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "rewatch_select".
  */
 export interface RewatchSelect<T extends boolean = true> {
@@ -791,29 +928,6 @@ export interface FriendLinksSelect<T extends boolean = true> {
   avatar?: T;
   order?: T;
   status?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "journals_select".
- */
-export interface JournalsSelect<T extends boolean = true> {
-  title?: T;
-  "isBanner(已废弃)"?: T;
-  excerpt?: T;
-  ogImage?: T;
-  date?: T;
-  readingTime?: T;
-  slug?: T;
-  tags?:
-    | T
-    | {
-        tag?: T;
-        id?: T;
-      };
-  status?: T;
-  content?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -880,9 +994,9 @@ export interface Home {
   name: string;
   short_description?: string | null;
   description: string;
-  avatar: Media;
+  avatar: number | Media;
   socialLinks: {
-    name: "Twitter" | "Bilibili" | "Xiaohongshu" | "Github" | "Email";
+    name: 'Twitter' | 'Bilibili' | 'Xiaohongshu' | 'Github' | 'Email';
     icon: string;
     url: string;
     id?: string | null;
@@ -904,8 +1018,8 @@ export interface About {
         version: number;
         [k: string]: unknown;
       }[];
-      direction: ("ltr" | "rtl") | null;
-      format: "left" | "start" | "center" | "right" | "end" | "justify" | "";
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
       indent: number;
       version: number;
     };
@@ -983,7 +1097,7 @@ export interface GithubLinkBlock {
   stars?: number | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: "github-link";
+  blockType: 'github-link';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -991,22 +1105,11 @@ export interface GithubLinkBlock {
  */
 export interface CodeBlock {
   filename?: string | null;
-  language?:
-    | (
-        | "typescript"
-        | "tsx"
-        | "javascript"
-        | "jsx"
-        | "html"
-        | "css"
-        | "json"
-        | "python"
-      )
-    | null;
+  language?: ('typescript' | 'tsx' | 'javascript' | 'jsx' | 'html' | 'css' | 'json' | 'python') | null;
   code: string;
   id?: string | null;
   blockName?: string | null;
-  blockType: "code";
+  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1022,7 +1125,7 @@ export interface HotizontalImageBlock {
     | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: "hotizontal-image";
+  blockType: 'hotizontal-image';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1032,6 +1135,7 @@ export interface Auth {
   [k: string]: unknown;
 }
 
-declare module "payload" {
+
+declare module 'payload' {
   export interface GeneratedTypes extends Config {}
 }

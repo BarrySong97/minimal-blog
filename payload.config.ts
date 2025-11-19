@@ -18,6 +18,7 @@ import path from "path";
 import Journal from "@/app/(payload)/collections/journal";
 import Rewatch from "@/app/(payload)/collections/rewatch";
 import FriendLinks from "@/app/(payload)/collections/friend-links";
+import { BlogEn } from "./app/(payload)/collections/blog-en";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
   cors: "*",
@@ -26,6 +27,7 @@ export default buildConfig({
   // Define and configure your collections in this array
   collections: [
     Blog,
+    BlogEn,
     Project,
     Experience,
     Media,
