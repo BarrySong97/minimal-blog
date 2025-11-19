@@ -20,6 +20,7 @@ import Rewatch from "@/app/(payload)/collections/rewatch";
 import FriendLinks from "@/app/(payload)/collections/friend-links";
 export default buildConfig({
   // If you'd like to use Rich Text, pass your editor here
+  cors: "*",
 
   globals: [Home, About, BlogPage],
   // Define and configure your collections in this array
