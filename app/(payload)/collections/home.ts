@@ -19,6 +19,11 @@ const Home: GlobalConfig = {
       localized: true,
     },
     {
+      name: "about_description",
+      type: "textarea",
+      localized: true,
+    },
+    {
       name: "description",
       type: "textarea",
       required: true,
