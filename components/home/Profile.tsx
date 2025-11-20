@@ -35,6 +35,7 @@ export function Profile() {
       <div className="flex items-start gap-4">
         <ImageWithFallback
           image={home?.avatar as Media}
+          size="thumbnail"
           alt="Profile picture"
           enableTransition={false}
           width={96}

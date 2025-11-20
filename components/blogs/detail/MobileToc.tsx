@@ -316,6 +316,7 @@ const MobileToc: FC<MobileTocProps> = ({ headings, className }) => {
               <div className="mb-4 flex items-center gap-3">
                 <ImageWithFallback
                   image={home?.avatar as Media}
+                  size="thumbnail"
                   alt="Profile picture"
                   width={96}
                   height={96}

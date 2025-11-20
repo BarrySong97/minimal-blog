@@ -155,6 +155,7 @@ const HorizentalImages: FC<HorizentalImagesProps> = ({
                   <PhotoView src={image.url!}>
                     <ImageWithFallback
                       image={image}
+                      size="tablet"
                       alt={image.alt || `Image ${index + 1}`}
                       width={image.width || 0}
                       height={image.height || 0}

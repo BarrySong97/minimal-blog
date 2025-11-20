@@ -36,7 +36,7 @@ export function BlogGridItem({
         <div className="aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
           <ImageWithFallback
             image={post.coverImage as Media}
-            isThumbnail
+            size="card"
             alt={post.title}
             width={800}
             height={800}

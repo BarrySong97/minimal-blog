@@ -36,6 +36,7 @@ export const CustomUploadComponent: React.FC<{
             height={height}
             image={uploadDoc as Media}
             width={width}
+            size="tablet"
           />
         </PhotoView>
       </PhotoProvider>

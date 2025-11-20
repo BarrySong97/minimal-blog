@@ -59,6 +59,7 @@ export function Experience() {
                 {exp.companyLogo && (
                   <ImageWithFallback
                     image={exp.companyLogo as Media}
+                    size="thumbnail"
                     alt={exp.company}
                     width={12}
                     height={12}

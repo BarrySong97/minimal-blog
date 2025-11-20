@@ -9,6 +9,10 @@ const config: NextConfig = {
     minimumCacheTTL: 2678400,
     remotePatterns: [
       {
+        protocol: "http",
+        hostname: "4realstorageapi.zeabur.app",
+      },
+      {
         protocol: "https",
         hostname: "*",
       },

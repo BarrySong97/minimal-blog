@@ -5,22 +5,48 @@ import Image from "next/image";
 import { ImageProps } from "next/image";
 import { useState } from "react";
 import { cn } from "@/lib/utils";
+import { getImageUrl } from "@/lib/get-image-url";
+
+type ImageSize = "card" | "thumbnail" | "tablet" | "original";
 
 export const ImageWithFallback = ({
   alt,
   className,
   enableTransition = true,
   isThumbnail = false,
+  size,
   ...props
 }: Omit<ImageProps, "src"> & {
   image: Media;
   isThumbnail?: boolean;
   enableTransition?: boolean;
+  size?: ImageSize;
 }) => {
   const [error, setError] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const { image } = props;
-  const url = image?.url;
+
+  // 根据 size 参数选择对应的图片 URL
+  let url: string | null | undefined = image?.url;
+
+  if (size === "card" && image?.sizes?.card?.url) {
+    url = image.sizes.card.url;
+  } else if (size === "thumbnail" && image?.sizes?.thumbnail?.url) {
+    url = image.sizes.thumbnail.url;
+  } else if (size === "tablet" && image?.sizes?.tablet?.url) {
+    url = image.sizes.tablet.url;
+  } else if (size === "original" && image?.sizes?.original?.url) {
+    url = image.sizes.original.url;
+  }
+
+  // 如果没有找到对应尺寸的 URL，使用原始 URL
+  if (!url) {
+    url = image?.url;
+  }
+
+  // 使用 getImageUrl 处理最终的 URL
+  const finalUrl = url ? getImageUrl(url) : null;
+
   const blurhash = image?.blurhash;
   const blurImage = blurhash ? blurHashToDataURL(blurhash) : null;
 
@@ -40,7 +66,7 @@ export const ImageWithFallback = ({
 
   return (
     <Image
-      src={error && !url ? "/imager-error.webp" : url!}
+      src={error && !finalUrl ? "/imager-error.webp" : finalUrl!}
       alt={alt}
       onError={handleError}
       onLoad={handleLoad}
