@@ -34,9 +34,7 @@ export default async function Blogs({
     initialPageParam: 1,
   });
   const allTags = await blogService.getBlogTags();
-  const count: { totalDocs: number } = (await blogService.getBlogCount()) as {
-    totalDocs: number;
-  };
+
   const bannerBlog = await blogService.getBannerBlog();
   const bannerBlogList = bannerBlog.banners;
   return (

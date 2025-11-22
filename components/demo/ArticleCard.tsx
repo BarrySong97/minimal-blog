@@ -32,7 +32,7 @@ const ArticleCard: React.FC<ArticleCardProps> = ({ className = "" }) => {
           <div className="relative w-full h-[100px]">
             <ImageWithFallback
               image={blog?.coverImage! as Media}
-              size="card"
+              size="thumbnail"
               alt={blog?.title!}
               fill
               className="object-cover rounded-md"

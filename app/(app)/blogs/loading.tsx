@@ -2,10 +2,16 @@
 import { useEffect, useState } from "react";
 import { useResponsive } from "ahooks";
 import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
+import BlogLoading from "@/components/blogs/detail/loading";
 
 export interface LoadingProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 const Loading = ({ className, ...props }: LoadingProps) => {
+  const pathname = usePathname();
+  if (pathname.includes("/blogs/")) {
+    return <BlogLoading />;
+  }
   const responsive = useResponsive();
   const [columnCount, setColumnCount] = useState(2);
 
