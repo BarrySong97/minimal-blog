@@ -71,11 +71,11 @@ export default async function RootLayout({
       <body
         className={`bg-background overflow-hidden  antialiased min-h-screen flex flex-col relative`}
       >
-        <link
+        {/* <link
           rel="stylesheet"
           crossOrigin="anonymous"
           href="https://chinese-fonts-cdn.deno.dev/packages/lxgwwenkaibright/dist/LXGWBright-Regular/result.css"
-        />
+        /> */}
         <GlobalProviders>{children}</GlobalProviders>
         <div className="absolute bottom-8 left-0 right-0 flex justify-center">
           <AnimatedMenu />

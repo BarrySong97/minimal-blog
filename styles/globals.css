@@ -83,7 +83,6 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: 'LXGW Bright';
   font-weight: '400'
 }
 
