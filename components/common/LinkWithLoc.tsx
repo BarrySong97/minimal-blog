@@ -12,7 +12,7 @@ const LinkWithLoc: React.FC<LinkWithLocProps> = ({
 }) => {
   const { lng } = useParams();
   return (
-    <Link href={`/${lng}${href}`} {...props}>
+    <Link href={href} {...props}>
       {children}
     </Link>
   );

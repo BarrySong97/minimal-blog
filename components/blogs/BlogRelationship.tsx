@@ -17,6 +17,7 @@ export function BlogRelationship({ blog }: BlogRelationshipProps) {
     <div className="my-6 not-prose flex justify-center">
       <LinkWithLoc
         href={`/blogs/${blog.slug}`}
+        target="_blank"
         className="block lg:max-w-sm  w-full border  overflow-hidden hover:shadow-lg transition-shadow duration-300 group"
       >
         <div className="flex flex-col md:flex-row">
