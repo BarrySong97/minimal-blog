@@ -33,10 +33,10 @@ export function BlogGridItem({
       >
         <ViewHover isHover={isHovered} trackMouse />
 
-        <div className="aspect-[1/1] md:w-1/2 md:aspect-[4/3] overflow-hidden relative">
+        <div className="aspect-[1/1] md:w-1/2 md:aspect-[16/9] overflow-hidden relative">
           <ImageWithFallback
             image={post.coverImage as Media}
-            size="card"
+            size="thumbnail"
             alt={post.title}
             width={800}
             height={800}

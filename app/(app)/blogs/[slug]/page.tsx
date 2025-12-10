@@ -19,7 +19,6 @@ import React, { cache, FC } from "react";
 import { Media } from "@/payload-types";
 import Cd from "@/components/common/cd";
 import { notFound } from "next/navigation";
-import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 const getBlog = async (slug: string) => {
   const blog = await blogService.getBlogBySlug(slug);
   return blog;
@@ -79,6 +78,7 @@ const BlogDetail: FC<Props> = async ({ params }) => {
           <div>
             <Header blog={blogDoc} />
             <PrerequisiteBlogs prerequisites={blogDoc?.prerequisites || []} />
+
             <BlogContent
               blog={blogDoc}
               toc={

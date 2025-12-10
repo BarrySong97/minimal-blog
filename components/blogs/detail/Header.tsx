@@ -89,7 +89,7 @@ const Header: FC<HeaderProps> = ({ blog, className }) => {
               className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
             >
               <Icon icon="lucide:arrow-left" className="w-4 h-4" />
-              <span>back to list</span>
+              <span>回到列表</span>
             </Link>
           </motion.div>
         ) : (
@@ -122,7 +122,7 @@ const Header: FC<HeaderProps> = ({ blog, className }) => {
               className="flex items-center gap-1 text-sm font-medium text-foreground/70 hover:text-foreground transition-colors duration-200 py-1.5 px-3 rounded-md hover:bg-foreground/5"
             >
               <Icon icon="lucide:arrow-left" className="w-4 h-4" />
-              <span>back to list</span>
+              <span>回到列表</span>
             </Link>
           </div>
         )}
