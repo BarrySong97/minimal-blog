@@ -21,6 +21,7 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
   const [hoveredId, setHoveredId] = useState<string>("");
   const [clickedId, setClickedId] = useState<string>("");
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [leftPosition, setLeftPosition] = useState<number>(0);
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const headingRefs = useRef<Map<string, HTMLAnchorElement>>(new Map());
@@ -30,6 +31,22 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
     queryFn: () => homeService.getHome(),
     staleTime: Infinity,
   });
+
+  // 计算 TOC 的 left 位置
+  useEffect(() => {
+    const updatePosition = () => {
+      const contentElement = document.getElementById("blog-content");
+      if (contentElement) {
+        const rect = contentElement.getBoundingClientRect();
+        setLeftPosition(rect.right + 48); // 48px 间距
+      }
+    };
+
+    updatePosition();
+    window.addEventListener("resize", updatePosition);
+    return () => window.removeEventListener("resize", updatePosition);
+  }, []);
+
   // 监听滚动进度
   useEffect(() => {
     const handleScroll = () => {
@@ -128,7 +145,10 @@ const Toc: FC<TocProps> = ({ headings, className }) => {
   };
 
   return (
-    <div className={cn("w-full sticky top-[5rem]", className)}>
+    <div
+      className={cn("fixed top-[8rem] w-64", className)}
+      style={{ left: leftPosition > 0 ? `${leftPosition}px` : undefined }}
+    >
       <div className="mb-4 flex items-center gap-3">
         <ImageWithFallback
           image={home?.avatar as Media}

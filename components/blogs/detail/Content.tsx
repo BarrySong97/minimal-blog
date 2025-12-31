@@ -14,9 +14,11 @@ import {
 import React, { FC, useCallback, useState } from "react";
 import { ImageWithFallback } from "@/components/common/ImageWithFallback";
 import jsxConverters from "@/components/common/richtext/jsx-converter";
+import { ProcessedHeading } from "@/components/common/richtext/get-headings";
 export interface BlogProps {
   blog?: BlogType;
   toc: Map<string, Heading>;
+  headings?: ProcessedHeading[];
 }
 export const CustomUploadComponent: React.FC<{
   node: SerializedUploadNode;
@@ -66,14 +68,12 @@ const BlogContent: FC<BlogProps> = ({ blog, toc: initialToc }) => {
     toc: Array.from(toc).reverse(),
   };
   return (
-    <div className=" md:max-w-md lg:max-w-2xl 2xl:max-w-4xl prose prose-md !text-primary">
-      <RichTextContext.Provider value={context}>
-        <RichText
-          converters={jsxConverters({ toc: !!initialToc })}
-          data={blog?.content as unknown as any}
-        />
-      </RichTextContext.Provider>
-    </div>
+    <RichTextContext.Provider value={context}>
+      <RichText
+        converters={jsxConverters({ toc: !!initialToc })}
+        data={blog?.content as unknown as any}
+      />
+    </RichTextContext.Provider>
   );
 };
 

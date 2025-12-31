@@ -96,7 +96,7 @@ const Header: FC<HeaderProps> = ({ blog, className }) => {
           <div className="flex justify-between sm:items-end sm:flex-row flex-col-reverse gap-4 sm:gap-0 items-start">
             <div className="flex flex-col justify-center">
               <div
-                className="text-3xl font-semibold bg-transparent mb-1"
+                className="text-3xl font-semibold bg-transparent mb-1 "
                 style={{
                   maxWidth: "600px",
                 }}

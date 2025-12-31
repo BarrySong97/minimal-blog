@@ -1,7 +1,6 @@
 import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
 import Image from "next/image";
-import Toc from "@/components/blogs/detail/Toc";
 import "@/styles/shiki.css";
 import "react-photo-view/dist/react-photo-view.css";
 import MobileToc from "@/components/blogs/detail/MobileToc";
@@ -19,6 +18,7 @@ import React, { cache, FC } from "react";
 import { Media } from "@/payload-types";
 import Cd from "@/components/common/cd";
 import { notFound } from "next/navigation";
+import Toc from "@/components/blogs/detail/Toc";
 const getBlog = async (slug: string) => {
   const blog = await blogService.getBlogBySlug(slug);
   return blog;
@@ -79,14 +79,22 @@ const BlogDetail: FC<Props> = async ({ params }) => {
             <Header blog={blogDoc} />
             <PrerequisiteBlogs prerequisites={blogDoc?.prerequisites || []} />
 
-            <BlogContent
-              blog={blogDoc}
-              toc={
-                new Map(
-                  headings.map((heading) => [heading.anchor, heading])
-                ) as any
-              }
-            />
+            <div
+              id="blog-content"
+              className=" md:max-w-md lg:max-w-2xl 2xl:max-w-4xl !text-primary  "
+            >
+              <div className="prose prose-md max-w-none leading-normal relative">
+                <BlogContent
+                  blog={blogDoc}
+                  toc={
+                    new Map(
+                      headings.map((heading) => [heading.anchor, heading])
+                    ) as any
+                  }
+                />
+              </div>
+            </div>
+
             <hr className="my-12" />
             <div className="flex flex-col justify-center items-center">
               <Image
@@ -102,9 +110,7 @@ const BlogDetail: FC<Props> = async ({ params }) => {
             <Cd />
           </div>
 
-          <div className="hidden lg:block">
-            <Toc headings={headings} />
-          </div>
+          <Toc headings={headings} className="hidden lg:block  " />
           <div className="block lg:hidden absolute">
             <MobileToc headings={headings} />
           </div>

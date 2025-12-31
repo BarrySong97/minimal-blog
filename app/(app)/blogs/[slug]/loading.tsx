@@ -1,7 +1,6 @@
 "use client";
 import BlogContent from "@/components/blogs/detail/Content";
 import Header from "@/components/blogs/detail/Header";
-import Toc from "@/components/blogs/detail/Toc";
 import MobileToc from "@/components/blogs/detail/MobileToc";
 import {
   getHeadings,
@@ -17,7 +16,6 @@ import BlogLoading from "@/components/blogs/detail/loading";
 const BlogDetail = () => {
   const params = useParams();
   const slug = params.slug as string;
-  const lng = params.lng as string;
   const queryClient = getQueryClient();
   const blogData = queryClient.getQueryData<InfiniteData<BlogsResponse>>(
     queryKeys.blogs.infinite
@@ -26,12 +24,13 @@ const BlogDetail = () => {
     .flatMap((page) => page.docs)
     ?.find((blog) => blog.slug === slug);
 
-  if (!blog) {
+  const headings = blog
+    ? getHeadings(blog?.content?.root?.children as unknown as HeadingNode[])
+    : null;
+  if (!blog || !headings) {
     return <BlogLoading />;
   }
-  const headings = getHeadings(
-    blog?.content?.root?.children as unknown as HeadingNode[]
-  );
+
   return (
     <div className="mx-auto ">
       <div className="flex gap-12 justify-center relative">
@@ -39,6 +38,7 @@ const BlogDetail = () => {
           <Header blog={blog!} />
           <BlogContent
             blog={blog}
+            headings={headings}
             toc={
               new Map(
                 headings.map((heading) => [heading.anchor, heading])
@@ -47,9 +47,6 @@ const BlogDetail = () => {
           />
         </div>
 
-        <div className="hidden lg:block w-[181px]">
-          {/* <Toc headings={headings} /> */}
-        </div>
         <div className="block lg:hidden absolute">
           <MobileToc headings={headings} />
         </div>

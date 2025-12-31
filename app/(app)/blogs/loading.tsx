@@ -43,7 +43,7 @@ const Loading = ({ className, ...props }: LoadingProps) => {
       )}
       {...props}
     >
-      <div className="w-full h-full pb-12 overflow-hidden max-w-5xl mx-auto ">
+      <div className="w-full h-full pb-12 overflow-hidden max-w-5xl sm:px-0 px-8 mx-auto ">
         {skeletonRows.map((rowIndex) => (
           <div
             key={rowIndex}

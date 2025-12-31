@@ -147,13 +147,13 @@ export function TagList({ tags: allTags, className, ...props }: TagListProps) {
       {allTags.length > 7 && (
         <Drawer>
           <DrawerTrigger asChild>
-            <button className="text-sm text-muted-foreground">More</button>
+            <button className="text-sm text-muted-foreground">所有</button>
           </DrawerTrigger>
           <DrawerContent>
             <DrawerHeader>
-              <DrawerTitle>All Tags</DrawerTitle>
+              <DrawerTitle>所有标签</DrawerTitle>
             </DrawerHeader>
-            <div className="p-4">
+            <div className="p-4 pb-32">
               <div className="flex flex-wrap gap-2">{renderTags(allTags)}</div>
             </div>
           </DrawerContent>

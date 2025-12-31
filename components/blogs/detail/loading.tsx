@@ -50,32 +50,6 @@ const BlogLoading: FC<LoadingProps> = () => {
           </div>
         </div>
 
-        {/* Desktop TOC Skeleton */}
-        <div className="hidden lg:block sticky top-8 h-fit">
-          <div className="flex items-center gap-2 mb-4">
-            <div className="h-5 w-24 bg-foreground/10 rounded-md animate-pulse"></div>
-            <div className="h-5 w-5 rounded-full bg-foreground/10 animate-pulse"></div>
-          </div>
-          <div className="space-y-3 w-64">
-            {[1, 2, 3, 4, 5].map((i) => (
-              <div
-                key={i}
-                className={`h-4 bg-foreground/10 rounded-md animate-pulse ${
-                  i === 1
-                    ? "w-full"
-                    : i === 2
-                    ? "w-[90%] ml-2"
-                    : i === 3
-                    ? "w-[85%] ml-2"
-                    : i === 4
-                    ? "w-[88%]"
-                    : "w-[92%]"
-                }`}
-              ></div>
-            ))}
-          </div>
-        </div>
-
         {/* Mobile TOC Skeleton - Fixed button */}
         <div className="block lg:hidden fixed right-4 bottom-4 z-50">
           <div className="h-12 w-12 rounded-full bg-foreground/10 animate-pulse flex items-center justify-center">
